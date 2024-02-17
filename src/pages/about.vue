@@ -1,0 +1,282 @@
+<template>
+  <VContainer class="mt-5">
+    <div class="d-flex align-center justify-space-between py-5">
+      <img
+        src="@images/els-2048x1561.jpg"
+        alt="griya"
+        class="about-img"
+      >
+      <div class="ml-5">
+        <h1 class="text-h6 font-weight-bold mb-3">
+          Tentang Kami
+        </h1>
+        <p class="text-p mb-2">
+          Griya 15 hadir sejak tahun 2017 dengan melayani hampir ribuan customer dan siap memenuhi semua kebutuhan
+          lampu hias untuk mempercantik ruangan rumah ataupun kantor Anda. Setelah jalan beberapa tahun kami
+          memiliki misi untuk Menjadi tempat pilihan berbelanja Lampu Hias, Alat Listrik, Elektronik dan Aksesoris
+          Rumah dengan konsep terbesar, termurah, terlengkap dan terpercaya dalam mempercantik ruangan rumah
+          idaman.
+        </p>
+        <p class="text-p mb-2">
+          Terbukti konsep ini berjalan dengan baik di lihat dari jumlah pelanggan yang meningkat dari tahun ke
+          tahun. Sehingga GRIYA 15 telah dianugerahkan dengan beberapa penghargaan dari berbagai official
+          principles dan badan market research.
+        </p>
+        <p class="text-p mb-2">
+          Dimulai dari lokasi Purwokerto tepatnya di Komplek Pertokoan Kebon Dalem Blok A-17 dan A-18 Purwokerto
+          Jawa Tengah, saat ini Griya 15 telah hadir di berbagai lokasi seperti di Purbalingga, dan akan segera
+          hadir di lokasi lainnya. Jangan lewatkan kesempatan untuk berbelanja Lampu Hias murah di Griya 15, Kami
+          yakin Anda akan menemukan penawaran harga terbaik di sini!
+        </p>
+      </div>
+    </div>
+
+    <div class="py-5">
+      <h1 class="text-center">
+        Temukan Keistimewaan dari Pelayanan Kami
+      </h1>
+      <p class="text-center text-p mb-5">
+        Griya 15 hadir dengan berbagai keistimewaan yang tidak akan Anda temukan di tempat lain. Berikut adalah
+        keistimewaan yang kami tawarkan:
+      </p>
+
+      <VRow class="mt-5">
+        <VCol
+          cols="12"
+          md="4"
+        >
+          <VCard
+            class="pa-5"
+            elevation="0"
+          >
+            <div class="text-center">
+              <VIcon
+                size="50"
+                class="mb-3"
+              >
+                mdi-shield-check
+              </VIcon>
+              <h2 class="text-h6 font-weight-bold mb-3 text-primary">
+                Terpercaya
+              </h2>
+              <p class="text-p">
+                Kami telah melayani ribuan pelanggan dan terbukti memberikan pelayanan terbaik
+                kepada pelanggan.
+              </p>
+            </div>
+          </VCard>
+        </VCol>
+
+        <VCol
+          cols="12"
+          md="4"
+        >
+          <VCard
+            class="pa-5"
+            elevation="0"
+          >
+            <div class="text-center">
+              <VIcon
+                size="50"
+                class="mb-3"
+              >
+                mdi-cash
+              </VIcon>
+              <h2 class="text-h6 font-weight-bold mb-3 text-primary">
+                Harga Terbaik
+              </h2>
+              <p class="text-p">
+                Kami menawarkan harga terbaik untuk semua produk yang kami jual.
+              </p>
+            </div>
+          </VCard>
+        </VCol>
+
+        <VCol
+          cols="12"
+          md="4"
+        >
+          <VCard
+            class="pa-5"
+            elevation="0"
+          >
+            <div class="text-center">
+              <VIcon
+                size="50"
+                class="mb-3"
+              >
+                mdi-lightbulb-on
+              </VIcon>
+              <h2 class="text-h6 font-weight-bold mb-3 text-primary">
+                Pilihan Lengkap
+              </h2>
+              <p class="text-p">
+                Kami memiliki pilihan lengkap untuk semua kebutuhan lampu hias Anda.
+              </p>
+            </div>
+          </VCard>
+        </VCol>
+
+
+
+        <VCol
+          cols="12"
+          md="4"
+        >
+          <VCard
+            class="pa-5"
+            elevation="0"
+          >
+            <div class="text-center">
+              <VIcon
+                size="50"
+                class="mb-3"
+              >
+                mdi-cog-outline
+              </VIcon>
+              <h2 class="text-h6 font-weight-bold mb-3 text-primary">
+                Kualitas Terbaik
+              </h2>
+              <p class="text-p">
+                Kami hanya menjual produk dengan kualitas terbaik untuk kepuasan pelanggan.
+              </p>
+            </div>
+          </VCard>
+        </VCol>
+
+
+        <VCol
+          cols="12"
+          md="4"
+        >
+          <VCard
+            class="pa-5"
+            elevation="0"
+          >
+            <div class="text-center">
+              <VIcon
+                size="50"
+                class="mb-3"
+              >
+                mdi-headset
+              </VIcon>
+              <h2 class="text-h6 font-weight-bold mb-3 text-primary">
+                Pelayanan Terbaik
+              </h2>
+              <p class="text-p">
+                Kami siap memberikan pelayanan terbaik kepada pelanggan kapanpun dan
+                dimanapun.
+              </p>
+            </div>
+          </VCard>
+        </VCol>
+
+
+        <VCol
+          cols="12"
+          md="4"
+        >
+          <VCard
+            class="pa-5"
+            elevation="0"
+          >
+            <div class="text-center">
+              <VIcon
+                size="50"
+                class="mb-3"
+              >
+                mdi-certificate-outline
+              </VIcon>
+              <h2 class="text-h6 font-weight-bold mb-3 text-primary">
+                Garansi Produk
+              </h2>
+              <p class="text-p">
+                Kami memberikan garansi produk untuk kepuasan pelanggan.
+              </p>
+            </div>
+          </VCard>
+        </VCol>
+      </VRow>
+    </div>
+
+    <AppTestimonial class="mt-5" />
+
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.073394394073!2d106.8222423147697!3d-6.175392995514768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4f3f3e4f3e7%3A0x3e3e3e3e3e3e3e3e!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1629783940733!5m2!1sid!2sid"
+      width="100%"
+      height="500"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      class="google-map"
+    />
+  </VContainer>
+</template>
+
+<script>
+import AppTestimonial from '@/components/AppTestimonial.vue'
+import { onMounted } from 'vue'
+
+export default {
+  name: 'AboutUs',
+  components: { AppTestimonial },
+  setup() {
+    onMounted(() => {
+      document.title = 'Tentang Kami'
+    })
+  },
+}
+</script>
+
+<style scoped>
+.google-map {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-img {
+    width: 600px;
+    border-radius: 8px;
+    box-shadow: -8px -8px 0px 0px #273E86;
+    animation: upAndDown 2s infinite ease-in-out;
+}
+
+
+
+@keyframes upAndDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(-5px);
+    }
+
+    50% {
+        transform: translateY(0);
+    }
+
+    75% {
+        transform: translateY(5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.mdi:before {
+    color: #273E86 !important;
+}
+
+.v-card {
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.v-card:hover {
+    border: 1px solid #273E86 !important;
+}
+</style>
