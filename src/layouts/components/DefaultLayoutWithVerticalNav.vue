@@ -70,6 +70,20 @@ const upgradeBanner = computed(() => {
           to: '/admin/produk',
         }"
       />
+
+      <VerticalNavLink
+        :item="{
+          title: 'Konfigurasi Web',
+          icon: 'bx-cog',
+          children: [
+            {
+              title: 'Cabang',
+              to: '/admin/konfigurasi-web/cabang',
+            },
+            
+          ],
+        }"
+      />
     </template>
 
   
