@@ -1,80 +1,91 @@
-<template>
-    <v-text-field v-model="search" variant="outlined" @click:append="clearSearch" append-inner-icon="mdi-magnify"
-        placeholder="Cari Produk di sini" class="search"></v-text-field>
+<script setup>
+import { ref } from 'vue'
 
-    <div v-if="searchResults.length > 0" class="search-results">
-        <ul>
-            <li v-for="(result, index) in searchResults" :key="index">
-                <span v-html="highlightText(result.name)"></span>
-            </li>
-        </ul>
-    </div>
+  
+const search = ref('')
+const searchResults = ref([])
+
+const products = [
+  {
+    id: 1,
+    name: 'Lampu',
+    price: 200000,
+    url: 'https://cdn.vuetifyjs.com/images/cards/desert.jpg',
+  },
+  {
+    id: 2,
+    name: 'Keramik',
+    price: 300000,
+    url: 'https://cdn.vuetifyjs.com/images/cards/cooking.png',
+  },
+  {
+    id: 3,
+    name: 'Kamera',
+    price: 500000,
+    url: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
+  },
+  {
+    id: 4,
+    name: 'Sepatu',
+    price: 100000,
+    url: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
+  },
+]
+
+const clearSearch = () => {
+  search.value = ''
+}
+
+const handleSearch = () => {
+  if (search.value === '') {
+    searchResults.value = []
+    
+    return
+  }
+
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(search.value.toLowerCase()),
+  )
+
+  searchResults.value = filteredProducts
+}
+
+const highlightText = text => {
+  const searchRegex = new RegExp(search.value, 'gi')
+  
+  return text.replace(searchRegex, match => `<b>${match}</b>`)
+}
+
+watch(search, handleSearch)
+</script>
+
+
+<template>
+  <VTextField
+    v-model="search"
+    variant="outlined"
+    append-inner-icon="mdi-magnify"
+    placeholder="Cari Produk di sini"
+    class="search"
+    @click:append="clearSearch"
+  />
+
+  <div
+    v-if="searchResults.length > 0"
+    class="search-results"
+  >
+    <ul>
+      <li
+        v-for="(result, index) in searchResults"
+        :key="index"
+      >
+        <span v-html="highlightText(result.name)" />
+      </li>
+    </ul>
+  </div>
 </template>
 
-<script>
 
-export default {
-    name: 'AppSearch',
-    data() {
-        return {
-            search: '',
-            searchResults: [],
-            products: [
-                {
-                    id: 1,
-                    name: 'Lampu',
-                    price: 200000,
-                    url: 'https://cdn.vuetifyjs.com/images/cards/desert.jpg'
-                },
-                {
-                    id: 2,
-                    name: 'Keramik',
-                    price: 300000,
-                    url: 'https://cdn.vuetifyjs.com/images/cards/cooking.png'
-                },
-                {
-                    id: 3,
-                    name: 'Kamera',
-                    price: 500000,
-                    url: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
-                },
-                {
-                    id: 4,
-                    name: 'Sepatu',
-                    price: 100000,
-                    url: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'
-                }
-            ]
-        };
-    },
-    methods: {
-        clearSearch() {
-            this.search = ''; // Membersihkan input pencarian saat ikon diklik
-        },
-        handleSearch() {
-            if (this.search === '') {
-                this.searchResults = [];
-                return;
-            }
-
-
-            const filteredProducts = this.products.filter(product =>
-                product.name.toLowerCase().includes(this.search.toLowerCase())
-            );
-            this.searchResults = filteredProducts;
-        },
-        highlightText(text) {
-            const searchRegex = new RegExp(this.search, 'gi');
-            return text.replace(searchRegex, match => `<b>${match}</b>`);
-        }
-    },
-    watch: {
-        search() {
-            this.handleSearch();
-        }
-    }
-}
-</script>
 
 <style scoped>
 .search .v-input__control {

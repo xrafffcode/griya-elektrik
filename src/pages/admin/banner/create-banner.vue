@@ -1,23 +1,24 @@
 <script setup>
-import { useProductBrandStore } from '@/stores/productBrand'
+import { useBannerStore } from '@/stores/banner'
 import { storeToRefs } from 'pinia'
 
-const { brands, loading, error } = storeToRefs(useProductBrandStore())
-const { createBrand } = useProductBrandStore()
+const { loading, error } = storeToRefs(useBannerStore())
+const { createBanner } = useBannerStore()
 
 
-const code = ref('AUTO')
-const name = ref('')
+const image = ref(null)
+const image_url = ref(null)
+
 
 const handleReset = () => {
-  code.value = 'AUTO'
-  name.value = ''
+  image.value = null
+  image_url.value = null
+
 }
 
 const handleSubmit = () => {
-  createBrand({
-    code: code.value,
-    name: name.value,
+  createBanner({
+    image: image.value,
   })
 }
 
@@ -26,6 +27,13 @@ onUnmounted(() => {
 
   error.value = null
 })
+
+const handleFileChange = event => {
+  const file = event.target.files[0]
+  if (file) {
+    image.value = file
+  }
+}
 </script>
 
 
@@ -36,44 +44,38 @@ onUnmounted(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Merk Produk
+        Tambah Banner
       </h2>
 
       <VBtn
-        to="/admin/merk-produk"
+        to="/admin/konfigurasi-web/banner"
         color="error"
       >
         Kembali
       </VBtn>
     </VCol>
-
+  
     <VCol cols="12">
       <VCard>
         <VForm @submit.prevent="handleSubmit">
           <VRow>
             <VCol
               cols="12"
-              md="6"
+              md="12"
             >
-              <VTextField
-                v-model="code"
-                label="Code"
-                placeholder="Kode Kategori"
-                :error-messages="error && error.code ? [error.code] : []"
+              <VFileInput
+                v-model="image_url"
+                label="Gambar "
+                placeholder="Pilih Gambar "
+                :error-messages="error && error.image ? [error.image] : []"
+                :disabled="loading"
+                show-size
+                accept="image/*"
+                prepend-icon="mdi-camera"
+                @change="handleFileChange"
               />
             </VCol>
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <VTextField
-                v-model="name"
-                label="Nama"
-                placeholder="Nama Kategori"
-                :error-messages="error && error.name ? [error.name] : []"
-              />
-            </VCol>
-
+            
             <VCol
               cols="12"
               class="d-flex gap-4"
@@ -102,7 +104,7 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss">
-.v-row {
+.v-row{
   margin: 0px !important;
 }
 </style>

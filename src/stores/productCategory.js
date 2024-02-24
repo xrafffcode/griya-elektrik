@@ -71,6 +71,21 @@ export const useProductCategoryStore = defineStore({
       this.loading = false
     },
 
+ 
+    async fetchLeafCategories() {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.get('/product-categories/leaf')
+
+        this.categories = response.data.data
+
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
 
     async createCategory(payload) {
       this.loading = true

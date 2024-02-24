@@ -1,41 +1,43 @@
 import { axiosInstance } from '@/plugins/axios'
 import router from '@/router'
+
 import { defineStore } from 'pinia'
 
-export const useBannerStore = defineStore({
-  id: 'banner',
+export const useBranchStore = defineStore({
+  id: 'branch',
   state: () => ({
-    banners: [],
-    banner: {},
+    branches: [],
+    branch: {},
     loading: false,
     error: null,
     success: null,
   }),
   actions: {
-    async fetchBanners() {
+    async fetchBranches() {
       this.loading = true
     
       try {
-        const response = await axiosInstance.get('/banners')
+        const response = await axiosInstance.get('/branches')
     
-        this.banners = response.data.data
-    
+        this.branches = response.data.data
       } catch (error) {
         this.error = error
       }
     
       this.loading = false
     },
-    async createBanner(payload) {
+
+    async createBranch(payload) {
       this.loading = true
     
       try {
-        await axiosInstance.post('/banners', payload)
+        const response = await axiosInstance.post('/branches', payload)
     
-        this.success = 'Banner created successfully'
+        this.branches.push(response.data.data)
 
-        router.push({ name: 'admin-banner' })
-    
+        this.success = 'Cabang berhasil ditambahkan'
+
+        router.push({ name: 'admin-branch' })
       } catch (error) {
         if (error.response && error.response.status === 422) {
           this.error = error.response.data.errors
@@ -45,17 +47,18 @@ export const useBannerStore = defineStore({
     
       this.loading = false
     },
-    async deleteBanner(id) {
+    async deleteBranch(id) {
       this.loading = true
-    
+
       try {
-        await axiosInstance.delete(`/banners/${id}`)
-    
-        this.success = 'Banner berhasil dihapus'
+        await axiosInstance.delete(`/branches/${id}`)
+
+        this.success = 'Cabang berhasil dihapus'
+        
       } catch (error) {
         this.error = error
       }
-    
+
       this.loading = false
     },
   },

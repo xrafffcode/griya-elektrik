@@ -89,7 +89,6 @@ function toggleNavbar() {
   <div
     class="navbar-overlay"
     :class="{ 'is-active': isNavbarActive }"
-    @click="toggleNavbar"
   />
 </template>
 

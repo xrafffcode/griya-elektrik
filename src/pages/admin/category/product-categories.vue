@@ -8,6 +8,11 @@ const headers = [
     value: 'parent.name',
   },
   {
+    text: 'Gambar',
+    value: 'gambar',
+    width: 200,
+  },
+  {
     text: 'Nama',
     value: 'name',
     sortable: true,
@@ -87,6 +92,13 @@ async function handleDeleteCategory(category) {
             <img
               src="https://i.pinimg.com/originals/94/fd/2b/94fd2bf50097ade743220761f41693d5.gif"
               style="width: 100px; height: 80px;"
+            >
+          </template>
+          <template #item-gambar="item">
+            <img
+              :src="item.image_url"
+              alt="gambar"
+              style="width: 100px; height: 80px; margin: 10px 0;"
             >
           </template>
           <template #item-operation="item">

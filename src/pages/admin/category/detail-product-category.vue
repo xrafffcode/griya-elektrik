@@ -51,14 +51,31 @@
               cols="12"
               md="6"
             >
-              <VTextField
-                v-model="slug"
-                label="Slug"
-                placeholder="Slug Kategori"
-                :error-messages="error && error.slug ? [error.slug] : []"
-                readonly
-                :loading="loading"
-              />
+              <div v-if="showImage">
+                <VImg
+                  :src="image"
+                  width="100%"
+                  height="auto"
+                  class="mb-4"
+                />
+                <VBtn
+                  color="error"
+                  text
+                  @click="showImage = false"
+                >
+                  Sembunyikan Gambar
+                </VBtn>
+              </div>
+
+              <VBtn
+                v-else
+                color="primary"
+                text
+                block
+                @click="showImage = true"
+              >
+                Lihat Gambar
+              </VBtn>
             </VCol>
 
             <VCol
@@ -86,7 +103,7 @@
 <script setup>
 import { useProductCategoryStore } from '@/stores/productCategory'
 import { storeToRefs } from 'pinia'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -99,7 +116,7 @@ const categoryId = route.params.id
 const code = ref('')
 const name = ref('')
 const parent_id = ref('')
-const slug = ref('')
+const image = ref(null)
 
 const fetchCategoryData = async () => {
   try {
@@ -108,7 +125,7 @@ const fetchCategoryData = async () => {
     code.value = category.code
     name.value = category.name
     parent_id.value = category.parent?.id
-    slug.value = category.slug
+    image.value = category.image_url
   } catch (error) {
     console.error('Error fetching category data:', error)
   }
@@ -119,16 +136,7 @@ onMounted(() => {
   fetchEmptyCategory()
 })
 
-const handleReset = () => {
-  code.value = ''
-  name.value = ''
-  parent_id.value = ''
-  slug.value = ''
-}
-
-onUnmounted(() => {
-  handleReset()
-})
+const showImage = ref(false)
 </script>
 
 <style lang="scss">

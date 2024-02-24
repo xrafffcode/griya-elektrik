@@ -14,16 +14,16 @@ export const useProductBrandStore = defineStore({
   actions: {
     async fetchBrands() {
       this.loading = true
-    
+
       try {
         const response = await axiosInstance.get('/product-brands')
-    
+
         this.brands = response.data.data
-    
+
       } catch (error) {
         this.error = error
       }
-    
+
       this.loading = false
     },
     async fetchBrandById(id) {
@@ -52,6 +52,7 @@ export const useProductBrandStore = defineStore({
         this.success = 'Merk berhasil ditambahkan'
 
         router.push({ name: 'admin-product-brand' })
+
       } catch (error) {
         if (error.response && error.response.status === 422) {
           this.error = error.response.data.errors
@@ -87,7 +88,7 @@ export const useProductBrandStore = defineStore({
         await axiosInstance.delete(`/product-brands/${id}`)
 
         this.success = 'Merk berhasil dihapus'
-        
+
       } catch (error) {
         this.error = error
       }

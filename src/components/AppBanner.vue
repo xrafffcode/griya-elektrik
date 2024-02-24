@@ -1,104 +1,98 @@
 <template>
-    <swiper :pagination="pagination" :modules="modules" class="mySwiper">
-        <swiper-slide v-for="slide in slides" :key="slide.id">
-            <img :src="slide.url" alt="slide.alt" />
-        </swiper-slide>
-    </swiper>
+  <Swiper
+    :pagination="pagination"
+    :modules="modules"
+    class="mySwiper"
+  >
+    <SwiperSlide
+      v-for="banner in banners"
+      :key="banner.id"
+    >
+      <img
+        :src="banner.image_url"
+        :alt="
+          banner.alt"
+      >
+    </SwiperSlide>
+  </Swiper>
 </template>
-<script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
 
-import 'swiper/css';
+<script setup>
+import { useBannerStore } from '@/stores/banner'
+import { storeToRefs } from 'pinia'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 
-import 'swiper/css/pagination';
+const { banners, loading, error, success } = storeToRefs(useBannerStore())
+const { fetchBanners, deleteBanner } = useBannerStore()
 
-import { Pagination } from 'swiper/modules';
+fetchBanners()
 
-import banner from '@/assets/images/banner.jpg';
-
-
-export default {
-    components: {
-        Swiper, SwiperSlide
-    },
-    data() {
-        return {
-            modules: [Pagination],
-            slides: [
-                {
-                    id: 1,
-                    url: banner,
-                    alt: 'Slide 1'
-                },
-                {
-                    id: 2,
-                    url: banner,
-                    alt: 'Slide 2'
-                },
-                {
-                    id: 3,
-                    url: banner,
-                    alt: 'Slide 3'
-                }
-            ]
-        }
-    },
-    setup() {
-        return {
-            pagination: {
-                clickable: true,
-                renderBullet: function (index, className) {
-                    return '<span class="' + className + '">' + " " + "</span>";
-                },
-            },
-        }
-    }
+const pagination = {
+  clickable: true,
+  renderBullet: function (index, className) {
+    return '<span class="' + className + '">' + " " + "</span>"
+  },
 }
+
+const modules = [Pagination]
 </script>
 
 <style>
 .swiper {
-    width: 100%;
-    height: 150px;
-    border-radius: 10px;
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
 }
 
 .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    height: 150px;
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  height: 150px;
 }
 
 .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 
-@media (min-width: 600px) {
-    .swiper {
-        height: 400px;
-    }
+@media (min-width: 768px) {
+  .swiper {
+    height: 400px;
+  }
 
-    .swiper-slide img {
-        height: 400px;
-    }
+  .swiper-slide img {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px ) and (min-width: 480px) {
+  .swiper {
+    height: 250px;
+  }
+
+  .swiper-slide img {
+    height: 250px;
+  }
 }
 
 .swiper-pagination-bullet {
-    background-color: #273E86;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    opacity: .2;
+  background-color: #273E86;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: .2;
 }
 
 .swiper-pagination-bullet-active {
-    width: 20px;
-    height: 10px;
-    border-radius: 10px;
-    opacity: 1;
+  width: 20px;
+  height: 10px;
+  border-radius: 10px;
+  opacity: 1;
 }
 </style>

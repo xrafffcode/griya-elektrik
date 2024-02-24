@@ -80,7 +80,10 @@ const upgradeBanner = computed(() => {
               title: 'Cabang',
               to: '/admin/konfigurasi-web/cabang',
             },
-            
+            {
+              title: 'Banner',
+              to: '/admin/konfigurasi-web/banner',  
+            }
           ],
         }"
       />

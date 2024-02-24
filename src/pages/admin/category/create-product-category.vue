@@ -10,11 +10,15 @@ fetchEmptyCategory()
 const code = ref('AUTO')
 const name = ref('')
 const parent_id = ref('')
+const image = ref(null)
+const image_url = ref(null)
 
 const handleReset = () => {
   code.value = 'AUTO'
   name.value = ''
   parent_id.value =  ''
+  image.value = null
+  image_url.value = null
 }
 
 const handleSubmit = () => {
@@ -22,6 +26,7 @@ const handleSubmit = () => {
     code: code.value,
     name: name.value,
     parent_id: parent_id.value || null,
+    image: image.value,
   })
 }
 
@@ -30,6 +35,13 @@ onUnmounted(() => {
 
   error.value = null
 })
+
+const handleFileChange = event => {
+  const file = event.target.files[0]
+  if (file) {
+    image.value = file
+  }
+}
 </script>
 
 
@@ -82,7 +94,40 @@ onUnmounted(() => {
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
+            >
+              <VFileInput
+                v-model="image_url"
+                label="Gambar"
+                placeholder="Pilih Gambar"
+                :error-messages="error && error.image ? [error.image] : []"
+                :disabled="loading"
+                show-size
+                accept="image/*"
+                prepend-icon="mdi-camera"
+                @change="handleFileChange"
+              >
+                <template #selection="{ fileNames }">
+                  <template
+                    v-for="fileName in fileNames"
+                    :key="fileName"
+                  >
+                    <VChip
+                      size="small"
+                      label
+                      color="primary"
+                      class="me-2"
+                    >
+                      {{ fileName }}
+                    </VChip>
+                  </template>
+                </template>
+              </VFileInput>
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
             >
               <VSelect
                 v-model="parent_id"

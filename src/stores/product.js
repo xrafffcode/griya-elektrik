@@ -26,5 +26,25 @@ export const useProductStore = defineStore({
     
       this.loading = false
     },
+    async createProduct(payload) {
+      this.loading = true
+    
+      try {
+        const response = await axiosInstance.post('/products', payload)
+    
+        this.products.push(response.data.data)
+
+        this.success = 'Produk berhasil ditambahkan'
+
+        router.push({ name: 'admin-product' })
+      } catch (error) {
+        if (error.response && error.response.status === 422) {
+          this.error = error.response.data.errors
+        }
+        console.error(error)
+      }
+    
+      this.loading = false
+    },
   },
 })

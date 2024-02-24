@@ -1,18 +1,26 @@
 <script setup>
-import { useProductBrandStore } from '@/stores/productBrand'
+import { useBranchStore } from '@/stores/branch'
 
 const headers = [
   {
     text: 'Kode',
     value: 'code',
-    sortable: true,
-
   },
   {
     text: 'Nama',
     value: 'name',
-    sortable: true,
-
+  },
+  {
+    text: 'Alamat',
+    value: 'address',
+  },
+  {
+    text: 'Telepon',
+    value: 'phone',
+  },
+  {
+    text: 'Email',
+    value: 'email',
   },
   {
     text: 'Aksi',
@@ -23,16 +31,17 @@ const headers = [
 
 
 
-const { brands, loading, error, success } = storeToRefs(useProductBrandStore())
-const { fetchBrands, deleteBrand } = useProductBrandStore()
+const { branches, loading, error, success } = storeToRefs(useBranchStore())
+const { fetchBranches, deleteBranch } = useBranchStore()
 
-fetchBrands()
+fetchBranches()
 
-async function handleDeleteBrand(brand) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus merk ini?')
+async function handleDeleteBranch(branch) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus cabang ini?')
+  
   if (confirmed) {
-    await deleteBrand(brand.id)
-    fetchBrands()
+    await deleteBranch(branch.id)
+    fetchBranches()
   }
 }
 </script>
@@ -65,14 +74,14 @@ async function handleDeleteBrand(brand) {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Merk Produk
+        Cabang
       </h2>
 
       <VBtn
-        to="/admin/merk-produk/tambah"
+        to="/admin/konfigurasi-web/cabang/tambah"
         color="primary"
       >
-        Tambah Merk
+        Tambah
       </VBtn>
     </VCol>
     
@@ -80,7 +89,7 @@ async function handleDeleteBrand(brand) {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="brands"
+          :items="branches"
           :loading="loading"
           buttons-pagination
           show-index
@@ -104,7 +113,7 @@ async function handleDeleteBrand(brand) {
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteBrand(item)"
+              @click="() => handleDeleteBranch(item)"
             >
               Hapus
             </VBtn>

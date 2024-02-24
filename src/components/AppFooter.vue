@@ -1,140 +1,212 @@
-<template>
-    <footer>
-        <v-container>
-            <v-row class="py-5">
-                <v-col cols="12" md="5" lg="4">
-                    <div class="footer-tabs">
-                        <div class="tabs-wrapper">
-                            <div class="tab-title" :class="{ active: tab === 1 }" @click="tab = 1">
-                                Purwokerto
-                            </div>
-                            <div class="tab-title" :class="{ active: tab === 2 }" @click="tab = 2">
-                                Purbalinga
-                            </div>
-                        </div>
-                        <div class="tab-content">
-                            <div v-if="tab === 1">
-                                <h6 class="tab-heading">
-                                    Toko Cabang Purwokerto
-                                </h6>
-                                <p class="text-p">
-                                    Komplek Pertokoan Kebon Dalem Blok A-17 dan A-18 <br> Purwokerto, Jawa Tengah, 53114.
-                                    <br>
-                                    <a href="https://maps.app.goo.gl/Z54FMmfyQf6DkXEKA" target="_blank" class="text-p">Buka
-                                        di
-                                        Google Maps</a>
-                                </p>
-                                <h6 class="tab-heading mt-5">
-                                    Kontak
-                                </h6>
-                                <p class="text-p">
-                                    <v-icon class="mr-2">mdi-phone</v-icon>
-                                    <span class="text-p">0812 8434 5301</span>
-                                </p>
+<script setup>
+import { useBranchStore } from '@/stores/branch'
+import { ref } from 'vue'
 
-                            </div>
-                            <div v-else-if="tab === 2">
-                                <h6 class="tab-heading">
-                                    Toko Cabang Purbalingga
-                                </h6>
-                                <p class="text-p">
-                                    Jl. Ahmad Yani No. 86 ( Depan Taman Makam Pahlawan ), Purbalingga, Jawa Tengah
-                                    <br>
-                                    <a href="https://maps.app.goo.gl/3Z3Z9Z3Z9Z3Z9Z3Z9" target="_blank" class="text-p">Buka
-                                        di
-                                        Google Maps</a>
-                                </p>
-                                <h6 class="tab-heading mt-5">
-                                    Kontak
-                                </h6>
-                                <p class="text-p">
-                                    <v-icon class="mr-2">mdi-phone</v-icon>
-                                    <span class="text-p">0812 8434 5301</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </v-col>
+const { branches, loading } = storeToRefs(useBranchStore())
+const { fetchBranches } = useBranchStore()
 
+fetchBranches()
 
-                <v-col cols="12" md="2" lg="3">
-                    <div class="text-p ">
-                        <h2 class="font-weight-bold mb-3">Tautan</h2>
-                        <ul class="list-unstyled">
-                            <li>
-                                <router-link to="/" class="text-p text-decoration-none">Home</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/produk" class="text-p text-decoration-none">Produk</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/kontak-kami" class="text-p text-decoration-none">Kontak Kami</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/tentang-kami" class="text-p text-decoration-none">Tentang
-                                    Kami</router-link>
-                            </li>
-                        </ul>
-                    </div>
-
-                </v-col>
-                <v-col cols="12" md="2" lg="3">
-                    <div class="text-p ">
-                        <h2 class="font-weight-bold mb-3">Ikuti Kami</h2>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="https://www.facebook.com/griya15purwokerto"
-                                    class="text-p text-decoration-none">Facebook</a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/griya15purwokerto"
-                                    class="text-p text-decoration-none">Instagram</a>
-                            </li>
-                            <li>
-                                <a href="https://www.tokopedia.com/griya15"
-                                    class="text-p text-decoration-none">Tokopedia</a>
-                            </li>
-                            <li>
-                                <a href="https://www.bukalapak.com/u/griya15"
-                                    class="text-p text-decoration-none">Bukalapak</a>
-                            </li>
-                        </ul>
-                    </div>
-                </v-col>
-
-                <v-col cols="12" md="2" lg="2">
-                    <div class="text-p ">
-                        <h2 class="font-weight-bold mb-3">Lainnya</h2>
-                        <ul class="list-unstyled">
-                            <li>
-                                <router-link to="/syarat-dan-ketentuan" class="text-p text-decoration-none">Syarat dan
-                                    Ketentuan</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/kebijakan-privasi" class="text-p text-decoration-none">Kebijakan
-                                    Privasi</router-link>
-                            </li>
-                        </ul>
-                    </div>
-                </v-col>
-            </v-row>
-            <div class="text-center mt-5">
-                <p class="text-p">© 2023 Griya 15. All rights reserved.</p>
-            </div>
-        </v-container>
-    </footer>
-</template>
-
-<script>
-export default {
-    name: 'AppFooter',
-    data() {
-        return {
-            tab: 1
-        }
-    }
-}
+const tab = ref(1)
 </script>
+
+<template>
+  <footer>
+    <VContainer>
+      <VRow class="py-5">
+        <VCol
+          cols="12"
+          md="5"
+          lg="4"
+        >
+          <div class="footer-tabs">
+            <div
+              v-if="!loading"
+              class="tabs-wrapper"
+            >
+              <div
+                v-for="branch in branches"
+                :key="branch.sort"
+                class="tab"
+              >
+                <div
+                  class="tab-title"
+                  :class="{ active: tab === branch.sort }"
+                  @click="tab = branch.sort"
+                >
+                  {{ branch.name }}
+                </div>
+              </div>
+            </div>
+            <div
+              v-else
+              class="text-center"
+            >
+              <VProgressCircular
+                indeterminate
+                color="primary"
+                class="mt-5"
+              />
+            </div>
+
+            <div class="tab-content">
+              <div
+                v-for="branch in branches"
+                v-show="tab === branch.sort"
+                :key="branch.sort"
+              >
+                <h6 class="tab-heading">
+                  {{ branch.name }}
+                </h6>
+                <p class="text-p">
+                  {{ branch.address }}
+                  <br>
+                  <a
+                    :href="branch.map"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-p"
+                  >Buka di Google Maps</a>
+                </p>
+                <h6 class="tab-heading mt-5">
+                  Kontak
+                </h6>
+                <p class="text-p">
+                  <VIcon class="mr-2">
+                    mdi-phone
+                  </VIcon>
+                  <span class="text-p">{{ branch.phone }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </VCol>
+
+
+        <VCol
+          cols="12"
+          md="2"
+          lg="3"
+        >
+          <div class="text-p ">
+            <h2 class="font-weight-bold mb-3">
+              Tautan
+            </h2>
+            <ul class="list-unstyled">
+              <li>
+                <RouterLink
+                  to="/"
+                  class="text-p text-decoration-none"
+                >
+                  Home
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink
+                  to="/produk"
+                  class="text-p text-decoration-none"
+                >
+                  Produk
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink
+                  to="/kontak-kami"
+                  class="text-p text-decoration-none"
+                >
+                  Kontak Kami
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink
+                  to="/tentang-kami"
+                  class="text-p text-decoration-none"
+                >
+                  Tentang
+                  Kami
+                </RouterLink>
+              </li>
+            </ul>
+          </div>
+        </VCol>
+        <VCol
+          cols="12"
+          md="2"
+          lg="3"
+        >
+          <div class="text-p ">
+            <h2 class="font-weight-bold mb-3">
+              Ikuti Kami
+            </h2>
+            <ul class="list-unstyled">
+              <li>
+                <a
+                  href="https://www.facebook.com/griya15purwokerto"
+                  class="text-p text-decoration-none"
+                >Facebook</a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/griya15purwokerto"
+                  class="text-p text-decoration-none"
+                >Instagram</a>
+              </li>
+              <li>
+                <a
+                  href="https://www.tokopedia.com/griya15"
+                  class="text-p text-decoration-none"
+                >Tokopedia</a>
+              </li>
+              <li>
+                <a
+                  href="https://www.bukalapak.com/u/griya15"
+                  class="text-p text-decoration-none"
+                >Bukalapak</a>
+              </li>
+            </ul>
+          </div>
+        </VCol>
+
+        <VCol
+          cols="12"
+          md="2"
+          lg="2"
+        >
+          <div class="text-p ">
+            <h2 class="font-weight-bold mb-3">
+              Lainnya
+            </h2>
+            <ul class="list-unstyled">
+              <li>
+                <RouterLink
+                  to="/syarat-dan-ketentuan"
+                  class="text-p text-decoration-none"
+                >
+                  Syarat dan
+                  Ketentuan
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink
+                  to="/kebijakan-privasi"
+                  class="text-p text-decoration-none"
+                >
+                  Kebijakan
+                  Privasi
+                </RouterLink>
+              </li>
+            </ul>
+          </div>
+        </VCol>
+      </VRow>
+      <div class="text-center mt-5">
+        <p class="text-p">
+          © 2023 Griya 15. All rights reserved.
+        </p>
+      </div>
+    </VContainer>
+  </footer>
+</template>
 
 <style>
 footer {
@@ -153,11 +225,6 @@ footer {
     border-radius: 10px 10px 10px 10px;
 }
 
-.tabs-wrapper {
-    display: flex;
-    margin-bottom: 1rem;
-    justify-content: space-around;
-}
 
 .tab-title {
     position: relative;
@@ -211,5 +278,26 @@ footer {
         margin-right: 3rem;
 
     }
+}
+
+.footer-tabs .tabs-wrapper {
+  display: flex;
+  overflow-x: auto; /* Menambahkan scrollbar horizontal */
+  margin-bottom: 1rem;
+  -webkit-overflow-scrolling: touch; /* Menambahkan efek scrolling pada iOS */
+}
+
+.footer-tabs .tabs-wrapper::-webkit-scrollbar {
+  width: 6px; 
+  height: 6px;
+}
+
+.footer-tabs .tabs-wrapper::-webkit-scrollbar-thumb {
+  background-color: #273E86;
+  border-radius: 10px;
+}
+
+.footer-tabs .tabs-wrapper::-webkit-scrollbar-track {
+  background-color: #EEEEEE;
 }
 </style>

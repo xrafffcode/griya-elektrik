@@ -1,13 +1,12 @@
 <script setup>
-import { useProductBrandStore } from '@/stores/productBrand'
+import { useBannerStore } from '@/stores/banner'
 
 const headers = [
   {
-    text: 'Nama',
-    value: 'name',
-    sortable: true,
-
+    text: 'Gambar ',
+    value: 'gambar',
   },
+
   {
     text: 'Aksi',
     value: 'operation',
@@ -17,17 +16,25 @@ const headers = [
 
 
 
-const { brands, loading, error, success } = storeToRefs(useProductBrandStore())
-const { fetchBrands, deleteBrand } = useProductBrandStore()
+const { banners, loading, error, success } = storeToRefs(useBannerStore())
+const { fetchBanners, deleteBanner } = useBannerStore()
 
-fetchBrands()
+fetchBanners()
 
-async function handleDeleteBrand(brand) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus merk ini?')
+async function handleDeleteBanner(banner) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus banner ini?')
   if (confirmed) {
-    await deleteBrand(brand.id)
-    fetchBrands()
+    await deleteBanner(banner.id)
+    fetchBanners()
   }
+}
+
+const showModalImage = ref(false)
+const image = ref('')
+
+function showImage(url) {
+  showModalImage.value = true
+  image.value = url
 }
 </script>
 
@@ -52,6 +59,31 @@ async function handleDeleteBrand(brand) {
     </VCard>
   </VDialog>
 
+  <VDialog
+    v-model="showModalImage"
+    max-width="500"
+  >
+    <VCard>
+      <VCardTitle>
+        Gambar
+      </VCardTitle>
+      <VCardText>
+        <img
+          :src="image"
+          style="width: 100%; height: 300px; object-fit: contain;"
+        >
+      </VCardText>
+      <VCardActions>
+        <VBtn
+          color="primary"
+          text
+          @click="() => (showModalImage = false)"
+        >
+          Tutup
+        </VBtn>
+      </VCardActions>
+    </VCard>
+  </VDialog>
   
   <VRow>
     <VCol
@@ -59,14 +91,14 @@ async function handleDeleteBrand(brand) {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Merk Produk
+        Banner
       </h2>
 
       <VBtn
-        to="/admin/merk-produk/tambah"
+        to="/admin/konfigurasi-web/banner/tambah"
         color="primary"
       >
-        Tambah Merk
+        Tambah Banner
       </VBtn>
     </VCol>
     
@@ -74,7 +106,7 @@ async function handleDeleteBrand(brand) {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="brands"
+          :items="banners"
           :loading="loading"
           buttons-pagination
           show-index
@@ -85,20 +117,20 @@ async function handleDeleteBrand(brand) {
               style="width: 100px; height: 80px;"
             >
           </template>
-          <template #item-operation="item">
-            <VBtn
-              :to="`/admin/merk-produk/ubah/${item.id}`"
-              color="primary"
-              class="m-5"
-              size="small"
+          <template #item-gambar="item">
+            <img
+              :src="item.image_url"
+              style="width: 100px; height: 80px ; object-fit: contain; cursor: pointer;"
+              @click="() => showImage(item.image_url)"
             >
-              Ubah
-            </VBtn>
+          </template>
+         
+          <template #item-operation="item">
             <VBtn
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteBrand(item)"
+              @click="() => handleDeleteBanner(item)"
             >
               Hapus
             </VBtn>
