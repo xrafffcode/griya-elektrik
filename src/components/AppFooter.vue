@@ -21,7 +21,6 @@ const tab = ref(1)
         >
           <div class="footer-tabs">
             <div
-              v-if="!loading"
               class="tabs-wrapper"
             >
               <div
@@ -38,16 +37,7 @@ const tab = ref(1)
                 </div>
               </div>
             </div>
-            <div
-              v-else
-              class="text-center"
-            >
-              <VProgressCircular
-                indeterminate
-                color="primary"
-                class="mt-5"
-              />
-            </div>
+           
 
             <div class="tab-content">
               <div
@@ -141,27 +131,18 @@ const tab = ref(1)
             <ul class="list-unstyled">
               <li>
                 <a
-                  href="https://www.facebook.com/griya15purwokerto"
+                  href="https://www.instagram.com/griya_electric.15"
                   class="text-p text-decoration-none"
-                >Facebook</a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/griya15purwokerto"
-                  class="text-p text-decoration-none"
+                  target="_blank" rel="noopener noreferrer"
                 >Instagram</a>
               </li>
+             
               <li>
                 <a
-                  href="https://www.tokopedia.com/griya15"
+                  href="https://shopee.co.id/griyalimabelas"
                   class="text-p text-decoration-none"
-                >Tokopedia</a>
-              </li>
-              <li>
-                <a
-                  href="https://www.bukalapak.com/u/griya15"
-                  class="text-p text-decoration-none"
-                >Bukalapak</a>
+                  target="_blank" rel="noopener noreferrer"
+                >Shoppe</a>
               </li>
             </ul>
           </div>

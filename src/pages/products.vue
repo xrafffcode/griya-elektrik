@@ -3,53 +3,38 @@ import CategoryItem from '@/components/AppCategoryItem.vue'
 import AppProductCard from '@/components/AppProductCard.vue'
 import AppSearch from '@/components/AppSearch.vue'
 import { onMounted, ref } from 'vue'
+import { debounce } from 'lodash'
+
 
 import { useProductCategoryStore } from '@/stores/productCategory'
+import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
 
 const { categories, loading, error } = storeToRefs(useProductCategoryStore())
 const { fetchRootCategories } = useProductCategoryStore()
 
+const { products } = storeToRefs(useProductStore())
+const { fetchProducts, fetchProductsWithParams } = useProductStore()
+
 fetchRootCategories()
+fetchProducts()
 
 const search = ref('')
-const searchResults = ref([])
-
-const products = ref([
-  {
-    id: 1,
-    name: 'Lampu',
-    price: 200000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/desert.jpg',
-  },
-  {
-    id: 2,
-    name: 'Keramik',
-    price: 300000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/cooking.png',
-  },
-  {
-    id: 3,
-    name: 'Kamera',
-    price: 500000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
-  },
-  {
-    id: 4,
-    name: 'Sepatu',
-    price: 100000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-  },
-])
-
-const filteredProducts = ref([])
 const sort = ref([])
-
-const isCategoryShown = ref(false)
-
 
 onMounted(() => {
   document.title = 'Produk'
+})
+
+watch(sort, async value => {
+  fetchProductsWithParams({ sort: value, search: search.value })
+})
+
+
+const debouncedFetchProductsWithParams = debounce(fetchProductsWithParams, 500)
+
+watch(search, async value => {
+  debouncedFetchProductsWithParams({ search: value, sort: sort.value })
 })
 </script>
 
@@ -57,15 +42,29 @@ onMounted(() => {
   <VContainer class="py-5">
     <VRow>
       <VCol cols="9">
-        <AppSearch />
+        <VTextField
+          v-model="search"
+          variant="outlined"
+          append-inner-icon="mdi-magnify"
+          placeholder="Cari Produk di sini"
+          class="search"
+          clearable
+        />
       </VCol>
       <VCol cols="3">
         <VSelect
           v-model="sort"
-          :items="['Terbaru', 'Harga Tertinggi', 'Harga Terendah']"
+          :items="[
+            { text: 'Terbaru', value: 'latest' },
+            { text: 'Terlama', value: 'oldest'},
+            { text: 'Termurah', value: 'price_asc' },
+            { text: 'Termahal', value: 'price_desc' }
+          ]"
           label="Urutkan"
           variant="outlined"
           clearable
+          item-title="text"
+          item-value="value"
         />
       </VCol>
     </VRow>

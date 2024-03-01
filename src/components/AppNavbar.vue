@@ -87,6 +87,7 @@ function toggleNavbar() {
   </nav>
 
   <div
+    v-if="isNavbarActive"
     class="navbar-overlay"
     :class="{ 'is-active': isNavbarActive }"
   />

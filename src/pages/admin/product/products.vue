@@ -11,13 +11,17 @@ const headers = [
     value: 'name',
   },
   {
+    text: 'Thumbnail',
+    value: 'thumbnail_url',
+  },
+  {
     text: 'Harga',
     value: 'price',
   },
   {
     text: 'Aksi',
     value: 'operation',
-    width: 200,
+    width: 300,
   },
 ]
 
@@ -34,6 +38,14 @@ async function handleDeleteProduct(product) {
     await deleteProduct(product.id)
     fetchProducts()
   }
+}
+
+const showModalImage = ref(false)
+const image = ref('')
+
+function showImage(url) {
+  showModalImage.value = true
+  image.value = url
 }
 </script>
 
@@ -58,6 +70,31 @@ async function handleDeleteProduct(product) {
     </VCard>
   </VDialog>
 
+  <VDialog
+    v-model="showModalImage"
+    max-width="500"
+  >
+    <VCard>
+      <VCardTitle>
+        Gambar
+      </VCardTitle>
+      <VCardText>
+        <img
+          :src="image"
+          style="width: 100%; height: 300px; object-fit: contain;"
+        >
+      </VCardText>
+      <VCardActions>
+        <VBtn
+          color="primary"
+          text
+          @click="() => (showModalImage = false)"
+        >
+          Tutup
+        </VBtn>
+      </VCardActions>
+    </VCard>
+  </VDialog>
   
   <VRow>
     <VCol
@@ -91,6 +128,13 @@ async function handleDeleteProduct(product) {
               style="width: 100px; height: 80px;"
             >
           </template>
+          <template #item-thumbnail_url="item">
+            <img
+              :src="item.thumbnail_url"
+              style="width: 100px; height: 80px; margin: 10px 0; cursor: pointer;"
+              @click="() => showImage(item.thumbnail_url)"
+            >
+          </template>
           <template #item-operation="item">
             <VBtn
               :to="`/admin/produk/ubah/${item.id}`"
@@ -100,6 +144,16 @@ async function handleDeleteProduct(product) {
             >
               Ubah
             </VBtn>
+            <!-- DETAIL -->
+            <VBtn
+              :to="`/admin/produk/${item.id}`"
+              color="info"
+              class="m-5"
+              size="small"
+            >
+              Detail
+            </VBtn>
+
             <VBtn
               color="error"
               size="small"

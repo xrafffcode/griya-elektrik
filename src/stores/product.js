@@ -26,6 +26,22 @@ export const useProductStore = defineStore({
     
       this.loading = false
     },
+    async fetchProductById(id) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.get(`/products/${id}`)
+
+        this.product = response.data.data
+
+        this.loading = false 
+
+        return this.product
+      } catch (error) {
+        this.error = error
+      }
+
+    },
     async createProduct(payload) {
       this.loading = true
     
@@ -44,6 +60,34 @@ export const useProductStore = defineStore({
         console.error(error)
       }
     
+      this.loading = false
+    },
+    async deleteProduct(id) {
+      this.loading = true
+
+      try {
+        await axiosInstance.delete(`/products/${id}`)
+
+        this.success = 'Produk berhasil dihapus'
+        
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async fetchProductsWithParams(params) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.get('/products', { params })
+
+        this.products = response.data.data
+
+      } catch (error) {
+        this.error = error
+      }
+
       this.loading = false
     },
   },

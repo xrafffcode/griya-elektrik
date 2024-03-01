@@ -1,16 +1,21 @@
 <template>
-  <VCard class="product-card">
+  <VCard
+    class="product-card"
+    @click="() => $router.push(`/produk/${product.id}`)"
+  >
     <img
-      :src="product.url"
+      :src="product.thumbnail_url"
       alt="product.name"
       class="product-image"
     >
-    <VCardText>
-      <h3>{{ product.name }}</h3>
+    <div class="product-card__content">
+      <h4 class="product-title">
+        {{ product.name }}
+      </h4>
       <p class="primary">
         {{ product.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }) }}
       </p>
-    </VCardText>
+    </div>
   </VCard>
 </template>
 
@@ -26,18 +31,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .product-card {
-    background-color: #FAFAFA;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+    background-color: #FAFAFA  !important;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1) !important;
     padding: 1rem;
+    min-height: 300px !important;
 }
 
 .product-image {
-    width: 100%;
-    height: 200px;
+    width: 100% !important;
+    height: 300px !important;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 10px !important;
 }
 
 .product-card .v-card-text {
@@ -46,9 +52,36 @@ export default {
     margin-top: 10px;
 }
 
+.product-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.product-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 @media (max-width: 600px) {
     .product-image {
-        height: 125px;
+        height: 125px !important;
+    }
+
+    .product-card {
+        min-height: 240px !important;
+    }
+
+    .product-title {
+        font-size: .9rem;
+        word-break: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
+
 </style>

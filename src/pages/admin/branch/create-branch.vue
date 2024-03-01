@@ -8,7 +8,8 @@ const { createBranch } = useBranchStore()
 
 const code = ref('AUTO')
 const name = ref('')
-const map = ref('')
+const map_url = ref('')
+const iframe_map = ref('')
 const address = ref('')
 const city = ref('')
 const email = ref('')
@@ -24,7 +25,8 @@ const branch_images = ref([])
 const handleReset = () => {
   code.value = 'AUTO'
   name.value = ''
-  map.value = ''
+  map_url.value = ''
+  iframe_map.value = ''
   address.value = ''
   city.value = ''
   email.value = ''
@@ -42,7 +44,8 @@ const handleSubmit = () => {
   createBranch({
     code: code.value,
     name: name.value,
-    map: map.value,
+    map_url: map_url.value,
+    iframe_map: iframe_map.value,
     address: address.value,
     city: city.value,
     email: email.value,
@@ -62,6 +65,18 @@ onUnmounted(() => {
 
   error.value = null
 })
+
+const getEmbedCode = () => {
+  const regex = /<iframe[^>]+src="?([^"\s]+)"?[^>]*>/g
+
+  const src = iframe_map.value.match(regex)
+
+  if (src) {
+    iframe_map.value = src[0].replace(/<iframe[^>]+src="?([^"\s]+)"?[^>]*>/g, '$1')
+  }
+
+  return iframe_map.value
+}
 </script>
 
 
@@ -93,8 +108,8 @@ onUnmounted(() => {
             >
               <VTextField
                 v-model="code"
-                label="Code"
-                placeholder="Kode Kategori"
+                label="Kode Cabang"
+                placeholder="Kode Cabang"
                 :error-messages="error && error.code ? [error.code] : []"
               />
             </VCol>
@@ -105,7 +120,7 @@ onUnmounted(() => {
               <VTextField
                 v-model="name"
                 label="Nama"
-                placeholder="Nama Kategori"
+                placeholder="Nama Cabang"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -115,10 +130,38 @@ onUnmounted(() => {
               md="6"
             >
               <VTextField
-                v-model="map"
-                label="Map"
-                placeholder="Map"
+                v-model="map_url"
+                label="Map URL"
+                placeholder="Map URL"
                 :error-messages="error && error.map ? [error.map] : []"
+              />
+            </VCol>
+            
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="iframe_map"
+                label="Iframe Map"
+                placeholder="Iframe Map"
+                :error-messages="error && error.iframe_map ? [error.iframe_map] : []"
+                @input="getEmbedCode"
+              />
+            </VCol>
+
+            
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextarea
+                v-model="address"
+                label="Alamat"
+                placeholder="Alamat"
+                :error-messages="error && error.address ? [error.address] : []"
+                :rows="11"
               />
             </VCol>
 
@@ -126,13 +169,16 @@ onUnmounted(() => {
               cols="12"
               md="6"
             >
-              <VTextField
-                v-model="address"
-                label="Alamat"
-                placeholder="Alamat"
-                :error-messages="error && error.address ? [error.address] : []"
+              <iframe
+                :src="iframe_map"
+                width="100%"
+                height="300"
+                frameborder="0"
+                style="border:0"
+                allowfullscreen
               />
             </VCol>
+
 
             <VCol
               cols="12"

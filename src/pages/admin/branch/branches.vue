@@ -15,12 +15,16 @@ const headers = [
     value: 'address',
   },
   {
-    text: 'Telepon',
-    value: 'phone',
+    text: 'Aktif',
+    value: 'is_active',
   },
   {
-    text: 'Email',
-    value: 'email',
+    text: 'Cabang Utama',
+    value: 'is_main',
+  },
+  {
+    text: 'Urutan Tampil',
+    value: 'sort',
   },
   {
     text: 'Aksi',
@@ -32,7 +36,7 @@ const headers = [
 
 
 const { branches, loading, error, success } = storeToRefs(useBranchStore())
-const { fetchBranches, deleteBranch } = useBranchStore()
+const { fetchBranches, deleteBranch, updateActiveBranch, updateMainBranch } = useBranchStore()
 
 fetchBranches()
 
@@ -43,6 +47,26 @@ async function handleDeleteBranch(branch) {
     await deleteBranch(branch.id)
     fetchBranches()
   }
+}
+
+async function  handleUpdateActiveBranch(branch) {
+  const formData = new FormData()
+
+  formData.append('is_active', branch.is_active ? 1 : 0)
+
+  await updateActiveBranch(branch.id, formData)
+
+  fetchBranches()
+}
+
+async function handleUpdateMainBranch(branch) {
+  const formData = new FormData()
+
+  formData.append('is_main', branch.is_main ? 1 : 0)
+
+  await updateMainBranch(branch.id, formData)
+
+  fetchBranches()
 }
 </script>
 
@@ -99,6 +123,22 @@ async function handleDeleteBranch(branch) {
               src="https://i.pinimg.com/originals/94/fd/2b/94fd2bf50097ade743220761f41693d5.gif"
               style="width: 100px; height: 80px;"
             >
+          </template>
+          <template #item-is_active="item">
+            <VSwitch
+              v-model="item.is_active"
+              color="primary"
+              class="m-5"
+              @change="() => handleUpdateActiveBranch(item)"
+            />
+          </template>
+          <template #item-is_main="item">
+            <VSwitch
+              v-model="item.is_main"
+              color="primary"
+              class="m-5"
+              @change="() => handleUpdateMainBranch(item)"
+            />
           </template>
           <template #item-operation="item">
             <VBtn

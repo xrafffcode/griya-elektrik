@@ -30,9 +30,12 @@ export const useBannerStore = defineStore({
       this.loading = true
     
       try {
-        await axiosInstance.post('/banners', payload)
-    
-        this.success = 'Banner created successfully'
+       
+        const response = await axiosInstance.post('/banners', payload)
+
+        this.banners.push(response.data.data)
+
+        this.success = 'Banner berhasil ditambahkan'
 
         router.push({ name: 'admin-banner' })
     

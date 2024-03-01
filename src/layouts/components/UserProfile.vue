@@ -1,3 +1,12 @@
+<script setup>
+import { useAuthStore } from '@/stores/auth'
+
+const { logout } = useAuthStore()
+
+const handleLogout = () => {
+  logout()
+}
+</script>
 
 <template>
   <VAvatar
@@ -33,7 +42,7 @@
 
      
         <!-- 👉 Logout -->
-        <VListItem to="/login">
+        <VListItem @click="handleLogout"> 
           <template #prepend>
             <VIcon
               class="me-2"

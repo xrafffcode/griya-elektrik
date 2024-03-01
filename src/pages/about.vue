@@ -1,8 +1,8 @@
 <template>
   <VContainer class="mt-5">
-    <div class="d-flex align-center justify-space-between py-5">
+    <div class="about d-flex align-center justify-space-between py-5">
       <img
-        src="@images/els-2048x1561.jpg"
+        src="@images/griya.jpg"
         alt="griya"
         class="about-img"
       >
@@ -202,7 +202,8 @@
     <AppTestimonial class="mt-5" />
 
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.073394394073!2d106.8222423147697!3d-6.175392995514768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4f3f3e4f3e7%3A0x3e3e3e3e3e3e3e3e!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1629783940733!5m2!1sid!2sid"
+      v-if="iframe_map"
+      :src="iframe_map"
       width="100%"
       height="500"
       style="border:0;"
@@ -213,19 +214,32 @@
   </VContainer>
 </template>
 
-<script>
+<script setup>
 import AppTestimonial from '@/components/AppTestimonial.vue'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useBranchStore } from '@/stores/branch'
 
-export default {
-  name: 'AboutUs',
-  components: { AppTestimonial },
-  setup() {
-    onMounted(() => {
-      document.title = 'Tentang Kami'
-    })
-  },
+
+const { fetchMainBranch } = useBranchStore()
+
+const iframe_map = ref('')
+
+const fetchMainBranchData = async () => {
+  try {
+    const branch = await fetchMainBranch()
+
+    iframe_map.value = branch.iframe_map
+  } catch (error) {
+    console.error('Error fetching main branch data:', error)
+  }
 }
+
+
+onMounted(() => {
+  document.title = 'Tentang Kami'
+
+  fetchMainBranchData()
+})
 </script>
 
 <style scoped>
@@ -235,13 +249,24 @@ export default {
 }
 
 .about-img {
-    width: 600px;
+    width: 150%;
     border-radius: 8px;
     box-shadow: -8px -8px 0px 0px #273E86;
-    animation: upAndDown 2s infinite ease-in-out;
+    height: 500px;
+    object-fit: cover;
 }
 
+@media (max-width: 768px) {
+    .about-img {
+        width: 100% !important;
+        height: 300px;
+        margin-bottom: 20px;
+    }
 
+    .about {
+        flex-direction: column;
+    }
+}
 
 @keyframes upAndDown {
     0% {

@@ -27,6 +27,9 @@ const thumbnail_url = ref(null)
 const description = ref('')
 const price = ref('')
 const is_active = ref(1)
+const is_featured = ref(0)
+const product_images = ref([])
+const product_links = ref([])
 
 const handleReset = () => {
   code.value = 'AUTO'
@@ -38,19 +41,12 @@ const handleReset = () => {
   description.value = ''
   price.value = ''
   is_active.value = 1
+  is_featured.value = 0
+  product_images.value = []
+  product_links.value = []
 }
 
 const handleSubmit = () => {
-  console.log({
-    code: code.value,
-    product_category_id: product_category_id.value,
-    product_brand_id: product_brand_id.value,
-    name: name.value,
-    thumbnail: thumbnail.value,
-    description: description.value,
-    price: price.value,
-    is_active: is_active.value,
-  })
   createProduct({
     code: code.value,
     product_category_id: product_category_id.value,
@@ -58,8 +54,11 @@ const handleSubmit = () => {
     name: name.value,
     thumbnail: thumbnail.value,
     description: description.value,
-    price: price.value,
+    price: price.value.replace(/\D/g, ''),
     is_active: is_active.value,
+    is_featured: is_featured.value,
+    product_images: product_images.value,
+    product_links: product_links.value,
   })
 }
 
@@ -74,10 +73,6 @@ const handleFileChange = event => {
   if (file) {
     thumbnail.value = file
   }
-}
-
-const handleIsActive = () => {
-  is_active.value = is_active.value === 1 ? 0 : 1
 }
 </script>
 
@@ -99,7 +94,7 @@ const handleIsActive = () => {
         Kembali
       </VBtn>
     </VCol>
-  
+
     <VCol cols="12">
       <VCard>
         <VForm @submit.prevent="handleSubmit">
@@ -116,7 +111,7 @@ const handleIsActive = () => {
               />
             </VCol>
 
-            
+
             <VCol
               cols="12"
               md="6"
@@ -158,17 +153,21 @@ const handleIsActive = () => {
                 item-value="id"
               />
             </VCol>
-            
+
             <VCol
               cols="12"
               md="6"
             >
               <VTextField
+                #prepend
                 v-model="price"
                 label="Harga"
                 placeholder="Harga"
                 :error-messages="error && error.price ? [error.price] : []"
-              />
+                @input="price = price.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
+              >
+                <span>Rp</span>
+              </VTextField>
             </VCol>
 
             <VCol
@@ -196,15 +195,92 @@ const handleIsActive = () => {
               />
             </VCol>
 
+
             <VCol
               cols="12"
               md="12"
             >
-              <VSwitch
-                v-model="is_active"
-                label="Aktif"
-                @change="handleIsActive"
+              <VFileInput
+                v-model="product_images"
+                label="Gambar"
+                placeholder="Pilih Gambar"
+                :error-messages="error && error.product_images ? [error.product_images] : []"
+                multiple
               />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="4"
+            >   
+              <VBtn
+                color="primary"
+                @click="() => product_links.push({
+                  name: '',
+                  url: ''
+                })"
+              >
+                Tambah Link Marketplace
+              </VBtn>
+            </VCol>
+
+            <VCol
+              v-for="(link, index) in product_links"
+              :key="index"
+              cols="12"
+              md="12"
+            >
+              <VRow>
+                <VCol
+                  cols="12"
+                  md="5"
+                >
+                  <VSelect
+                    v-model="link.name"
+                    :items="[
+                      { name: 'Tokopedia'},
+                      { name: 'Shopee'},
+                      { name: 'Bukalapak'},
+                      { name: 'Lazada'},
+                      { name: 'Blibli'},
+                      { name: 'Elevenia'},
+                      { name: 'JD.ID'},
+                      { name: 'Zalora'},
+                      { name: 'Lainnya'},
+                    ]"
+                    label="Marketplace"
+                    placeholder="Pilih Marketplace"
+                    :error-messages="error && error.product_links ? [error.product_links] : []"
+                    item-title="name"
+                    item-value="name"
+                  />
+                </VCol>
+
+                <VCol
+                  cols="12"
+                  md="5"
+                >
+                  <VTextField
+                    v-model="link.url"
+                    label="URL"
+                    placeholder="URL"
+                  />
+                </VCol>
+
+                <VCol
+                  cols="12"
+                  md="2"
+                >
+                  <VBtn
+                    color="error"
+                    @click="() => product_links.splice(index, 1)"
+                    block
+                    size="x-large"
+                  >
+                    Hapus
+                  </VBtn>
+                </VCol>
+              </VRow>
             </VCol>
             
 
@@ -236,7 +312,7 @@ const handleIsActive = () => {
 </template>
 
 <style lang="scss">
-.v-row{
+.v-row {
   margin: 0px !important;
 }
 </style>

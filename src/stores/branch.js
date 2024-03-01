@@ -26,7 +26,6 @@ export const useBranchStore = defineStore({
     
       this.loading = false
     },
-
     async createBranch(payload) {
       this.loading = true
     
@@ -55,6 +54,68 @@ export const useBranchStore = defineStore({
 
         this.success = 'Cabang berhasil dihapus'
         
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async fetchBranch(id) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.get(`/branches/${id}`)
+
+        this.branch = response.data.data
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async fetchMainBranch() {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.get('/branches/main')
+
+        this.branch = response.data.data
+
+        return this.branch
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async updateActiveBranch(id, payload) {
+      this.loading = true
+
+      try {
+        await axiosInstance.post(`/branches/${id}/active`, payload)
+
+        if (payload.is_active) {
+          this.success = 'Cabang berhasil diaktifkan'
+        }else {
+          this.success = 'Cabang berhasil dinonaktifkan'
+        }
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async updateMainBranch(id, payload) {
+      this.loading = true
+
+      try {
+        await axiosInstance.post(`/branches/${id}/main`, payload)
+
+        if (payload.is_main) {
+          this.success = 'Cabang berhasil dijadikan utama'
+        }else {
+          this.success = 'Cabang berhasil dijadikan tidak utama'
+        }
       } catch (error) {
         this.error = error
       }

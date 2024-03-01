@@ -9,9 +9,9 @@
           Lokasi Kami
         </h1>
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.073394394073!2d106.8222423147697!3d-6.175392995514768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4f3f3e4f3e7%3A0x3e3e3e3e3e3e3e3e!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1629783940733!5m2!1sid!2sid"
+          :src="iframe_map"
           width="100%"
-          height="300"
+          height="350"
           style="border:0;"
           allowfullscreen=""
           loading="lazy"
@@ -55,17 +55,31 @@
   </VContainer>
 </template>
 
-<script>
-import { onMounted } from 'vue'
+<script setup>
+import { onMounted, ref } from 'vue'
+import { useBranchStore } from '@/stores/branch'
 
-export default {
-  name: 'ContactUs',
-  setup() {
-    onMounted(() => {
-      document.title = 'Kontak Kami'
-    })
-  },
+
+const { fetchMainBranch } = useBranchStore()
+
+const iframe_map = ref('')
+
+const fetchMainBranchData = async () => {
+  try {
+    const branch = await fetchMainBranch()
+
+    iframe_map.value = branch.iframe_map
+  } catch (error) {
+    console.error('Error fetching main branch data:', error)
+  }
 }
+
+
+onMounted(() => {
+  document.title = 'Kontak Kami'
+
+  fetchMainBranchData()
+})
 </script>
 
 <style scoped>
