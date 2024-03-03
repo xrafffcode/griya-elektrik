@@ -69,7 +69,7 @@ export const useProductBrandStore = defineStore({
         const response = await axiosInstance.post(`/product-brands/${payload.id}`, payload)
 
 
-        this.success = 'Kategori berhasil diubah'
+        this.success = 'Merk berhasil diubah'
 
         router.push({ name: 'admin-product-brand' })
       } catch (error) {

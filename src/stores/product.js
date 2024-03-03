@@ -14,6 +14,7 @@ export const useProductStore = defineStore({
   actions: {
     async fetchProducts() {
       this.loading = true
+      this.error = null
     
       try {
         const response = await axiosInstance.get('/products')
@@ -105,6 +106,24 @@ export const useProductStore = defineStore({
         console.error(error)
       }
     
+      this.loading = false
+    },
+    async updateProduct(payload) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.post(`/products/${payload.id}`, payload)
+
+        this.success = 'Produk berhasil diupdate'
+
+        router.push({ name: 'admin-product' })
+      } catch (error) {
+        if (error.response && error.response.status === 422) {
+          this.error = error.response.data.errors
+        }
+        console.error(error)
+      }
+
       this.loading = false
     },
     async deleteProduct(id) {

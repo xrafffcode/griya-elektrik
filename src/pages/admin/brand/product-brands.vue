@@ -35,6 +35,8 @@ async function handleDeleteBrand(brand) {
     fetchBrands()
   }
 }
+
+const search = ref('')
 </script>
 
 <template>
@@ -75,6 +77,17 @@ async function handleDeleteBrand(brand) {
         Tambah Merk
       </VBtn>
     </VCol>
+
+    <VCol cols="12">
+      <VTextField
+        v-model="search"
+        label="Cari Merek"
+        placeholder="Cari Merek"
+        clearable
+        :loading="loading"
+        variant="solo"
+      />
+    </VCol>
     
     <VCol cols="12">
       <VCard>
@@ -82,6 +95,7 @@ async function handleDeleteBrand(brand) {
           :headers="headers"
           :items="brands"
           :loading="loading"
+          :search-value="search"
           buttons-pagination
           show-index
         >

@@ -59,7 +59,11 @@
                 :disabled="loading"
                 :loading="loading"
                 @change="handleFileChange"
-              />
+              >
+                <template #prepend-inner>
+                  <span v-if="image_name">{{ image_name }}</span>
+                </template>
+              </VFileInput>
             </VCol>
 
             <VCol
@@ -108,7 +112,6 @@
 
 <script setup>
 import { useProductCategoryStore } from '@/stores/productCategory'
-import axios from 'axios';
 import { storeToRefs } from 'pinia'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -123,7 +126,6 @@ const categoryId = route.params.id
 const code = ref('')
 const name = ref('')
 const parent_id = ref('')
-const image_url = ref('')
 const image = ref(null)
 const image_name = ref('')
 
@@ -131,14 +133,19 @@ const fetchCategoryData = async () => {
   try {
     const category = await fetchCategoryById(categoryId)
 
-    const file = await axios.get(category.image_url, {
-      responseType: 'blob',
+  
+    const file = await fetch(category.image_url)
+
+    file.blob().then(blob => {
+      const file = new File([blob], category.image_url.split('/').pop(), { type: blob.type })
+      
+      image.value = file
+      image_name.value = file.name
     })
 
     code.value = category.code
     name.value = category.name
     parent_id.value = category.parent?.id
-    image.value = file.data
   } catch (error) {
     console.error('Error fetching category data:', error)
   }
@@ -152,7 +159,6 @@ onMounted(() => {
 const handleReset = () => {
   code.value = 'AUTO'
   name.value = ''
-  image_url.value = ''
   image.value = null
   parent_id.value = ''
 }

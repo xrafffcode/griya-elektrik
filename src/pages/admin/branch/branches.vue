@@ -29,7 +29,7 @@ const headers = [
   {
     text: 'Aksi',
     value: 'operation',
-    width: 200,
+    width: 300,
   },
 ]
 
@@ -68,6 +68,8 @@ async function handleUpdateMainBranch(branch) {
 
   fetchBranches()
 }
+
+const search = ref('')
 </script>
 
 <template>
@@ -110,11 +112,23 @@ async function handleUpdateMainBranch(branch) {
     </VCol>
     
     <VCol cols="12">
+      <VTextField
+        v-model="search"
+        label="Cari Cabang"
+        placeholder="Cari Cabang"
+        clearable
+        :loading="loading"
+        variant="solo"
+      />
+    </VCol>
+
+    <VCol cols="12">
       <VCard>
         <EasyDataTable
           :headers="headers"
           :items="branches"
           :loading="loading"
+          :search-value="search"
           buttons-pagination
           show-index
         >
@@ -142,12 +156,20 @@ async function handleUpdateMainBranch(branch) {
           </template>
           <template #item-operation="item">
             <VBtn
-              :to="`/admin/merk-produk/ubah/${item.id}`"
+              :to="`/admin/konfigurasi-web/cabang/ubah/${item.id}`"
               color="primary"
               class="m-5"
               size="small"
             >
               Ubah
+            </VBtn>
+            <VBtn
+              :to="`/admin/konfigurasi-web/cabang/${item.id}`"
+              color="info"
+              size="small"
+              class="m-5"
+            >
+              Detail
             </VBtn>
             <VBtn
               color="error"

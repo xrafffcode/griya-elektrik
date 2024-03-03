@@ -10,7 +10,6 @@ const headers = [
   {
     text: 'Aksi',
     value: 'operation',
-    width: 200,
   },
 ]
 
@@ -120,7 +119,7 @@ function showImage(url) {
           <template #item-gambar="item">
             <img
               :src="item.image_url"
-              style="width: 100px; height: 80px ; object-fit: contain; cursor: pointer;"
+              style="width: 100%; height: 380px ; object-fit: cover; cursor: pointer; padding: 20px;"
               @click="() => showImage(item.image_url)"
             >
           </template>

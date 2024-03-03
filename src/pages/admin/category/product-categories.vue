@@ -38,6 +38,8 @@ async function handleDeleteCategory(category) {
     fetchCategories()
   }
 }
+
+const search = ref('')
 </script>
 
 <template>
@@ -79,12 +81,26 @@ async function handleDeleteCategory(category) {
       </VBtn>
     </VCol>
 
+    <VCol
+      cols="12"
+    >
+      <VTextField
+        v-model="search"
+        label="Cari Kategori"
+        placeholder="Cari Kategori"
+        clearable
+        :loading="loading"
+        variant="solo"
+      />
+    </VCol>
+
     <VCol cols="12">
       <VCard>
         <EasyDataTable
           :headers="headers"
           :items="categories"
           :loading="loading"
+          :search-value="search"
           buttons-pagination
           show-index
         >

@@ -43,7 +43,7 @@ watch(search, async value => {
 
 const checkQueryParams = () => {
   if (route.query.category) {
-    fetchProductsWithParams({ search: search.value, sort: sort.value, category: route.query.category })
+    fetchProductsWithParams({ search: search.value, sort: sort.value, categoryId: route.query.category })
   }else {
     fetchActiveProducts()
   }

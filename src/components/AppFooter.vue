@@ -3,11 +3,19 @@ import { useBranchStore } from '@/stores/branch'
 import { ref } from 'vue'
 
 const { branches, loading } = storeToRefs(useBranchStore())
-const { fetchBranches } = useBranchStore()
+const { fetchActiveBranch } = useBranchStore()
 
-fetchBranches()
 
-const tab = ref(1)
+
+const tab = ref(0)
+
+async function fetchBranch() {
+  await fetchActiveBranch()
+
+  tab.value = branches.value[0]?.sort
+}
+
+fetchBranch()
 </script>
 
 <template>
@@ -20,9 +28,7 @@ const tab = ref(1)
           lg="4"
         >
           <div class="footer-tabs">
-            <div
-              class="tabs-wrapper"
-            >
+            <div class="tabs-wrapper">
               <div
                 v-for="branch in branches"
                 :key="branch.sort"

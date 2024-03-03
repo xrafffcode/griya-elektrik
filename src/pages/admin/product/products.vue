@@ -75,6 +75,8 @@ async function handleUpdateFeaturedProduct(product) {
 
   fetchProducts()
 }
+
+const search = ref('')
 </script>
 
 <template>
@@ -140,6 +142,17 @@ async function handleUpdateFeaturedProduct(product) {
         Tambah Produk
       </VBtn>
     </VCol>
+
+    <VCol cols="12">
+      <VTextField
+        v-model="search"
+        label="Cari Produk"
+        placeholder="Cari Produk"
+        clearable
+        :loading="loading"
+        variant="solo"
+      />
+    </VCol>
     
     <VCol cols="12">
       <VCard>
@@ -147,6 +160,7 @@ async function handleUpdateFeaturedProduct(product) {
           :headers="headers"
           :items="products"
           :loading="loading"
+          :search-value="search"
           buttons-pagination
           show-index
         >

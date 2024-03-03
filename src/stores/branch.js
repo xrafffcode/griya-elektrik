@@ -26,6 +26,19 @@ export const useBranchStore = defineStore({
     
       this.loading = false
     },
+    async fetchActiveBranch() {
+      this.loading = true
+    
+      try {
+        const response = await axiosInstance.get('/branches/active')
+    
+        this.branches = response.data.data
+      } catch (error) {
+        this.error = error
+      }
+    
+      this.loading = false
+    },
     async createBranch(payload) {
       this.loading = true
     
@@ -60,13 +73,15 @@ export const useBranchStore = defineStore({
 
       this.loading = false
     },
-    async fetchBranch(id) {
+    async fetchBranchById(id) {
       this.loading = true
 
       try {
         const response = await axiosInstance.get(`/branches/${id}`)
 
         this.branch = response.data.data
+
+        return this.branch
       } catch (error) {
         this.error = error
       }
