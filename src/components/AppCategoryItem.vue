@@ -1,5 +1,6 @@
 <script setup>
 import { computed, defineProps, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   category: {
@@ -7,6 +8,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const router = useRouter()
 
 const expanded = ref(false)
 
@@ -17,19 +20,24 @@ const hasChildren = computed(() => {
 const toggleCategory = () => {
   expanded.value = !expanded.value
 }
+
+const getProductsByCategory = id => {
+  router.push({ name: 'products', query: { category: id } })
+}
 </script>
 
 <template>
   <li>
-    <div
-      class="d-flex align-items-center"
-      @click="toggleCategory"
-    >
-      <VIcon v-if="hasChildren">
+    <div class="d-flex align-items-center">
+      <VIcon
+        v-if="hasChildren"
+        @click="toggleCategory"
+        style="margin-right: 8px;"
+      >
         {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
       </VIcon>
 
-      <p>
+      <p @click="getProductsByCategory(category.id)">
         {{ category.name }}
       </p>
     </div>
@@ -39,6 +47,7 @@ const toggleCategory = () => {
         :key="child.id"
         :category="child"
         :style="{ paddingLeft: '20px' }"
+        @click="getProductsByCategory(child.id)"
       />
     </template>
   </li>

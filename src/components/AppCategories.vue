@@ -1,10 +1,17 @@
 <script setup>
 import { useProductCategoryStore } from '@/stores/productCategory'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const { categories, loading, error, success } = storeToRefs(useProductCategoryStore())
 const { fetchCategories, deleteCategory } = useProductCategoryStore()
 
 fetchCategories()
+
+const getProductsByCategory = id => {
+  router.push({ name: 'products', query: { category: id } })
+}
 </script>
 
 <template>
@@ -29,7 +36,10 @@ fetchCategories()
         md="3"
         lg="2"
       >
-        <div class="d-flex flex-column align-center category">
+        <div
+          class="d-flex flex-column align-center category"
+          @click="getProductsByCategory(category.id)"
+        >
           <img
             :src="category.image_url"
             alt="category.name"

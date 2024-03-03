@@ -18,12 +18,41 @@ export const useProductStore = defineStore({
       try {
         const response = await axiosInstance.get('/products')
     
+        this.loading = false
+
+
         this.products = response.data.data
     
+        return this.products
       } catch (error) {
         this.error = error
       }
     
+      this.loading = false
+    },
+    async fetchFeaturedProducst(){
+      try {
+        const response = await axiosInstance.get(`/products/active-featured`)
+
+        this.loading = false 
+
+        return response.data.data
+      } catch (error) {
+        this.error = error
+      }
+    },
+    async fetchActiveProducts(){
+      try {
+        const response = await axiosInstance.get(`/products/active`)
+
+
+        this.products = response.data.data
+
+        return response.data.data
+      } catch (error) {
+        this.error = error
+      }
+
       this.loading = false
     },
     async fetchProductById(id) {
@@ -31,6 +60,22 @@ export const useProductStore = defineStore({
 
       try {
         const response = await axiosInstance.get(`/products/${id}`)
+
+        this.product = response.data.data
+
+        this.loading = false 
+
+        return this.product
+      } catch (error) {
+        this.error = error
+      }
+
+    },
+    async fetchProductBySlug(slug) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.get(`/products/slug/${slug}`)
 
         this.product = response.data.data
 
@@ -80,10 +125,41 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get('/products', { params })
+        const response = await axiosInstance.get('/products/active', { params })
 
         this.products = response.data.data
 
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async updateActiveProduct(id, payload) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.post(`/products/${id}/active`, payload)
+
+        this.success = response.data.message
+
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
+    async updateFeaturedProduct(id, payload) {
+      this.loading = true
+
+      try {
+        await axiosInstance.post(`/products/${id}/featured`, payload)
+
+        if (payload.is_featured) {
+          this.success = 'Cabang berhasil dijadikan unggulan'
+        }else {
+          this.success = 'Cabang berhasil dijadikan tidak unggulan'
+        }
       } catch (error) {
         this.error = error
       }

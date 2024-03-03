@@ -29,7 +29,6 @@
                 label="Code"
                 placeholder="Kode Kategori"
                 :error-messages="error && error.code ? [error.code] : []"
-                readonly
                 :loading="loading"
               />
             </VCol>
@@ -42,7 +41,6 @@
                 label="Nama"
                 placeholder="Nama Kategori"
                 :error-messages="error && error.name ? [error.name] : []"
-                readonly
                 :loading="loading"
               />
             </VCol>
@@ -56,7 +54,6 @@
                 label="Kategori"
                 placeholder="Kategori Produk"
                 :error-messages="error && error.product_category_id ? [error.product_category_id] : []"
-                readonly
                 :loading="loading"
               />
             </VCol>
@@ -70,7 +67,6 @@
                 label="Brand"
                 placeholder="Brand Produk"
                 :error-messages="error && error.product_brand_id ? [error.product_brand_id] : []"
-                readonly
                 :loading="loading"
               />
             </VCol>
@@ -84,7 +80,6 @@
                 label="Harga"
                 placeholder="Harga Produk"
                 :error-messages="error && error.price ? [error.price] : []"
-                readonly
                 :loading="loading"
               />
             </VCol>
@@ -98,7 +93,6 @@
                 label="Thumbnail"
                 placeholder="Thumbnail Produk"
                 :error-messages="error && error.thumbnail_url ? [error.thumbnail_url] : []"
-                readonly
                 :loading="loading"
                 prepend-inner-icon="mdi-image"
               />
@@ -111,7 +105,6 @@
                 label="Deskripsi"
                 placeholder="Deskripsi Produk"
                 :error-messages="error && error.description ? [error.description] : []"
-                readonly
                 :loading="loading"
               />
             </VCol>
@@ -212,7 +205,7 @@ const fetchProductData = async () => {
     name.value = product.name
     product_category_id.value = product.category?.name
     product_brand_id.value = product.brand?.name
-    price.value = product.price.toLocaleString('id-ID')
+    price.value = product.price
     thumbnail_url.value = product.thumbnail_url
     description.value = product.description
     product_images.value = product.product_images

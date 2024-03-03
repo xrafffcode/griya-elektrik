@@ -19,6 +19,14 @@ const headers = [
     value: 'price',
   },
   {
+    text: 'Unggulan',
+    value: 'is_featured',
+  },
+  {
+    text: 'Aktif',
+    value: 'is_active',
+  },
+  {
     text: 'Aksi',
     value: 'operation',
     width: 300,
@@ -28,7 +36,7 @@ const headers = [
 
 
 const { products, loading, error, success } = storeToRefs(useProductStore())
-const { fetchProducts, deleteProduct } = useProductStore()
+const { fetchProducts, deleteProduct, updateActiveProduct, updateFeaturedProduct } = useProductStore()
 
 fetchProducts()
 
@@ -46,6 +54,26 @@ const image = ref('')
 function showImage(url) {
   showModalImage.value = true
   image.value = url
+}
+
+async function handleUpdateActiveProduct(product) {
+  const formData = new FormData()
+
+  formData.append('is_active', product.is_active ? 1 : 0)
+
+  await updateActiveProduct(product.id, formData)
+
+  fetchProducts()
+}
+
+async function handleUpdateFeaturedProduct(product) {
+  const formData = new FormData()
+
+  formData.append('is_featured', product.is_featured ? 1 : 0)
+
+  await updateFeaturedProduct(product.id, formData)
+
+  fetchProducts()
 }
 </script>
 
@@ -135,6 +163,25 @@ function showImage(url) {
               @click="() => showImage(item.thumbnail_url)"
             >
           </template>
+          <template #item-price="item">
+            Rp {{ item.price.toLocaleString('id-ID') }}
+          </template>
+          <template #item-is_active="item">
+            <VSwitch
+              v-model="item.is_active"
+              color="primary"
+              class="m-5"
+              @change="() => handleUpdateActiveProduct(item)"
+            />
+          </template>
+          <template #item-is_featured="item">
+            <VSwitch
+              v-model="item.is_featured"
+              color="primary"
+              class="m-5"
+              @change="() => handleUpdateFeaturedProduct(item)"
+            />
+          </template>
           <template #item-operation="item">
             <VBtn
               :to="`/admin/produk/ubah/${item.id}`"
@@ -168,4 +215,4 @@ function showImage(url) {
     </VCol>
   </VRow>
 </template>
-
+async async 

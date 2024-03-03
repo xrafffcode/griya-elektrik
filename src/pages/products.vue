@@ -4,6 +4,9 @@ import AppProductCard from '@/components/AppProductCard.vue'
 import AppSearch from '@/components/AppSearch.vue'
 import { onMounted, ref } from 'vue'
 import { debounce } from 'lodash'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 
 import { useProductCategoryStore } from '@/stores/productCategory'
@@ -14,16 +17,17 @@ const { categories, loading, error } = storeToRefs(useProductCategoryStore())
 const { fetchRootCategories } = useProductCategoryStore()
 
 const { products } = storeToRefs(useProductStore())
-const { fetchProducts, fetchProductsWithParams } = useProductStore()
+const { fetchActiveProducts, fetchProductsWithParams } = useProductStore()
 
 fetchRootCategories()
-fetchProducts()
 
 const search = ref('')
 const sort = ref([])
 
 onMounted(() => {
   document.title = 'Produk'
+
+  checkQueryParams()
 })
 
 watch(sort, async value => {
@@ -35,6 +39,18 @@ const debouncedFetchProductsWithParams = debounce(fetchProductsWithParams, 500)
 
 watch(search, async value => {
   debouncedFetchProductsWithParams({ search: value, sort: sort.value })
+})
+
+const checkQueryParams = () => {
+  if (route.query.category) {
+    fetchProductsWithParams({ search: search.value, sort: sort.value, category: route.query.category })
+  }else {
+    fetchActiveProducts()
+  }
+}
+
+watch(() => route.query, () => {
+  checkQueryParams()
 })
 </script>
 

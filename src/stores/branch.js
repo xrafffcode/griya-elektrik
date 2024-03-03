@@ -92,13 +92,9 @@ export const useBranchStore = defineStore({
       this.loading = true
 
       try {
-        await axiosInstance.post(`/branches/${id}/active`, payload)
+        const response = await axiosInstance.post(`/branches/${id}/active`, payload)
 
-        if (payload.is_active) {
-          this.success = 'Cabang berhasil diaktifkan'
-        }else {
-          this.success = 'Cabang berhasil dinonaktifkan'
-        }
+        this.success = response.data.message
       } catch (error) {
         this.error = error
       }
@@ -109,13 +105,9 @@ export const useBranchStore = defineStore({
       this.loading = true
 
       try {
-        await axiosInstance.post(`/branches/${id}/main`, payload)
+        const response = await axiosInstance.post(`/branches/${id}/main`, payload)
 
-        if (payload.is_main) {
-          this.success = 'Cabang berhasil dijadikan utama'
-        }else {
-          this.success = 'Cabang berhasil dijadikan tidak utama'
-        }
+        this.success = response.data.message
       } catch (error) {
         this.error = error
       }

@@ -1,21 +1,27 @@
 <script setup>
 import AppProductCard from '@/components/AppProductCard.vue'
-import { ref } from 'vue'
 
-const products = ref([
-  {
-    id: 1,
-    name: 'Lampu',
-    price: 200000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/desert.jpg',
-  },
-  {
-    id: 2,
-    name: 'Keramik',
-    price: 300000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/cooking.png',
-  },
-])
+import { useProductStore } from '@/stores/product'
+import { storeToRefs } from 'pinia'
+
+const { products } = storeToRefs(useProductStore())
+const { fetchFeaturedProducst } = useProductStore()
+
+const featuredProducts = ref([])
+
+const fetchFeaturedProducts = async () => {
+  try {
+    const products = await fetchFeaturedProducst()
+
+    featuredProducts.value = products.slice(0, 4)
+  } catch (error) {
+    console.error('Error fetching featured products:', error)
+  }
+}
+
+onMounted(() => {
+  fetchFeaturedProducts()
+})
 </script>
 
 <template>
@@ -34,7 +40,7 @@ const products = ref([
 
     <VRow class="mt-3">
       <VCol
-        v-for="product in products"
+        v-for="product in featuredProducts"
         :key="product.id"
         cols="6"
         sm="6"

@@ -6,9 +6,10 @@ const publicRouter = [
   {
     path: 'produk',
     component: () => import('../pages/products.vue'),
+    name: 'products'
   },
   {
-    path: 'produk/:id',
+    path: 'produk/:slug',
     component: () => import('../pages/product.vue'),
   },
   {

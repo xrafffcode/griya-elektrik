@@ -5,7 +5,7 @@
         cols="12"
         sm="12"
         md="4"
-        lg="3"
+        lg="4"
       >
         <img
           :src="activeImage.image_url"
@@ -28,7 +28,7 @@
         cols="12"
         sm="6"
         md="5"
-        lg="6"
+        lg="5"
       >
         <h2 class="product-name">
           {{ name }}
@@ -183,9 +183,9 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const { loading, error } = storeToRefs(useProductStore())
-const { fetchProductById  } = useProductStore()
+const { fetchProductBySlug  } = useProductStore()
 
-const productId = route.params.id
+const productSLug = route.params.slug
 
 const code = ref('')
 const name = ref('')
@@ -201,7 +201,7 @@ const activeImage = ref({})
 
 const fetchProductData = async () => {
   try {
-    const product = await fetchProductById(productId)
+    const product = await fetchProductBySlug(productSLug)
 
     code.value = product.code
     name.value = product.name
@@ -271,7 +271,7 @@ const copyLink = () => {
 <style>
 .active-product-image {
   width: 100%;
-  height: 400px;
+  height: 300px !important;
   object-fit: cover;
   margin-bottom: 1rem;
   border-radius: 10px;

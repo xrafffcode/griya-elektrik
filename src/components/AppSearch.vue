@@ -1,62 +1,30 @@
 <script setup>
 import { ref } from 'vue'
+import { useProductStore } from '@/stores/product'
+import { storeToRefs } from 'pinia'
 
   
 const search = ref('')
-const searchResults = ref([])
 
-const products = [
-  {
-    id: 1,
-    name: 'Lampu',
-    price: 200000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/desert.jpg',
-  },
-  {
-    id: 2,
-    name: 'Keramik',
-    price: 300000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/cooking.png',
-  },
-  {
-    id: 3,
-    name: 'Kamera',
-    price: 500000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
-  },
-  {
-    id: 4,
-    name: 'Sepatu',
-    price: 100000,
-    url: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-  },
-]
+const { products } = storeToRefs(useProductStore())
 
-const clearSearch = () => {
-  search.value = ''
-}
+const filterProducts = ref([])
 
-const handleSearch = () => {
-  if (search.value === '') {
-    searchResults.value = []
-    
-    return
+watch(search, async value => {
+  if (value.length > 0) {
+    filterProducts.value = products.value.filter(product => {
+      return product.name.toLowerCase().includes(value.toLowerCase())
+    })
+  } else {
+    filterProducts.value = []
   }
+})
 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(search.value.toLowerCase()),
-  )
+function boldSameText(text, search) {
+  const regex = new RegExp(search, 'gi')
 
-  searchResults.value = filteredProducts
+  return text.replace(regex, match => `<b>${match}</b>`)
 }
-
-const highlightText = text => {
-  const searchRegex = new RegExp(search.value, 'gi')
-  
-  return text.replace(searchRegex, match => `<b>${match}</b>`)
-}
-
-watch(search, handleSearch)
 </script>
 
 
@@ -67,19 +35,21 @@ watch(search, handleSearch)
     append-inner-icon="mdi-magnify"
     placeholder="Cari Produk di sini"
     class="search"
-    @click:append="clearSearch"
+    clearable
   />
 
   <div
-    v-if="searchResults.length > 0"
+    v-if="filterProducts.length > 0"
     class="search-results"
   >
     <ul>
       <li
-        v-for="(result, index) in searchResults"
-        :key="index"
+        v-for="product in filterProducts"
+        :key="product.id"
       >
-        <span v-html="highlightText(result.name)" />
+        <p @click="() => $router.push(`/produk/${product.slug}`)" class="mb-0">
+          <span v-html="boldSameText(product.name, search)" />
+        </p>
       </li>
     </ul>
   </div>

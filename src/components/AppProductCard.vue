@@ -1,7 +1,7 @@
 <template>
   <VCard
     class="product-card"
-    @click="() => $router.push(`/produk/${product.id}`)"
+    @click="() => $router.push(`/produk/${product.slug}`)"
   >
     <img
       :src="product.thumbnail_url"
@@ -36,12 +36,12 @@ export default {
     background-color: #FAFAFA  !important;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.1) !important;
     padding: 1rem;
-    min-height: 300px !important;
+    min-height: 390px !important;
 }
 
 .product-image {
     width: 100% !important;
-    height: 300px !important;
+    height: 250px !important;
     object-fit: cover;
     border-radius: 10px !important;
 }
@@ -83,5 +83,4 @@ export default {
         text-overflow: ellipsis;
     }
 }
-
 </style>
