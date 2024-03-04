@@ -1,85 +1,3 @@
-<script setup>
-import { useBranchStore } from '@/stores/branch'
-import { storeToRefs } from 'pinia'
-
-const {  loading, error } = storeToRefs(useBranchStore())
-const { createBranch } = useBranchStore()
-
-
-const code = ref('AUTO')
-const name = ref('')
-const map_url = ref('')
-const iframe_map = ref('')
-const address = ref('')
-const city = ref('')
-const email = ref('')
-const phone = ref('')
-const facebook = ref('')
-const instagram = ref('')
-const youtube = ref('')
-const sort = ref(0)
-const is_main = ref(1)
-const is_active = ref(1)
-const branch_images = ref([])
-
-const handleReset = () => {
-  code.value = 'AUTO'
-  name.value = ''
-  map_url.value = ''
-  iframe_map.value = ''
-  address.value = ''
-  city.value = ''
-  email.value = ''
-  phone.value = ''
-  facebook.value = ''
-  instagram.value = ''
-  youtube.value = ''
-  sort.value = 0
-  is_main.value = 1
-  is_active.value = 1
-  branch_images.value = []
-}
-
-const handleSubmit = () => {
-  createBranch({
-    code: code.value,
-    name: name.value,
-    map_url: map_url.value,
-    iframe_map: iframe_map.value,
-    address: address.value,
-    city: city.value,
-    email: email.value,
-    phone: phone.value,
-    facebook: facebook.value,
-    instagram: instagram.value,
-    youtube: youtube.value,
-    sort: sort.value,
-    is_main: is_main.value,
-    is_active: is_active.value,
-    branch_images: branch_images.value,
-  })
-}
-
-onUnmounted(() => {
-  handleReset()
-
-  error.value = null
-})
-
-const getEmbedCode = () => {
-  const regex = /<iframe[^>]+src="?([^"\s]+)"?[^>]*>/g
-
-  const src = iframe_map.value.match(regex)
-
-  if (src) {
-    iframe_map.value = src[0].replace(/<iframe[^>]+src="?([^"\s]+)"?[^>]*>/g, '$1')
-  }
-
-  return iframe_map.value
-}
-</script>
-
-
 <template>
   <VRow>
     <VCol
@@ -87,11 +5,11 @@ const getEmbedCode = () => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Cabang
+        {{ name }}
       </h2>
 
       <VBtn
-        to="/admin/merk-produk"
+        to="/admin/konfigurasi-web/cabang"
         color="error"
       >
         Kembali
@@ -176,6 +94,7 @@ const getEmbedCode = () => {
                 frameborder="0"
                 style="border:0"
                 allowfullscreen
+                aria-hidden="false"
               />
             </VCol>
 
@@ -266,44 +185,50 @@ const getEmbedCode = () => {
 
             <VCol
               cols="12"
-              md="3"
-            >
-              <VCheckbox
-                v-model="is_main"
-                label="Cabang Utama"
-                :error-messages="error && error.is_main ? [error.is_main] : []"
-                :true-value="1"
-                @change="is_main = is_main ? 1 : 0"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="3"
-            >
-              <VCheckbox
-                v-model="is_active"
-                label="Aktif"
-                :error-messages="error && error.is_active ? [error.is_active] : []"
-                :true-value="1"
-                @change="is_active = is_active ? 1 : 0"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
               md="6"
             >
               <VFileInput
                 v-model="branch_images"
-                label="Gambar"
-                placeholder="Pilih Gambar"
-                :error-messages="error && error.branch_images ? [error.branch_images] : []"
+                label="Gambar Cabang"
                 multiple
+                :error-messages="error && error.branch_images ? [error.branch_images] : []"
               />
             </VCol>
-            
-            
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VLabel
+                for="branch_images"
+                class="mb-2"
+              >
+                Gambar Cabang
+              </VLabel>
+              <VRow
+                v-if="branch_image_url.length > 0"
+              >
+                <VCol
+                  v-for="(image, index) in branch_image_url"
+                  :key="index"
+                  cols="12"
+                  md="3"
+                >
+                  <VImg
+                    :src="image.image_url"
+                    class="mb-2"
+                  >
+                    <VBtn
+                      color="error"
+                      style="position: absolute; top: 8px; right: 8px;"
+                      @click="() => branch_images.splice(branch_images.indexOf(image), 1) && branch_image_url.splice(index, 1)" 
+                    >
+                      Hapus
+                    </VBtn>
+                  </VImg>
+                </VCol>
+              </VRow>
+            </VCol>
 
             <VCol
               cols="12"
@@ -316,14 +241,6 @@ const getEmbedCode = () => {
               >
                 Simpan
               </VBtn>
-
-              <VBtn
-                color="secondary"
-                variant="tonal"
-                @click="handleReset"
-              >
-                Reset
-              </VBtn>
             </VCol>
           </VRow>
         </VForm>
@@ -331,6 +248,99 @@ const getEmbedCode = () => {
     </VCol>
   </VRow>
 </template>
+
+<script setup>
+import { useBranchStore } from '@/stores/branch'
+import { storeToRefs } from 'pinia'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const { loading, error } = storeToRefs(useBranchStore())
+const { fetchBranchById, updateBranch } = useBranchStore()
+
+const branchId = route.params.id
+
+const code = ref('AUTO')
+const name = ref('')
+const map_url = ref('')
+const iframe_map = ref('')
+const address = ref('')
+const city = ref('')
+const email = ref('')
+const phone = ref('')
+const facebook = ref('')
+const instagram = ref('')
+const youtube = ref('')
+const sort = ref(0)
+const is_active = ref(0)
+const is_main = ref(0)
+const branch_images = ref([])
+const branch_image_url = ref([])
+
+const fetchBranchData = async () => {
+  try {
+    const branch = await fetchBranchById(branchId)
+
+    const images = branch.branch_images.map(async (image) => {
+      const file = await fetch(image.image_url)
+
+      file.blob().then(blob => {
+        const file = new File([blob], image.image_url.split('/').pop(), { type: blob.type })
+
+        branch_images.value.push(file)
+      })
+    })
+
+    console.log(branch.is_active)
+
+    code.value = branch.code
+    name.value = branch.name
+    map_url.value = branch.map_url
+    iframe_map.value = branch.iframe_map
+    address.value = branch.address
+    city.value = branch.city
+    email.value = branch.email
+    phone.value = branch.phone
+    facebook.value = branch.facebook
+    instagram.value = branch.instagram
+    youtube.value = branch.youtube
+    sort.value = branch.sort
+    is_active.value = branch.is_active === true ? 1 : 0
+    is_main.value = branch.is_main === true ? 1 : 0
+    branch_image_url.value = branch.branch_images
+    
+  } catch (error) {
+    console.error('Error fetching branch data:', error)
+  }
+}
+
+onMounted(() => {
+  fetchBranchData()
+})
+
+const handleSubmit = () => {
+  updateBranch({
+    id: branchId,
+    code: code.value,
+    name: name.value,
+    map_url: map_url.value,
+    iframe_map: iframe_map.value,
+    address: address.value,
+    city: city.value,
+    email: email.value,
+    phone: phone.value, 
+    facebook: facebook.value,
+    instagram: instagram.value,
+    youtube: youtube.value,
+    sort: sort.value,
+    is_active: is_active.value,
+    is_main: is_main.value,
+    branch_images: branch_images.value,
+  })
+}
+</script>
 
 <style lang="scss">
 .v-row{

@@ -15,7 +15,7 @@ export const useProductCategoryStore = defineStore({
     async fetchCategories() {
       this.loading = true
       try {
-        const response = await axiosInstance.get('/product-categories')
+        const response = await axiosInstance.get('/product-category/read/any')
 
         this.categories = response.data.data
 
@@ -29,7 +29,7 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get(`/product-categories/${id}`)
+        const response = await axiosInstance.get(`/product-category/${id}`)
 
         this.category = response.data.data
 
@@ -44,7 +44,7 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get('/product-categories/root')
+        const response = await axiosInstance.get('/product-category/read/root')
 
         this.categories = response.data.data
 
@@ -60,7 +60,7 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get('/product-categories/empty')
+        const response = await axiosInstance.get('/product-category/read/no-product')
 
         this.categories = response.data.data
 
@@ -76,7 +76,7 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get('/product-categories/leaf')
+        const response = await axiosInstance.get('/product-category/read/leaf')
 
         this.categories = response.data.data
 
@@ -91,7 +91,7 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.post('/product-categories', payload)
+        const response = await axiosInstance.post('/product-category', payload)
 
         this.categories.push(response.data.data)
 
@@ -111,7 +111,7 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.post(`/product-categories/${payload.id}`, payload)
+        const response = await axiosInstance.post(`/product-category/${payload.id}`, payload)
 
 
         this.success = 'Kategori berhasil diubah'
@@ -130,7 +130,7 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        await axiosInstance.delete(`/product-categories/${id}`)
+        await axiosInstance.delete(`/product-category/${id}`)
 
         this.success = 'Kategori berhasil dihapus'
         

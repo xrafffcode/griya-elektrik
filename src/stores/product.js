@@ -17,7 +17,7 @@ export const useProductStore = defineStore({
       this.error = null
     
       try {
-        const response = await axiosInstance.get('/products')
+        const response = await axiosInstance.get('/product/read/active')
     
         this.loading = false
 
@@ -33,7 +33,7 @@ export const useProductStore = defineStore({
     },
     async fetchFeaturedProducst(){
       try {
-        const response = await axiosInstance.get(`/products/active-featured`)
+        const response = await axiosInstance.get(`/product/read/active-featured`)
 
         this.loading = false 
 
@@ -44,7 +44,7 @@ export const useProductStore = defineStore({
     },
     async fetchActiveProducts(){
       try {
-        const response = await axiosInstance.get(`/products/active`)
+        const response = await axiosInstance.get(`/product/read/active`)
 
 
         this.products = response.data.data
@@ -60,7 +60,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get(`/products/${id}`)
+        const response = await axiosInstance.get(`/product/${id}`)
 
         this.product = response.data.data
 
@@ -76,7 +76,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get(`/products/slug/${slug}`)
+        const response = await axiosInstance.get(`/product/slug/${slug}`)
 
         this.product = response.data.data
 
@@ -92,7 +92,7 @@ export const useProductStore = defineStore({
       this.loading = true
     
       try {
-        const response = await axiosInstance.post('/products', payload)
+        const response = await axiosInstance.post('/product', payload)
     
         this.products.push(response.data.data)
 
@@ -112,7 +112,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.post(`/products/${payload.id}`, payload)
+        const response = await axiosInstance.post(`/product/${payload.id}`, payload)
 
         this.success = 'Produk berhasil diupdate'
 
@@ -130,7 +130,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        await axiosInstance.delete(`/products/${id}`)
+        await axiosInstance.delete(`/product/${id}`)
 
         this.success = 'Produk berhasil dihapus'
         
@@ -144,7 +144,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get('/products/active', { params })
+        const response = await axiosInstance.get('/product/read/active', { params })
 
         this.products = response.data.data
 
@@ -158,7 +158,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.post(`/products/${id}/active`, payload)
+        const response = await axiosInstance.post(`/product/${id}/active`, payload)
 
         this.success = response.data.message
 
@@ -172,7 +172,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        await axiosInstance.post(`/products/${id}/featured`, payload)
+        await axiosInstance.post(`/product/${id}/featured`, payload)
 
         if (payload.is_featured) {
           this.success = 'Cabang berhasil dijadikan unggulan'

@@ -51,27 +51,47 @@ fetchBranch()
                 v-show="tab === branch.sort"
                 :key="branch.sort"
               >
-                <h6 class="tab-heading">
-                  {{ branch.name }}
-                </h6>
                 <p class="text-p">
-                  {{ branch.address }}
+                  {{ branch.address }} , {{ branch.city }}
+                  <br>
                   <br>
                   <a
-                    :href="branch.map"
+                    :href="branch.map_url"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-p"
+                    class="link"
                   >Buka di Google Maps</a>
                 </p>
                 <h6 class="tab-heading mt-5">
                   Kontak
                 </h6>
-                <p class="text-p">
+                <p class="text-p" v-if="branch.phone">
                   <VIcon class="mr-2">
                     mdi-phone
                   </VIcon>
                   <span class="text-p">{{ branch.phone }}</span>
+                </p>
+                <p class="text-p" v-if="branch.email">
+                  <VIcon class="mr-2">
+                    mdi-email
+                  </VIcon>
+                  <span class="text-p">{{ branch.email }}</span>
+                </p>
+                <p class="text-p" v-if="branch.instagram">
+                  <VIcon class="mr-2">
+                    mdi-instagram
+                  </VIcon>
+                  <a :href="branch.instagram" target="_blank" rel="noopener noreferrer" class="link">
+                    Follow us on
+                  </a>
+                </p>
+                <p class="text-p" v-if="branch.facebook">
+                  <VIcon class="mr-2">
+                    mdi-facebook
+                  </VIcon>
+                  <a :href="branch.facebook" target="_blank" rel="noopener noreferrer" class="link">
+                    Like us on
+                  </a>
                 </p>
               </div>
             </div>
@@ -221,6 +241,7 @@ footer {
     border: solid transparent;
     border-width: 0 0 2px 0;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .tab-title.active {

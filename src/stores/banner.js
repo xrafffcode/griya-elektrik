@@ -16,7 +16,7 @@ export const useBannerStore = defineStore({
       this.loading = true
     
       try {
-        const response = await axiosInstance.get('/banners')
+        const response = await axiosInstance.get('/banner/read/any')
     
         this.banners = response.data.data
     
@@ -31,7 +31,7 @@ export const useBannerStore = defineStore({
     
       try {
        
-        const response = await axiosInstance.post('/banners', payload)
+        const response = await axiosInstance.post('/banner', payload)
 
         this.banners.push(response.data.data)
 
@@ -52,7 +52,7 @@ export const useBannerStore = defineStore({
       this.loading = true
     
       try {
-        await axiosInstance.delete(`/banners/${id}`)
+        await axiosInstance.delete(`/banner/${id}`)
     
         this.success = 'Banner berhasil dihapus'
       } catch (error) {

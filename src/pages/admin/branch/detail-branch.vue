@@ -18,7 +18,7 @@
   
     <VCol cols="12">
       <VCard>
-        <VForm @submit.prevent="handleSubmit">
+        <VForm>
           <VRow>
             <VCol
               cols="12"
@@ -29,6 +29,7 @@
                 label="Kode Cabang"
                 placeholder="Kode Cabang"
                 :error-messages="error && error.code ? [error.code] : []"
+                readonly
               />
             </VCol>
             <VCol
@@ -40,6 +41,7 @@
                 label="Nama"
                 placeholder="Nama Cabang"
                 :error-messages="error && error.name ? [error.name] : []"
+                readonly
               />
             </VCol>
 
@@ -52,6 +54,7 @@
                 label="Map URL"
                 placeholder="Map URL"
                 :error-messages="error && error.map ? [error.map] : []"
+                readonly
               />
             </VCol>
             
@@ -66,6 +69,7 @@
                 placeholder="Iframe Map"
                 :error-messages="error && error.iframe_map ? [error.iframe_map] : []"
                 @input="getEmbedCode"
+                readonly
               />
             </VCol>
 
@@ -80,6 +84,7 @@
                 placeholder="Alamat"
                 :error-messages="error && error.address ? [error.address] : []"
                 :rows="11"
+                readonly
               />
             </VCol>
 
@@ -94,6 +99,7 @@
                 frameborder="0"
                 style="border:0"
                 allowfullscreen
+                aria-hidden="false"
               />
             </VCol>
 
@@ -107,6 +113,7 @@
                 label="Kota"
                 placeholder="Kota"
                 :error-messages="error && error.city ? [error.city] : []"
+                readonly
               />
             </VCol>
 
@@ -119,6 +126,7 @@
                 label="Email"
                 placeholder="Email"
                 :error-messages="error && error.email ? [error.email] : []"
+                readonly
               />
             </VCol>
 
@@ -131,6 +139,7 @@
                 label="Phone"
                 placeholder="Phone"
                 :error-messages="error && error.phone ? [error.phone] : []"
+                readonly
               />
             </VCol>
 
@@ -143,6 +152,7 @@
                 label="Facebook"
                 placeholder="Facebook"
                 :error-messages="error && error.facebook ? [error.facebook] : []"
+                readonly
               />
             </VCol>
 
@@ -155,6 +165,7 @@
                 label="Instagram"
                 placeholder="Instagram"
                 :error-messages="error && error.instagram ? [error.instagram] : []"
+                readonly
               />
             </VCol>
 
@@ -167,6 +178,7 @@
                 label="Youtube"
                 placeholder="Youtube"
                 :error-messages="error && error.youtube ? [error.youtube] : []"
+                readonly
               />
             </VCol>
 
@@ -179,69 +191,37 @@
                 label="Sort"
                 placeholder="Sort"
                 :error-messages="error && error.sort ? [error.sort] : []"
+                readonly
               />
             </VCol>
 
             <VCol
               cols="12"
-              md="3"
+              md="12"
             >
-              <VCheckbox
-                v-model="is_main"
-                label="Cabang Utama"
-                :error-messages="error && error.is_main ? [error.is_main] : []"
-                :true-value="1"
-                @change="is_main = is_main ? 1 : 0"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="3"
-            >
-              <VCheckbox
-                v-model="is_active"
-                label="Aktif"
-                :error-messages="error && error.is_active ? [error.is_active] : []"
-                :true-value="1"
-                @change="is_active = is_active ? 1 : 0"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <VFileInput
-                v-model="branch_images"
-                label="Gambar"
-                placeholder="Pilih Gambar"
-                :error-messages="error && error.branch_images ? [error.branch_images] : []"
-                multiple
-              />
-            </VCol>
-            
-            
-
-            <VCol
-              cols="12"
-              class="d-flex gap-4"
-            >
-              <VBtn
-                type="submit"
-                :loading="loading"
-                color="primary"
+              <VLabel
+                for="branch_images"
+                class="mb-2"
               >
-                Simpan
-              </VBtn>
-
-              <VBtn
-                color="secondary"
-                variant="tonal"
-                @click="handleReset"
+                Gambar Cabang
+              </VLabel>
+              <VRow
+                v-if="branch_images.length > 0"
               >
-                Reset
-              </VBtn>
+                <VCol
+                  v-for="(image, index) in branch_images"
+                  :key="index"
+                  cols="12"
+                  md="3"
+                >
+                  <VImg
+                    :src="image.image_url"
+                    width="100%"
+                    height="200"
+                    class="mb-2"
+                  />
+                </VCol>
+              </VRow>
             </VCol>
           </VRow>
         </VForm>

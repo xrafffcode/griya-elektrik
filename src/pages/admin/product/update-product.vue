@@ -44,7 +44,6 @@
                 :loading="loading"
               />
             </VCol>
-
             <VCol
               cols="12"
               md="6"
@@ -59,7 +58,6 @@
                 item-value="id"
               />
             </VCol>
-
             <VCol
               cols="12"
               md="6"
@@ -74,7 +72,6 @@
                 item-value="id"
               />
             </VCol>
-
             <VCol
               cols="12"
               md="6"
@@ -87,7 +84,6 @@
                 :loading="loading"
               />
             </VCol>
-
             <VCol
               cols="12"
               md="6"
@@ -103,8 +99,6 @@
                 </template>
               </VFileInput>
             </VCol>
-
-
             <VCol cols="12">
               <VTextarea
                 v-model="description"
@@ -114,7 +108,6 @@
                 :loading="loading"
               />
             </VCol>
-
             <VCol
               cols="12"
               md="12"
@@ -127,7 +120,6 @@
                 multiple
               />
             </VCol>
-
             <VCol cols="12">
               <VCard>
                 <VCardTitle>
@@ -159,7 +151,6 @@
                 </VCardText>
               </VCard>
             </VCol>
-
             <VCol cols="12">
               <VCard>
                 <VCardTitle>
@@ -330,7 +321,6 @@ const handleSubmit = () => {
     product_images: product_images.value,
     product_links: product_links.value,
   })
-
 }
 </script>
 

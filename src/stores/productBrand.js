@@ -16,7 +16,7 @@ export const useProductBrandStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get('/product-brands')
+        const response = await axiosInstance.get('/product-brand/read/any')
 
         this.brands = response.data.data
 
@@ -45,7 +45,7 @@ export const useProductBrandStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.post('/product-brands', payload)
+        const response = await axiosInstance.post('/product-brand', payload)
 
         this.brands.push(response.data.data)
 
@@ -66,7 +66,7 @@ export const useProductBrandStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.post(`/product-brands/${payload.id}`, payload)
+        const response = await axiosInstance.post(`/product-brand/${payload.id}`, payload)
 
 
         this.success = 'Merk berhasil diubah'
@@ -85,7 +85,7 @@ export const useProductBrandStore = defineStore({
       this.loading = true
 
       try {
-        await axiosInstance.delete(`/product-brands/${id}`)
+        await axiosInstance.delete(`/product-brand/${id}`)
 
         this.success = 'Merk berhasil dihapus'
 

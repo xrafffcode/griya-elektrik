@@ -30,18 +30,21 @@
           formulir
           di bawah ini.
         </p>
-        <form>
+        <form :action="'https://formsubmit.co/' + email" method="post">
           <VTextField
             label="Nama"
             variant="outlined"
+            name="Nama"
           />
           <VTextField
             label="Email"
             variant="outlined"
+            name="Email"
           />
           <VTextarea
             label="Pesan"
             variant="outlined"
+            name="Pesan"
           />
           <button
             type="submit"
@@ -63,12 +66,14 @@ import { useBranchStore } from '@/stores/branch'
 const { fetchMainBranch } = useBranchStore()
 
 const iframe_map = ref('')
+const email = ref('')
 
 const fetchMainBranchData = async () => {
   try {
     const branch = await fetchMainBranch()
 
     iframe_map.value = branch.iframe_map
+    email.value = branch.email
   } catch (error) {
     console.error('Error fetching main branch data:', error)
   }
