@@ -3,6 +3,7 @@
     <Swiper
       :pagination="pagination"
       :modules="modules"
+      navigation
       class="mySwiper"
     >
       <SwiperSlide
@@ -10,7 +11,7 @@
         :key="banner.id"
       >
         <img
-          :src="banner.image_url"
+          :src="banner.desktop_image_url"
           :alt="
             banner.alt"
         >
@@ -18,10 +19,11 @@
     </Swiper>
   </VContainer>
 
-  <div class="d-block d-md-none mt-5">
+  <VContainer class="d-block d-sm-block d-md-none mt-5">
     <Swiper
       :pagination="pagination"
       :modules="modules"
+      navigation
       class="mySwiper"
     >
       <SwiperSlide
@@ -29,13 +31,13 @@
         :key="banner.id"
       >
         <img
-          :src="banner.image_url"
+          :src="banner.mobile_image_url"
           :alt="
             banner.alt"
         >
       </SwiperSlide>
     </Swiper>
-  </div>
+  </VContainer>
 </template>
 
 <script setup>
@@ -43,7 +45,8 @@ import { useBannerStore } from '@/stores/banner'
 import { storeToRefs } from 'pinia'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { Pagination } from 'swiper/modules'
+import 'swiper/css/navigation'
+import { Pagination, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 const { banners, loading, error, success } = storeToRefs(useBannerStore())
@@ -58,7 +61,8 @@ const pagination = {
   },
 }
 
-const modules = [Pagination]
+
+const modules = [Pagination, Navigation]
 </script>
 
 <style>
@@ -85,18 +89,15 @@ const modules = [Pagination]
 @media (min-width: 0px) and (max-width: 991px) {
   .swiper {
     width: 100%;
-    height: 200px;
+    height: 100%;
     border-radius: 0px !important;
-    padding: 0px;
 
   }
 
   .swiper-slide img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     border-radius: 0px;
-    padding: 0px;
-    object-fit: contain;
   }
 }
 
@@ -138,4 +139,24 @@ const modules = [Pagination]
   opacity: 1;
 }
 
+.swiper-pagination {
+  bottom: 0px;
+}
+
+.swiper-button-next, .swiper-button-prev {
+ background-color: #fff;
+  color: #273E86;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  z-index: 10;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 1rem;
+}
 </style>

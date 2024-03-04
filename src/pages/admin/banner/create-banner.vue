@@ -6,19 +6,24 @@ const { loading, error } = storeToRefs(useBannerStore())
 const { createBanner } = useBannerStore()
 
 
-const image = ref(null)
-const image_url = ref(null)
+const desktop_image = ref(null)
+const desktop_image_url = ref(null)
+const mobile_image = ref(null)
+const mobile_image_url = ref(null)
 
 
 const handleReset = () => {
-  image.value = null
-  image_url.value = null
-
+  desktop_image.value = null
+  desktop_image_url.value = null
+  mobile_image.value = null
+  mobile_image_url.value = null
+  error.value = null
 }
 
 const handleSubmit = () => {
   createBanner({
-    image: image.value,
+    desktop_image: desktop_image.value,
+    mobile_image: mobile_image.value,
   })
 }
 
@@ -31,7 +36,14 @@ onUnmounted(() => {
 const handleFileChange = event => {
   const file = event.target.files[0]
   if (file) {
-    image.value = file
+    desktop_image.value = file
+  }
+}
+
+const handleMobileFileChange = event => {
+  const file = event.target.files[0]
+  if (file) {
+    mobile_image.value = file
   }
 }
 </script>
@@ -64,15 +76,32 @@ const handleFileChange = event => {
               md="12"
             >
               <VFileInput
-                v-model="image_url"
-                label="Gambar "
-                placeholder="Pilih Gambar "
-                :error-messages="error && error.image ? [error.image] : []"
+                v-model="desktop_image_url"
+                label="Gambar Desktop"
+                placeholder="Pilih Gambar Desktop"
+                :error-messages="error && error.desktop_image ? [error.desktop_image] : []"
                 :disabled="loading"
                 show-size
                 accept="image/*"
                 prepend-icon="mdi-camera"
                 @change="handleFileChange"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VFileInput
+                v-model="mobile_image_url"
+                label="Gambar Mobile"
+                placeholder="Pilih Gambar Mobile"
+                :error-messages="error && error.mobile_image ? [error.mobile_image] : []"
+                :disabled="loading"
+                show-size
+                accept="image/*"
+                prepend-icon="mdi-camera"
+                @change="handleMobileFileChange"
               />
             </VCol>
             

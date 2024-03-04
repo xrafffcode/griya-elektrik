@@ -3,10 +3,13 @@ import { useBannerStore } from '@/stores/banner'
 
 const headers = [
   {
-    text: 'Gambar ',
-    value: 'gambar',
+    text: 'Gambar Desktop',
+    value: 'gambar_desktop',
   },
-
+  {
+    text: 'Gambar Mobile',
+    value: 'gambar_mobile',
+  },
   {
     text: 'Aksi',
     value: 'operation',
@@ -116,10 +119,17 @@ function showImage(url) {
               style="width: 100px; height: 80px;"
             >
           </template>
-          <template #item-gambar="item">
+          <template #item-gambar_desktop="item">
             <img
-              :src="item.image_url"
-              style="width: 100%; height: 380px ; object-fit: cover; cursor: pointer; padding: 20px;"
+              :src="item.desktop_image_url"
+              style="width: 100%; height: 380px ; object-fit: contain; cursor: pointer; padding: 20px;"
+              @click="() => showImage(item.image_url)"
+            >
+          </template>
+          <template #item-gambar_mobile="item">
+            <img
+              :src="item.mobile_image_url"
+              style="width: 100%; height: 380px ; object-fit: contain; cursor: pointer; padding: 20px;"
               @click="() => showImage(item.image_url)"
             >
           </template>

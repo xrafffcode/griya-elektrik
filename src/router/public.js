@@ -13,6 +13,10 @@ const publicRouter = [
     component: () => import('../pages/product.vue'),
   },
   {
+    path: 'kategori-produk',
+    component: () => import('../pages/categories.vue'),
+  },
+  {
     path: 'kontak-kami',
     component: () => import('../pages/contact.vue'),
   },

@@ -12,22 +12,19 @@ fetchCategories()
 const getProductsByCategory = id => {
   router.push({ name: 'products', query: { category: id } })
 }
+
+onMounted(() => {
+  document.title = 'Katagori'
+})
 </script>
 
 <template>
-  <div class="py-5">
+  <VContainer class="py-5">
     <div class="d-flex justify-space-between align-center ">
       <h1 class="text-h6 font-weight-bold ">
-        Kategori
+        Kategori Produk
       </h1>
-      <RouterLink
-        to="/kategori-produk"
-        class="primary text-p text-decoration-none"
-      >
-        Lihat Semua
-      </RouterLink>
     </div>
-
     <VRow class="mt-3">
       <VCol
         v-for="category in categories.slice(0, 6)"
@@ -51,7 +48,7 @@ const getProductsByCategory = id => {
         </div>
       </VCol>
     </VRow>
-  </div>
+  </VContainer>
 </template>
 
 

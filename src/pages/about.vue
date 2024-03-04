@@ -2,7 +2,7 @@
   <VContainer class="mt-5">
     <div class="about d-flex align-center justify-space-between py-5">
       <img
-        src="@images/griya.jpg"
+        :src="first_image"
         alt="griya"
         class="about-img"
       >
@@ -223,12 +223,14 @@ import { useBranchStore } from '@/stores/branch'
 const { fetchMainBranch } = useBranchStore()
 
 const iframe_map = ref('')
+const first_image = ref('')
 
 const fetchMainBranchData = async () => {
   try {
     const branch = await fetchMainBranch()
 
     iframe_map.value = branch.iframe_map
+    first_image.value = branch.branch_images[0].image_url
   } catch (error) {
     console.error('Error fetching main branch data:', error)
   }

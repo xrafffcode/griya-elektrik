@@ -32,7 +32,6 @@ const getProductsByCategory = id => {
       <VIcon
         v-if="hasChildren"
         @click="toggleCategory"
-        style="margin-right: 8px;"
         class="icon"
       >
         {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
@@ -47,7 +46,7 @@ const getProductsByCategory = id => {
         v-for="child in category.children"
         :key="child.id"
         :category="child"
-        :style="{ paddingLeft: '20px' }"
+        :style="{ paddingLeft: '32px' }"
         @click="getProductsByCategory(child.id)"
       />
     </template>

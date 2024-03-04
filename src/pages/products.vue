@@ -57,7 +57,11 @@ watch(() => route.query, () => {
 <template>
   <VContainer class="py-5">
     <VRow>
-      <VCol cols="9">
+      <VCol 
+        cols="12"
+        sm="12"
+        md="9"
+      >
         <VTextField
           v-model="search"
           variant="outlined"
@@ -67,7 +71,11 @@ watch(() => route.query, () => {
           clearable
         />
       </VCol>
-      <VCol cols="3">
+      <VCol
+        cols="12"
+        sm="12"
+        md="3"
+      >
         <VSelect
           v-model="sort"
           :items="[
