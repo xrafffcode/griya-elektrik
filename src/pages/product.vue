@@ -45,6 +45,7 @@
         md="3"
         lg="3"
         class="d-none d-md-block"
+        v-if="product_links.length"
       >
         <VCard
           variant="outlined"

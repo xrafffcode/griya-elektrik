@@ -28,16 +28,17 @@ const getProductsByCategory = id => {
 
 <template>
   <li>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center gap-2">
       <VIcon
         v-if="hasChildren"
         @click="toggleCategory"
         style="margin-right: 8px;"
+        class="icon"
       >
         {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
       </VIcon>
 
-      <p @click="getProductsByCategory(category.id)">
+      <p @click="getProductsByCategory(category.id)" class="name">
         {{ category.name }}
       </p>
     </div>
@@ -57,18 +58,11 @@ const getProductsByCategory = id => {
 
 <style scoped>
 li {
-  cursor: pointer;
   list-style: none;
 }
 
-
-
 li>div {
   padding: 8px  !important;
-}
-
-li>div:hover {
-  background-color: #e0e0e0;
 }
 
 li>div>p {
@@ -77,5 +71,13 @@ li>div>p {
 
 li>div>div {
   padding: 8px 0;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.name {
+  cursor: pointer;
 }
 </style>
