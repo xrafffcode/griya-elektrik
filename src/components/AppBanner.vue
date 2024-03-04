@@ -1,20 +1,41 @@
 <template>
-  <Swiper
-    :pagination="pagination"
-    :modules="modules"
-    class="mySwiper"
-  >
-    <SwiperSlide
-      v-for="banner in banners"
-      :key="banner.id"
+  <VContainer class="d-none d-md-block mt-5">
+    <Swiper
+      :pagination="pagination"
+      :modules="modules"
+      class="mySwiper"
     >
-      <img
-        :src="banner.image_url"
-        :alt="
-          banner.alt"
+      <SwiperSlide
+        v-for="banner in banners"
+        :key="banner.id"
       >
-    </SwiperSlide>
-  </Swiper>
+        <img
+          :src="banner.image_url"
+          :alt="
+            banner.alt"
+        >
+      </SwiperSlide>
+    </Swiper>
+  </VContainer>
+
+  <div class="d-block d-md-none mt-5">
+    <Swiper
+      :pagination="pagination"
+      :modules="modules"
+      class="mySwiper"
+    >
+      <SwiperSlide
+        v-for="banner in banners"
+        :key="banner.id"
+      >
+        <img
+          :src="banner.image_url"
+          :alt="
+            banner.alt"
+        >
+      </SwiperSlide>
+    </Swiper>
+  </div>
 </template>
 
 <script setup>
@@ -43,7 +64,7 @@ const modules = [Pagination]
 <style>
 .swiper {
   width: 100%;
-  height: 150px;
+  height: 450px;
   border-radius: 10px;
 }
 
@@ -57,27 +78,48 @@ const modules = [Pagination]
 .swiper-slide img {
   display: block;
   width: 100%;
-  height: 150px;
+  height: 450px;
   object-fit: cover;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 0px) and (max-width: 991px) {
   .swiper {
-    height: 400px;
+    width: 100%;
+    height: 200px;
+    border-radius: 0px !important;
+    padding: 0px;
+
   }
 
   .swiper-slide img {
-    height: 400px;
+    width: 100%;
+    height: 200px;
+    border-radius: 0px;
+    padding: 0px;
+    object-fit: contain;
   }
 }
 
-@media (max-width: 768px ) and (min-width: 480px) {
+@media (min-width: 768px) and (max-width: 1280px) {
   .swiper {
-    height: 250px;
+    height: 220px;
   }
 
   .swiper-slide img {
-    height: 250px;
+    height: 220px;
+  }
+  
+}
+
+
+
+@media (min-width: 1280px) and (max-width: 1919px) {
+  .swiper {
+    height: 300px ;
+  }
+
+  .swiper-slide img {
+    height: 300px ;
   }
 }
 
@@ -95,4 +137,5 @@ const modules = [Pagination]
   border-radius: 10px;
   opacity: 1;
 }
+
 </style>

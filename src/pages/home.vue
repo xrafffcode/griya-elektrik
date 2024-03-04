@@ -21,11 +21,13 @@ setTimeout(() => {
 </script>
 
 <template>
-  <VContainer class="mt-5">
+  <VContainer>
     <AppSearch />
+  </VContainer>
 
-    <AppBanner class="mt-5" />
+  <AppBanner class="mt-5" />
 
+  <VContainer>
     <AppCategories class="mt-5" />
 
     <AppFeaturedProducts class="mt-5" />
@@ -35,28 +37,28 @@ setTimeout(() => {
     <AppProducts class="mt-5" />
 
     <AppInstagram class="mt-5" />
-
-    <!--
-      <VDialog v-model="modalRating" max-width="400">
-      <VCard>
-      <VCardTitle class="headline">Rating</VCardTitle>
-      <VCardText>
-      <p>
-      Bantu kami dengan memberikan rating di Google,
-      </p>
-      </VCardText>
-      <VCardActions>
-      <VBtn color="primary" text @click="modalRating = false">
-      Nanti saja
-      </VBtn>
-      <VBtn color="primary" text @click="modalRating = false" href="https://maps.app.goo.gl/TvmHJDTboqmmKbG89"
-      target="_blank">
-      Beri rating
-      </VBtn>
-      </VCardActions>
-      </VCard>
-      </VDialog> 
-    -->
   </VContainer>
+
+  <!--
+    <VDialog v-model="modalRating" max-width="400">
+    <VCard>
+    <VCardTitle class="headline">Rating</VCardTitle>
+    <VCardText>
+    <p>
+    Bantu kami dengan memberikan rating di Google,
+    </p>
+    </VCardText>
+    <VCardActions>
+    <VBtn color="primary" text @click="modalRating = false">
+    Nanti saja
+    </VBtn>
+    <VBtn color="primary" text @click="modalRating = false" href="https://maps.app.goo.gl/TvmHJDTboqmmKbG89"
+    target="_blank">
+    Beri rating
+    </VBtn>
+    </VCardActions>
+    </VCard>
+    </VDialog> 
+  -->
 </template>
   
