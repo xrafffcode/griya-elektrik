@@ -65,6 +65,11 @@ const getProductsByCategory = id => {
     height: 70px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #273E86;
+    border: 4px solid #EA5925;
+}
+
+
+.category-image:hover{
+  filter: brightness(110%);
 }
 </style>

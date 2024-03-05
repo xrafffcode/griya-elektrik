@@ -13,7 +13,7 @@ const fetchLimitedProducts = async () => {
   try {
     await fetchActiveProducts()
 
-    limitedProducts.value = products.value.slice(0, 4)
+    limitedProducts.value = products.value.slice(0, 6)
   } catch (error) {
     console.error('Error fetching and limiting products:', error)
   }
@@ -46,8 +46,8 @@ onMounted(() => {
         :key="product.id"
         cols="6"
         sm="6"
-        md="4"
-        lg="3"
+        md="3"
+        lg="2"
       >
         <AppProductCard :product="product" />
       </VCol>

@@ -21,7 +21,7 @@ setTimeout(() => {
 </script>
 
 <template>
-  <VContainer>
+  <VContainer class="mt-5">
     <AppSearch />
   </VContainer>
 

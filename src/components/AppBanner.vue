@@ -125,7 +125,7 @@ const modules = [Pagination, Navigation]
 }
 
 .swiper-pagination-bullet {
-  background-color: #273E86;
+  background-color: #EA5925;
   width: 10px;
   height: 10px;
   border-radius: 50%;

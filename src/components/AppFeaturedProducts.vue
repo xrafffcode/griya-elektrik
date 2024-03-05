@@ -13,7 +13,7 @@ const fetchFeaturedProducts = async () => {
   try {
     const products = await fetchFeaturedProducst()
 
-    featuredProducts.value = products.slice(0, 4)
+    featuredProducts.value = products.slice(0, 6)
   } catch (error) {
     console.error('Error fetching featured products:', error)
   }
@@ -44,8 +44,8 @@ onMounted(() => {
         :key="product.id"
         cols="6"
         sm="6"
-        md="4"
-        lg="3"
+        md="3"
+        lg="2"
       >
         <AppProductCard :product="product" />
       </VCol>

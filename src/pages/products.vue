@@ -130,7 +130,7 @@ watch(() => route.query, () => {
             cols="6"
             sm="6"
             md="4"
-            lg="4"
+            lg="3"
           >
             <AppProductCard :product="product" />
           </VCol>
