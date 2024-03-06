@@ -2,7 +2,7 @@
   <div class="py-5">
     <div class="brand-slider">
       <div class="brands-slide" ref="brandsSlide">
-        <a v-for="brand in brands" :key="brand.id" @click="goToBrand(brand.id)">
+        <a v-for="brand in brands" :key="brand.id" :href="`/produk?brand=${brand.id}`">
           <img v-if="brand.logo_url" :src="brand.logo_url" :alt="brand.name" />
         </a>
       </div>
@@ -32,10 +32,6 @@ onMounted(async () => {
   await fetchBrands();
   cloneBrands();
 });
-
-const goToBrand = (id) => {
-  router.push({ name: 'products', query: { brand: id } })
-}
 </script>
 
 <style>
@@ -73,6 +69,18 @@ const goToBrand = (id) => {
 
     to {
         transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .brands-slide img {
+        width: 100px;
+        height: 50px;
+        margin: 0 20px;
+    }
+
+    .brand-slider {
+        padding: 0px 0 0 0;
     }
 }
 </style>

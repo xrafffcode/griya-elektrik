@@ -292,8 +292,8 @@ const fetchProductData = async () => {
     product_brand_id.value = product.brand?.id
     price.value = product.price
     description.value = product.description
-    is_featured.value = product.is_featured === "true" ? 1 : 0
-    is_active.value = product.is_active === "true" ? 1 : 0
+    is_featured.value = product.is_featured === true ? 1 : 0
+    is_active.value = product.is_active === true ? 1 : 0
     product_image_urls.value = product.product_images
     product_links.value = product.product_links
 

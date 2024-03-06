@@ -17,7 +17,7 @@ export const useProductStore = defineStore({
       this.error = null
     
       try {
-        const response = await axiosInstance.get('/product/read/active')
+        const response = await axiosInstance.get('/product/read/any')
     
         this.loading = false
 
@@ -112,7 +112,7 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.post(`/product/${payload.id}`, payload)
+        await axiosInstance.post(`/product/${payload.id}`, payload)
 
         this.success = 'Produk berhasil diupdate'
 

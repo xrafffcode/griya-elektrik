@@ -27,7 +27,7 @@ setTimeout(() => {
     <AppSearch />
   </VContainer>
 
-  <AppBanner class="mt-5" />
+  <AppBanner />
 
   <VContainer>
     <AppBrand class="mt-5" />
@@ -42,7 +42,7 @@ setTimeout(() => {
 
     <AppInstagram class="mt-5" />
 
-    <AppClient class="mt-5" />
+    <AppClient  />
   </VContainer>
 </template>
   

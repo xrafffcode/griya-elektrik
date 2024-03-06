@@ -70,4 +70,16 @@ onMounted(async () => {
         transform: translateX(-100%);
     }
 }
+
+@media (max-width: 768px) {
+    .logos-slide img {
+        width: 150px;
+        height: 50px;
+        margin: 0 20px;
+    }
+
+    .logos-slider {
+        padding: 0px 0 0 0;
+    }
+}
 </style>
