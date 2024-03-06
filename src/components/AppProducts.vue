@@ -13,7 +13,7 @@ const fetchLimitedProducts = async () => {
   try {
     await fetchActiveProducts()
 
-    limitedProducts.value = products.value.slice(0, 6)
+    limitedProducts.value = products.value.slice(0, 12)
   } catch (error) {
     console.error('Error fetching and limiting products:', error)
   }

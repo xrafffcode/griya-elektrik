@@ -170,6 +170,11 @@ const search = ref('')
               style="width: 100px; height: 80px;"
             >
           </template>
+          <template #item-name="item">
+            ({{ item.brand.name }})
+            <br>
+            {{ item.name }}
+          </template>
           <template #item-thumbnail_url="item">
             <img
               :src="item.thumbnail_url"

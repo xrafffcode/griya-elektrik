@@ -1,13 +1,7 @@
 <script setup>
-import { useProductBrandStore } from '@/stores/productBrand'
+import { useClientStore } from '@/stores/client';
 
 const headers = [
-  {
-    text: 'Kode',
-    value: 'code',
-    sortable: true,
-
-  },
   {
     text: 'Nama',
     value: 'name',
@@ -19,6 +13,10 @@ const headers = [
     sortable: false,
   },
   {
+    text: 'URL',
+    value: 'url',
+  },
+  {
     text: 'Aksi',
     value: 'operation',
     width: 200,
@@ -27,16 +25,16 @@ const headers = [
 
 
 
-const { brands, loading, error, success } = storeToRefs(useProductBrandStore())
-const { fetchBrands, deleteBrand } = useProductBrandStore()
+const { clients, loading, error, success } = storeToRefs(useClientStore())
+const {fetchClients, deleteClient } = useClientStore()
 
-fetchBrands()
+fetchClients()
 
-async function handleDeleteBrand(brand) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus merk ini?')
+async function handleDeleteClient(client) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus client ini?')
   if (confirmed) {
-    await deleteBrand(brand.id)
-    fetchBrands()
+    await deleteClient(client.id)
+    fetchClients()
   }
 }
 
@@ -71,22 +69,22 @@ const search = ref('')
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Merk Produk
+        Client
       </h2>
 
       <VBtn
-        to="/admin/merk-produk/tambah"
+        to="/admin/client/tambah"
         color="primary"
       >
-        Tambah Merk
+        Tambah Client
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Merek"
-        placeholder="Cari Merek"
+        label="Cari Client"
+        placeholder="Cari Client"
         clearable
         :loading="loading"
         variant="solo"
@@ -97,7 +95,7 @@ const search = ref('')
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="brands"
+          :items="clients"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -117,7 +115,7 @@ const search = ref('')
           </template>
           <template #item-operation="item">
             <VBtn
-              :to="`/admin/merk-produk/ubah/${item.id}`"
+              :to="`/admin/client/ubah/${item.id}`"
               color="primary"
               class="m-5"
               size="small"
@@ -128,7 +126,7 @@ const search = ref('')
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteBrand(item)"
+              @click="() => handleDeleteClient(item)"
             >
               Hapus
             </VBtn>
@@ -138,4 +136,4 @@ const search = ref('')
     </VCol>
   </VRow>
 </template>
-
+@/stores/client

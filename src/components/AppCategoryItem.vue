@@ -33,12 +33,13 @@ const getProductsByCategory = id => {
         v-if="hasChildren"
         @click="toggleCategory"
         class="icon"
+        size="32"
       >
         {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
       </VIcon>
 
       <p @click="getProductsByCategory(category.id)" class="name">
-        {{ category.name }}
+        {{ category.name.length > 15 ? category.name.slice(0, 10) + '...' : category.name }}
       </p>
     </div>
     <template v-if="hasChildren && expanded">
@@ -46,7 +47,7 @@ const getProductsByCategory = id => {
         v-for="child in category.children"
         :key="child.id"
         :category="child"
-        :style="{ paddingLeft: '32px' }"
+        :style="{ paddingLeft: '40px' }"
         @click="getProductsByCategory(child.id)"
       />
     </template>
@@ -74,9 +75,26 @@ li>div>div {
 
 .icon {
   cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 4px;
+  border-radius: 4px;
+
+}
+
+.icon:hover {
+  background-color: #f5f5f5;
 }
 
 .name {
   cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 4px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.name:hover {
+  background-color: #f5f5f5;
+  width: 100%;
 }
 </style>

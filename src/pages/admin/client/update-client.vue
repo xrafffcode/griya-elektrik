@@ -5,7 +5,7 @@
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Edit Merk Produk
+        Edit Client
       </h2>
 
       <VBtn
@@ -25,23 +25,24 @@
               md="6"
             >
               <VTextField
-                v-model="code"
-                label="Code"
-                placeholder="Kode Merk"
-                :error-messages="error && error.code ? [error.code] : []"
+                v-model="name"
+                label="Nama"
+                placeholder="Nama Client"
+                :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
               />
             </VCol>
+
             <VCol
               cols="12"
               md="6"
             >
               <VTextField
-                v-model="name"
-                label="Nama"
-                placeholder="Nama Merk"
-                :error-messages="error && error.name ? [error.name] : []"
+                v-model="url"
+                label="Link"
+                placeholder="Link Client"
+                :error-messages="error && error.url ? [error.url] : []"
                 :disabled="loading"
                 :loading="loading"
               />
@@ -93,60 +94,60 @@
 </template>
 
 <script setup>
-import { useProductBrandStore } from '@/stores/productBrand'
+import { useClientStore } from '@/stores/client';
 import { storeToRefs } from 'pinia'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const { loading, error } = storeToRefs(useProductBrandStore())
-const { fetchBrandById, updateBrand } = useProductBrandStore()
+const { loading, error } = storeToRefs(useClientStore())
+const { fetchClientById, updateClient } = useClientStore()
 
-const brandId = route.params.id
+const clientId = route.params.id
 
-const code = ref('')
 const name = ref('')
 const logo = ref(null)
 const logo_name = ref('')
+const url = ref('')
 
-const fetchBrandData = async () => {
+const fetchClientData = async () => {
   try {
-    const brand = await fetchBrandById(brandId)
+    const client = await fetchClientById(clientId)
 
-    const file = await fetch(brand.logo_url)
+    const file = await fetch(client.logo_url)
 
     file.blob().then((blob) => {
-      const file = new File([blob], brand.logo_url.split('/').pop(), { type: blob.type })
+      const file = new File([blob], client.logo_url.split('/').pop(), { type: blob.type })
 
       logo.value = file
       logo_name.value = file.name
     })
 
-    code.value = brand.code
-    name.value = brand.name
+    name.value = client.name
+    url.value = client.url
   } catch (error) {
-    console.error('Error fetching brand data:', error)
+    console.error('Error fetching client data:', error)
   }
 }
 
 onMounted(() => {
-  fetchBrandData()
+  fetchClientData()
 })
 
 const handleReset = () => {
-  code.value = ''
   name.value = ''
   logo.value = null
   logo_name.value = ''
+  url.value = ''
 }
 
 const handleSubmit = () => {
-  updateBrand({
-    id: brandId,
-    code: code.value,
+  updateClient({
+    id: clientId,
     name: name.value,
     logo: logo.value,
+    url: url.value,
   })
 }
 

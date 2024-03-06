@@ -1,28 +1,27 @@
 <script setup>
-import { useProductBrandStore } from '@/stores/productBrand'
+import { useClientStore } from '@/stores/client'
 import { storeToRefs } from 'pinia'
 
-const { brands, loading, error } = storeToRefs(useProductBrandStore())
-const { createBrand } = useProductBrandStore()
+const { loading, error } = storeToRefs(useClientStore())
+const { createClient } = useClientStore()
 
-
-const code = ref('AUTO')
 const name = ref('')
 const logo = ref(null)
 const logo_name = ref('')
+const url = ref('')
 
 const handleReset = () => {
-  code.value = 'AUTO'
   name.value = ''
   logo.value = null
   logo_name.value = ''
+  url.value = ''
 }
 
 const handleSubmit = () => {
-  createBrand({
-    code: code.value,
+  createClient({
     name: name.value,
     logo: logo.value,
+    url: url.value,
   })
 }
 
@@ -50,11 +49,11 @@ const handleFileChange = (e) => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Merk Produk
+        Client
       </h2>
 
       <VBtn
-        to="/admin/merk-produk"
+        to="/admin/client"
         color="error"
       >
         Kembali
@@ -70,21 +69,22 @@ const handleFileChange = (e) => {
               md="6"
             >
               <VTextField
-                v-model="code"
-                label="Code"
-                placeholder="Kode Kategori"
-                :error-messages="error && error.code ? [error.code] : []"
+                v-model="name"
+                label="Nama"
+                placeholder="Nama Client"
+                :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
+
             <VCol
               cols="12"
               md="6"
             >
               <VTextField
-                v-model="name"
-                label="Nama"
-                placeholder="Nama Kategori"
-                :error-messages="error && error.name ? [error.name] : []"
+                v-model="url"
+                label="Link"
+                placeholder="Link Client"
+                :error-messages="error && error.url ? [error.url] : []"
               />
             </VCol>
 
@@ -94,12 +94,14 @@ const handleFileChange = (e) => {
             >
               <VFileInput
                 v-model="logo_name"
-                label="Gambar"
-                placeholder="Pilih Gambar"
+                label="Logo"
+                placeholder="Pilih Logo"
                 :error-messages="error && error.logo ? [error.logo] : []"
                 @change="handleFileChange"
               />
             </VCol>
+
+          
 
             <VCol
               cols="12"

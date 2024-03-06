@@ -28,16 +28,16 @@ const getProductsByCategory = id => {
       </RouterLink>
     </div>
 
-    <VRow class="mt-3">
+    <VRow class="mt-3 category-container">
       <VCol
-        v-for="category in categories.slice(0, 6)"
+        v-for="category in categories.slice(0, 8)"
         :key="category.id"
-        sm="4"
-        md="3"
+        sm="6"
+        md="6"
         lg="2"
       >
         <div
-          class="d-flex flex-column align-center category"
+          class="category"
           @click="getProductsByCategory(category.id)"
         >
           <img
@@ -56,20 +56,33 @@ const getProductsByCategory = id => {
 
 
 <style scoped>
+
 .category {
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
 .category-image {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border: 4px solid #EA5925;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    border-radius: 8px;
 }
 
 
 .category-image:hover{
   filter: brightness(110%);
+}
+
+@media (max-width: 600px) {
+    .category-image {
+        width: 75px;
+        height: 75px;
+    }
 }
 </style>

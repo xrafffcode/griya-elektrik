@@ -31,7 +31,7 @@ function toggleNavbar() {
             class="navbar-item"
           >
             <img
-              src="@images/griya-limabelas-purwokerto.png"
+              src="@images/logo-neww.png"
               alt="Vue Mastery"
             >
           </RouterLink>

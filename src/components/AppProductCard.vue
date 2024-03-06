@@ -101,7 +101,7 @@ font-size: 0.86rem;
     }
 
     .product-card {
-        min-height: 360px !important;
+        min-height: 300px !important;
     }
 
     .product-title {
