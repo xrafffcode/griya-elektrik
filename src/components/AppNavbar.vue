@@ -31,7 +31,7 @@ function toggleNavbar() {
             class="navbar-item"
           >
             <img
-              src="@images/logo-neww.png"
+              src="@images/griya-new.png"
               alt="Vue Mastery"
             >
           </RouterLink>

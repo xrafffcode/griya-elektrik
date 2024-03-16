@@ -3,11 +3,7 @@
     <h1>Dashboard</h1>
 
     <VRow class="mt-3">
-      <VCol
-        sm="12"
-        md="6"
-        lg="3"
-      >
+      <VCol sm="12" md="6" lg="3">
         <VCard>
           <VCardTitle>
             Total Produk
@@ -18,11 +14,7 @@
         </VCard>
       </VCol>
 
-      <VCol
-        sm="12"
-        md="6"
-        lg="3"
-      >
+      <VCol sm="12" md="6" lg="3">
         <VCard>
           <VCardTitle>
             Total Kategori
@@ -33,11 +25,7 @@
         </VCard>
       </VCol>
 
-      <VCol
-        sm="12"
-        md="6"
-        lg="3"
-      >
+      <VCol sm="12" md="6" lg="3">
         <VCard>
           <VCardTitle>
             Total Cabang
@@ -48,11 +36,7 @@
         </VCard>
       </VCol>
 
-      <VCol
-        sm="12"
-        md="6"
-        lg="3"
-      >
+      <VCol sm="12" md="6" lg="3">
         <VCard>
           <VCardTitle>
             Total Merk
@@ -90,4 +74,3 @@ fetchCategories()
 fetchBranches()
 fetchBrands()
 </script>
-

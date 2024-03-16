@@ -15,23 +15,23 @@ export const useClientStore = defineStore({
   actions: {
     async fetchClients() {
       this.loading = true
-    
+
       try {
         const response = await axiosInstance.get('/client/read/any')
-    
+
         this.clients = response.data.data
       } catch (error) {
         this.error = error
       }
-    
+
       this.loading = false
     },
     async createClient(payload) {
       this.loading = true
-    
+
       try {
         const response = await axiosInstance.post('/client', payload)
-    
+
         this.clients.push(response.data.data)
 
         this.success = 'Client berhasil ditambahkan'
@@ -43,7 +43,7 @@ export const useClientStore = defineStore({
         }
         console.error(error)
       }
-    
+
       this.loading = false
     },
     async updateClient(payload) {
@@ -71,7 +71,7 @@ export const useClientStore = defineStore({
         await axiosInstance.delete(`/client/${id}`)
 
         this.success = 'Client berhasil dihapus'
-        
+
       } catch (error) {
         this.error = error
       }

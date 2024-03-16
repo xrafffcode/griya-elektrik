@@ -10,6 +10,7 @@ import AppTestimonial from '@/components/AppTestimonial.vue'
 import AppBrand from '@/components/AppBrand.vue'
 
 import { onMounted } from 'vue'
+import AppPromo from '@/components/AppPromo.vue'
 
 onMounted(() => {
   document.title = 'Home'
@@ -23,6 +24,8 @@ setTimeout(() => {
 </script>
 
 <template>
+  <AppPromo />
+
   <VContainer class="mt-5">
     <AppSearch />
   </VContainer>

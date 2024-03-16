@@ -74,9 +74,9 @@ onMounted(async () => {
 
 @media (max-width: 768px) {
     .brands-slide img {
-        width: 100px;
-        height: 50px;
-        margin: 0 20px;
+        width: 120px;
+        height: 60px;
+        margin: 0 10px;
     }
 
     .brand-slider {
