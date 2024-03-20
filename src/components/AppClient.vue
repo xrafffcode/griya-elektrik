@@ -5,9 +5,20 @@
     </h3>
     <div class="logo-slider">
       <!-- Tampilkan gambar klien dari array clients yang memiliki logo_url -->
-      <div class="logos-slide" ref="logosSlide">
-        <a v-for="client in clients" :key="client.id" :href="client.url">
-          <img v-if="client.logo_url" :src="client.logo_url" :alt="client.name" />
+      <div
+        ref="logosSlide"
+        class="logos-slide"
+      >
+        <a
+          v-for="client in clients"
+          :key="client.id"
+          :href="client.url"
+        >
+          <img
+            v-if="client.logo_url"
+            :src="client.logo_url"
+            :alt="client.name"
+          >
         </a>
       </div>
     </div>
@@ -16,7 +27,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useClientStore } from '@/stores/client';
+import { useClientStore } from '@/stores/client'
 import { storeToRefs } from 'pinia'
 
 const { clients } = storeToRefs(useClientStore())
@@ -25,15 +36,16 @@ const { fetchClients } = useClientStore()
 
 
 const cloneLogos = () => {
-  const originalLogosSlide = document.querySelector(".logos-slide");
-  const copy = originalLogosSlide.cloneNode(true);
-  document.querySelector(".logo-slider").appendChild(copy);
+  const originalLogosSlide = document.querySelector(".logos-slide")
+  const copy = originalLogosSlide.cloneNode(true)
+
+  document.querySelector(".logo-slider").appendChild(copy)
 }
 
 onMounted(async () => {
-  await fetchClients();
-  cloneLogos();
-});
+  await fetchClients()
+  cloneLogos()
+})
 </script>
 
 <style>
@@ -54,7 +66,6 @@ onMounted(async () => {
 }
 
 .logos-slide img {
-    width: 183px;
     height: 83px;
     margin: 0 30px;
     object-fit: contain;
@@ -73,7 +84,6 @@ onMounted(async () => {
 
 @media (max-width: 768px) {
     .logos-slide img {
-        width: 160px;
         height: 60px;
         margin: 0 10px;
     }

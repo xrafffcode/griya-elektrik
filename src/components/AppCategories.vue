@@ -56,7 +56,6 @@ const getProductsByCategory = id => {
 
 
 <style scoped>
-
 .category {
   display: flex;
   flex-direction: column;

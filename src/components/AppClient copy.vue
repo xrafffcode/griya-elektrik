@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useClientStore } from '@/stores/client';
+import { useClientStore } from '@/stores/client'
 import { storeToRefs } from 'pinia'
 
 const { clients } = storeToRefs(useClientStore())
@@ -22,8 +22,17 @@ fetchClients()
           </h3>
         </div>
         <div class="client__content">
-          <a class="client__content__item" v-for="client in clients" :key="client.id"  :href="client.url" target="_blank">
-            <img :src="client.logo_url" :alt="client.name" />
+          <a
+            v-for="client in clients"
+            :key="client.id"
+            class="client__content__item"
+            :href="client.url"
+            target="_blank"
+          >
+            <img
+              :src="client.logo_url"
+              :alt="client.name"
+            >
           </a>
         </div>
       </div>
@@ -100,5 +109,4 @@ fetchClients()
     transform: translateX(-100%);
   }
 }
-
 </style>

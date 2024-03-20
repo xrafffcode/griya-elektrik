@@ -45,7 +45,7 @@ setTimeout(() => {
 
     <AppInstagram class="mt-5" />
 
-    <AppClient  />
+    <AppClient />
   </VContainer>
 </template>
   

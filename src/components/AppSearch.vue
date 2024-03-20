@@ -47,7 +47,10 @@ function boldSameText(text, search) {
         v-for="product in filterProducts"
         :key="product.id"
       >
-        <p @click="() => $router.push(`/produk/${product.slug}`)" class="mb-0">
+        <p
+          class="mb-0"
+          @click="() => $router.push(`/produk/${product.slug}`)"
+        >
           <span v-html="boldSameText(product.name, search)" />
         </p>
       </li>

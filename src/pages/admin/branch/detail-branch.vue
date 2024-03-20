@@ -68,8 +68,8 @@
                 label="Iframe Map"
                 placeholder="Iframe Map"
                 :error-messages="error && error.iframe_map ? [error.iframe_map] : []"
-                @input="getEmbedCode"
                 readonly
+                @input="getEmbedCode"
               />
             </VCol>
 
@@ -205,9 +205,7 @@
               >
                 Gambar Cabang
               </VLabel>
-              <VRow
-                v-if="branch_images.length > 0"
-              >
+              <VRow v-if="branch_images.length > 0">
                 <VCol
                   v-for="(image, index) in branch_images"
                   :key="index"

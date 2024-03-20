@@ -30,7 +30,10 @@
           formulir
           di bawah ini.
         </p>
-        <form :action="'https://formsubmit.co/' + email" method="post">
+        <form
+          :action="'https://formsubmit.co/' + email"
+          method="post"
+        >
           <VTextField
             label="Nama"
             variant="outlined"

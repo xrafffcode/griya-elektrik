@@ -116,7 +116,7 @@ const fetchBrandData = async () => {
 
     const file = await fetch(brand.logo_url)
 
-    file.blob().then((blob) => {
+    file.blob().then(blob => {
       const file = new File([blob], brand.logo_url.split('/').pop(), { type: blob.type })
 
       logo.value = file
@@ -156,7 +156,7 @@ onUnmounted(() => {
   error.value = null
 })
 
-const handleFileChange = (e) => {
+const handleFileChange = e => {
   const file = e.target.files[0]
 
   if (file) {

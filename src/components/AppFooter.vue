@@ -65,31 +65,53 @@ fetchBranch()
                 <h6 class="tab-heading mt-5">
                   Kontak
                 </h6>
-                <p class="text-p" v-if="branch.phone">
+                <p
+                  v-if="branch.phone"
+                  class="text-p"
+                >
                   <VIcon class="mr-2">
                     mdi-phone
                   </VIcon>
                   <span class="text-p">{{ branch.phone }}</span>
                 </p>
-                <p class="text-p" v-if="branch.email">
+                <p
+                  v-if="branch.email"
+                  class="text-p"
+                >
                   <VIcon class="mr-2">
                     mdi-email
                   </VIcon>
                   <span class="text-p">{{ branch.email }}</span>
                 </p>
-                <p class="text-p" v-if="branch.instagram">
+                <p
+                  v-if="branch.instagram"
+                  class="text-p"
+                >
                   <VIcon class="mr-2">
                     mdi-instagram
                   </VIcon>
-                  <a :href="branch.instagram" target="_blank" rel="noopener noreferrer" class="link">
+                  <a
+                    :href="branch.instagram"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link"
+                  >
                     Follow us on
                   </a>
                 </p>
-                <p class="text-p" v-if="branch.facebook">
+                <p
+                  v-if="branch.facebook"
+                  class="text-p"
+                >
                   <VIcon class="mr-2">
                     mdi-facebook
                   </VIcon>
-                  <a :href="branch.facebook" target="_blank" rel="noopener noreferrer" class="link">
+                  <a
+                    :href="branch.facebook"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link"
+                  >
                     Like us on
                   </a>
                 </p>
@@ -159,7 +181,8 @@ fetchBranch()
                 <a
                   href="https://www.instagram.com/griya_electric.15"
                   class="text-p text-decoration-none"
-                  target="_blank" rel="noopener noreferrer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >Instagram</a>
               </li>
              
@@ -167,7 +190,8 @@ fetchBranch()
                 <a
                   href="https://shopee.co.id/griyalimabelas"
                   class="text-p text-decoration-none"
-                  target="_blank" rel="noopener noreferrer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >Shoppe</a>
               </li>
             </ul>

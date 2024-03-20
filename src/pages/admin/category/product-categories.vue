@@ -81,9 +81,7 @@ const search = ref('')
       </VBtn>
     </VCol>
 
-    <VCol
-      cols="12"
-    >
+    <VCol cols="12">
       <VTextField
         v-model="search"
         label="Cari Kategori"

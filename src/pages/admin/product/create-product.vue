@@ -273,9 +273,9 @@ const handleFileChange = event => {
                 >
                   <VBtn
                     color="error"
-                    @click="() => product_links.splice(index, 1)"
                     block
                     size="x-large"
+                    @click="() => product_links.splice(index, 1)"
                   >
                     Hapus
                   </VBtn>

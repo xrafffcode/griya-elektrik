@@ -205,9 +205,7 @@
               >
                 Gambar Cabang
               </VLabel>
-              <VRow
-                v-if="branch_image_url.length > 0"
-              >
+              <VRow v-if="branch_image_url.length > 0">
                 <VCol
                   v-for="(image, index) in branch_image_url"
                   :key="index"
@@ -283,7 +281,7 @@ const fetchBranchData = async () => {
   try {
     const branch = await fetchBranchById(branchId)
 
-    const images = branch.branch_images.map(async (image) => {
+    const images = branch.branch_images.map(async image => {
       const file = await fetch(image.image_url)
 
       file.blob().then(blob => {

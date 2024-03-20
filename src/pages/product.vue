@@ -40,12 +40,12 @@
       </VCol>
      
       <VCol
+        v-if="product_links.length"
         cols="12"
         sm="6"
         md="3"
         lg="3"
         class="d-none d-md-block"
-        v-if="product_links.length"
       >
         <VCard
           variant="outlined"

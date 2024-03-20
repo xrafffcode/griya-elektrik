@@ -91,6 +91,6 @@ export const useClientStore = defineStore({
       }
 
       this.loading = false
-    }
+    },
   },
 })

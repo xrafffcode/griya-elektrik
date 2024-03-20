@@ -32,7 +32,7 @@ onUnmounted(() => {
   error.value = null
 })
 
-const handleFileChange = (e) => {
+const handleFileChange = e => {
   const file = e.target.files[0]
 
   if (file) {

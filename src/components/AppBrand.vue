@@ -1,9 +1,20 @@
 <template>
   <div class="py-5">
     <div class="brand-slider">
-      <div class="brands-slide" ref="brandsSlide">
-        <a v-for="brand in brands" :key="brand.id" :href="`/produk?brand=${brand.id}`">
-          <img v-if="brand.logo_url" :src="brand.logo_url" :alt="brand.name" />
+      <div
+        ref="brandsSlide"
+        class="brands-slide"
+      >
+        <a
+          v-for="brand in brands"
+          :key="brand.id"
+          :href="`/produk?brand=${brand.id}`"
+        >
+          <img
+            v-if="brand.logo_url"
+            :src="brand.logo_url"
+            :alt="brand.name"
+          >
         </a>
       </div>
     </div>
@@ -12,7 +23,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useProductBrandStore } from '@/stores/productBrand';
+import { useProductBrandStore } from '@/stores/productBrand'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 
@@ -23,15 +34,16 @@ const { fetchBrands } = useProductBrandStore()
 
 
 const cloneBrands = () => {
-  const originalBrandsSlide = document.querySelector(".brands-slide");
-  const copy = originalBrandsSlide.cloneNode(true);
-  document.querySelector(".brand-slider").appendChild(copy);
+  const originalBrandsSlide = document.querySelector(".brands-slide")
+  const copy = originalBrandsSlide.cloneNode(true)
+
+  document.querySelector(".brand-slider").appendChild(copy)
 }
 
 onMounted(async () => {
-  await fetchBrands();
-  cloneBrands();
-});
+  await fetchBrands()
+  cloneBrands()
+})
 </script>
 
 <style>

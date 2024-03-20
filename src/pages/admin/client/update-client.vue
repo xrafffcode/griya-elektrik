@@ -94,7 +94,7 @@
 </template>
 
 <script setup>
-import { useClientStore } from '@/stores/client';
+import { useClientStore } from '@/stores/client'
 import { storeToRefs } from 'pinia'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -117,7 +117,7 @@ const fetchClientData = async () => {
 
     const file = await fetch(client.logo_url)
 
-    file.blob().then((blob) => {
+    file.blob().then(blob => {
       const file = new File([blob], client.logo_url.split('/').pop(), { type: blob.type })
 
       logo.value = file
@@ -157,7 +157,7 @@ onUnmounted(() => {
   error.value = null
 })
 
-const handleFileChange = (e) => {
+const handleFileChange = e => {
   const file = e.target.files[0]
 
   if (file) {

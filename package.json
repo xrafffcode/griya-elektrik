@@ -1,5 +1,5 @@
 {
-  "name": "sneat-vuetify-vuejs-admin-template",
+  "name": "griya-elektrik",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,8 @@
     "preview": "vite preview --port 5050",
     "lint": "eslint . -c .eslintrc.js --fix --ext .ts,.js,.vue,.tsx,.jsx",
     "build:icons": "node src/@iconify/build-icons.js",
-    "postinstall": "npm run build:icons"
+    "postinstall": "npm run build:icons",
+    "deploy": "node deploy.js"
   },
   "dependencies": {
     "@casl/ability": "^6.2.0",

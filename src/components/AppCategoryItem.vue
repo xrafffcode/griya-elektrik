@@ -31,14 +31,17 @@ const getProductsByCategory = id => {
     <div class="d-flex align-items-center gap-2">
       <VIcon
         v-if="hasChildren"
-        @click="toggleCategory"
         class="icon"
         size="32"
+        @click="toggleCategory"
       >
         {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
       </VIcon>
 
-      <p @click="getProductsByCategory(category.id)" class="name">
+      <p
+        class="name"
+        @click="getProductsByCategory(category.id)"
+      >
         {{ category.name.length > 15 ? category.name.slice(0, 10) + '...' : category.name }}
       </p>
     </div>

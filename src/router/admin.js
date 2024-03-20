@@ -11,7 +11,7 @@ const adminRoutes = [
   ...adminProductRoutes,
   ...adminBranchRoutes,
   ...adminBannerRoutes,
-  ...adminClientRoutes
+  ...adminClientRoutes,
 ]
 
 export default adminRoutes
