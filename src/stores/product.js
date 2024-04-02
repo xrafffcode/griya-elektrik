@@ -15,34 +15,34 @@ export const useProductStore = defineStore({
     async fetchProducts() {
       this.loading = true
       this.error = null
-    
+
       try {
         const response = await axiosInstance.get('/product/read/any')
-    
+
         this.loading = false
 
 
         this.products = response.data.data
-    
+
         return this.products
       } catch (error) {
         this.error = error
       }
-    
+
       this.loading = false
     },
-    async fetchFeaturedProducst(){
+    async fetchFeaturedProducst() {
       try {
         const response = await axiosInstance.get(`/product/read/active-featured`)
 
-        this.loading = false 
+        this.loading = false
 
         return response.data.data
       } catch (error) {
         this.error = error
       }
     },
-    async fetchActiveProducts(){
+    async fetchActiveProducts() {
       try {
         const response = await axiosInstance.get(`/product/read/active`)
 
@@ -64,7 +64,7 @@ export const useProductStore = defineStore({
 
         this.product = response.data.data
 
-        this.loading = false 
+        this.loading = false
 
         return this.product
       } catch (error) {
@@ -80,7 +80,7 @@ export const useProductStore = defineStore({
 
         this.product = response.data.data
 
-        this.loading = false 
+        this.loading = false
 
         return this.product
       } catch (error) {
@@ -90,10 +90,10 @@ export const useProductStore = defineStore({
     },
     async createProduct(payload) {
       this.loading = true
-    
+
       try {
         const response = await axiosInstance.post('/product', payload)
-    
+
         this.products.push(response.data.data)
 
         this.success = 'Produk berhasil ditambahkan'
@@ -105,7 +105,7 @@ export const useProductStore = defineStore({
         }
         console.error(error)
       }
-    
+
       this.loading = false
     },
     async updateProduct(payload) {
@@ -133,7 +133,7 @@ export const useProductStore = defineStore({
         await axiosInstance.delete(`/product/${id}`)
 
         this.success = 'Produk berhasil dihapus'
-        
+
       } catch (error) {
         this.error = error
       }
@@ -172,13 +172,9 @@ export const useProductStore = defineStore({
       this.loading = true
 
       try {
-        await axiosInstance.post(`/product/${id}/featured`, payload)
+        const response = await axiosInstance.post(`/product/${id}/featured`, payload)
 
-        if (payload.is_featured) {
-          this.success = 'Cabang berhasil dijadikan unggulan'
-        }else {
-          this.success = 'Cabang berhasil dijadikan tidak unggulan'
-        }
+        this.success = response.data.message
       } catch (error) {
         this.error = error
       }
