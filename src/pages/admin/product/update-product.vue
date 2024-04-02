@@ -15,14 +15,14 @@
         Kembali
       </VBtn>
     </VCol>
-  
+
     <VCol cols="12">
       <VCard>
         <VForm @submit.prevent="handleSubmit">
           <VRow>
             <VCol
               cols="12"
-              md="6"
+              md="12"
             >
               <VTextField
                 v-model="code"
@@ -88,18 +88,48 @@
               cols="12"
               md="6"
             >
-              <VFileInput
-                v-model="thumbnail"
-                :error-messages="error && error.thumbnail ? [error.thumbnail] : []"
-                :loading="loading"
-                prepend-inner-icon="mdi-image"
-              >
-                <template #prepend-inner>
-                  <span v-if="thumbnail_name">{{ thumbnail_name }}</span>
-                </template>
-              </VFileInput>
+              <VCard>
+                <VCardTitle>
+                  Thumbnail
+                </VCardTitle>
+                <VCardText>
+                  <VRow>
+                    <VCol
+                      cols="12"
+                      md="12"
+                    >
+                      <VImg
+                        v-if="thumbnail_url"
+                        :src="thumbnail_url"
+                        aspect-ratio="1"
+                        cover
+                        style="width: 300px; height: 300px;"
+                      />
+                    </VCol>
+                  </VRow>
+                  <VRow
+                    cols="12"
+                    md="12"
+                  >
+                    <VFileInput
+                      v-model="thumbnail"
+                      :error-messages="error && error.thumbnail ? [error.thumbnail] : []"
+                      :loading="loading"
+                      prepend-inner-icon="mdi-image"
+                      @change="handleFileChange"
+                    >
+                      <template #prepend-inner>
+                        <span v-if="thumbnail_name">{{ thumbnail_name }}</span>
+                      </template>
+                    </VFileInput>
+                  </VRow>
+                </VCardText>
+              </VCard>
             </VCol>
-            <VCol cols="12">
+            <VCol
+              cols="12"
+              md="12"
+            >
               <VTextarea
                 v-model="description"
                 label="Deskripsi"
@@ -141,7 +171,7 @@
                         <VBtn
                           color="error"
                           style="position: absolute; top: 8px; right: 8px;"
-                          @click="() => product_images.splice(product_images.indexOf(image), 1) && product_image_urls.splice(product_image_urls.indexOf(image), 1)"
+                          @click="() => deleted_images.push(image.id) && product_image_urls.splice(product_image_urls.indexOf(image), 1)"
                         >
                           Hapus
                         </VBtn>
@@ -167,17 +197,7 @@
                       <VCol cols="5">
                         <VSelect
                           v-model="link.name"
-                          :items="[
-                            { name: 'Tokopedia'},
-                            { name: 'Shopee'},
-                            { name: 'Bukalapak'},
-                            { name: 'Lazada'},
-                            { name: 'Blibli'},
-                            { name: 'Elevenia'},
-                            { name: 'JD.ID'},
-                            { name: 'Zalora'},
-                            { name: 'Lainnya'},
-                          ]"
+                          :items="[{ name: 'Tokopedia' }, { name: 'Shopee' }, { name: 'Bukalapak' }, { name: 'Lazada' }, { name: 'Blibli' }, { name: 'Elevenia' }, { name: 'JD.ID' }, { name: 'Zalora' }, { name: 'Lainnya' },]"
                           label="Marketplace"
                           placeholder="Pilih Marketplace"
                           :error-messages="error && error.product_links ? [error.product_links] : []"
@@ -236,7 +256,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const { loading, error } = storeToRefs(useProductStore())
-const { fetchProductById, updateProduct  } = useProductStore()
+const { fetchProductById, updateProduct } = useProductStore()
 
 const { brands } = storeToRefs(useProductBrandStore())
 const { categories } = storeToRefs(useProductCategoryStore())
@@ -255,10 +275,12 @@ const product_brand_id = ref('')
 const price = ref('')
 const thumbnail = ref(null)
 const thumbnail_name = ref('')
+const thumbnail_url = ref('')
 const description = ref('')
 const is_featured = ref(0)
 const is_active = ref(1)
 const product_images = ref([])
+const deleted_images = ref([])
 const product_image_urls = ref([])
 const product_links = ref([])
 
@@ -266,31 +288,12 @@ const fetchProductData = async () => {
   try {
     const product = await fetchProductById(productId)
 
-    const thumbnail_file = await fetch(product.thumbnail_url)
-
-    thumbnail_file.blob().then(blob => {
-      const file = new File([blob], product.thumbnail_url.split('/').pop(), { type: blob.type })
-
-      thumbnail.value = file
-      thumbnail_name.value = product.thumbnail_url.split('/').pop()
-    })
-
-    const images = product.product_images.map(async image => {
-      const file = await fetch(image.image_url)
-
-      file.blob().then(blob => {
-        const file = new File([blob], image.image_url.split('/').pop(), { type: blob.type })
-
-        product_images.value.push(file)
-      })
-    })
-    
-
     code.value = product.code
     name.value = product.name
     product_category_id.value = product.category?.id
     product_brand_id.value = product.brand?.id
     price.value = product.price
+    thumbnail_url.value = product.thumbnail_url
     description.value = product.description
     is_featured.value = product.is_featured === true ? 1 : 0
     is_active.value = product.is_active === true ? 1 : 0
@@ -319,13 +322,22 @@ const handleSubmit = () => {
     is_featured: is_featured.value,
     is_active: is_active.value,
     product_images: product_images.value,
+    deleted_images: deleted_images.value,
     product_links: product_links.value,
   })
+}
+
+const handleFileChange = event => {
+  const file = event.target.files[0]
+  if (file) {
+    thumbnail.value = file
+    thumbnail_name.value = file.name
+  }
 }
 </script>
 
 <style lang="scss">
-.v-row{
+.v-row {
   margin: 0px !important;
 }
 </style>

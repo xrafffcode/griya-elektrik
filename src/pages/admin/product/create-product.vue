@@ -88,7 +88,7 @@ const handleFileChange = event => {
       </h2>
 
       <VBtn
-        to="/admin/merk-produk"
+        to="/admin/produk"
         color="error"
       >
         Kembali
@@ -195,7 +195,6 @@ const handleFileChange = event => {
               />
             </VCol>
 
-
             <VCol
               cols="12"
               md="12"
@@ -212,13 +211,10 @@ const handleFileChange = event => {
             <VCol
               cols="12"
               md="4"
-            >   
+            >
               <VBtn
                 color="primary"
-                @click="() => product_links.push({
-                  name: '',
-                  url: ''
-                })"
+                @click="() => product_links.push({ name: '', url: '' })"
               >
                 Tambah Link Marketplace
               </VBtn>
@@ -238,15 +234,15 @@ const handleFileChange = event => {
                   <VSelect
                     v-model="link.name"
                     :items="[
-                      { name: 'Tokopedia'},
-                      { name: 'Shopee'},
-                      { name: 'Bukalapak'},
-                      { name: 'Lazada'},
-                      { name: 'Blibli'},
-                      { name: 'Elevenia'},
-                      { name: 'JD.ID'},
-                      { name: 'Zalora'},
-                      { name: 'Lainnya'},
+                      { name: 'Tokopedia' },
+                      { name: 'Shopee' },
+                      { name: 'Bukalapak' },
+                      { name: 'Lazada' },
+                      { name: 'Blibli' },
+                      { name: 'Elevenia' },
+                      { name: 'JD.ID' },
+                      { name: 'Zalora' },
+                      { name: 'Lainnya' },
                     ]"
                     label="Marketplace"
                     placeholder="Pilih Marketplace"
@@ -282,7 +278,7 @@ const handleFileChange = event => {
                 </VCol>
               </VRow>
             </VCol>
-            
+
 
             <VCol
               cols="12"

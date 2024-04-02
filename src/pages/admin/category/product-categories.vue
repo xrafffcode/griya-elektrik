@@ -2,19 +2,24 @@
 import { useProductCategoryStore } from '@/stores/productCategory'
 
 const headers = [
-
-  {
-    text: 'Parent',
-    value: 'parent.name',
-  },
   {
     text: 'Gambar',
     value: 'gambar',
     width: 200,
   },
   {
+    text: 'Parent',
+    value: 'parent.name',
+    sortable: true,
+  },
+  {
     text: 'Nama',
     value: 'name',
+    sortable: true,
+  },
+  {
+    text: 'Jmh Product',
+    value: 'product_count',
     sortable: true,
   },
   {
@@ -23,8 +28,6 @@ const headers = [
     width: 300,
   },
 ]
-
-
 
 const { categories, loading, error, success } = storeToRefs(useProductCategoryStore())
 const { fetchCategories, deleteCategory } = useProductCategoryStore()
@@ -63,7 +66,7 @@ const search = ref('')
     </VCard>
   </VDialog>
 
-  
+
   <VRow>
     <VCol
       cols="12"

@@ -15,7 +15,7 @@
         Kembali
       </VBtn>
     </VCol>
-  
+
     <VCol cols="12">
       <VCard>
         <VForm @submit.prevent="handleSubmit">
@@ -46,24 +46,48 @@
                 :loading="loading"
               />
             </VCol>
-            
+
             <VCol
               cols="12"
               md="6"
             >
-              <VFileInput
-                v-model="image"
-                label="Image"
-                placeholder="Pilih Gambar"
-                :error-messages="error && error.image ? [error.image] : []"
-                :disabled="loading"
-                :loading="loading"
-                @change="handleFileChange"
-              >
-                <template #prepend-inner>
-                  <span v-if="image_name">{{ image_name }}</span>
-                </template>
-              </VFileInput>
+              <VCard>
+                <VCardTitle>
+                  Image
+                </VCardTitle>
+                <VCardText>
+                  <VRow>
+                    <VCol
+                      cols="12"
+                      md="12"
+                    >
+                      <VImg
+                        v-if="image_url"
+                        :src="image_url"
+                        aspect-ratio="1"
+                        cover
+                        style="width: 300px; height: 300px;"
+                      />
+                    </VCol>
+                  </VRow>
+                  <VRow
+                    cols="12"
+                    md="12"
+                  >
+                    <VFileInput
+                      v-model="image"
+                      :error-messages="error && error.image ? [error.image] : []"
+                      :loading="loading"
+                      prepend-inner-icon="mdi-image"
+                      @change="handleFileChange"
+                    >
+                      <template #prepend-inner>
+                        <span v-if="image_name">{{ image_name }}</span>
+                      </template>
+                    </VFileInput>
+                  </VRow>
+                </VCardText>
+              </VCard>
             </VCol>
 
             <VCol
@@ -73,14 +97,14 @@
               <VSelect
                 v-model="parent_id"
                 label="Parent"
-                :items="[{ id: '', name: 'No Parent' } , ...categories]"
+                :items="[{ id: '', name: 'No Parent' }, ...categories]"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.parent_id ? [error.parent_id] : []"
                 :disabled="loading"
                 :loading="loading"
               />
-            </VCol> 
+            </VCol>
 
             <VCol
               cols="12"
@@ -128,24 +152,16 @@ const name = ref('')
 const parent_id = ref('')
 const image = ref(null)
 const image_name = ref('')
+const image_url = ref('')
 
 const fetchCategoryData = async () => {
   try {
     const category = await fetchCategoryById(categoryId)
 
-  
-    const file = await fetch(category.image_url)
-
-    file.blob().then(blob => {
-      const file = new File([blob], category.image_url.split('/').pop(), { type: blob.type })
-      
-      image.value = file
-      image_name.value = file.name
-    })
-
     code.value = category.code
     name.value = category.name
     parent_id.value = category.parent?.id
+    image_url.value = category.image_url
   } catch (error) {
     console.error('Error fetching category data:', error)
   }
@@ -160,6 +176,7 @@ const handleReset = () => {
   code.value = 'AUTO'
   name.value = ''
   image.value = null
+  image_name.value = ''
   parent_id.value = ''
 }
 
@@ -189,7 +206,7 @@ const handleFileChange = event => {
 </script>
 
 <style lang="scss">
-.v-row{
+.v-row {
   margin: 0px !important;
 }
 </style>

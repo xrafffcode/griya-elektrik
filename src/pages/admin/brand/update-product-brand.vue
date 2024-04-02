@@ -15,7 +15,7 @@
         Kembali
       </VBtn>
     </VCol>
-  
+
     <VCol cols="12">
       <VCard>
         <VForm @submit.prevent="handleSubmit">
@@ -49,19 +49,44 @@
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
-              <VFileInput
-                v-model="logo"
-                label="Gambar"
-                placeholder="Pilih Gambar"
-                :error-messages="error && error.logo ? [error.logo] : []"
-                @change="handleFileChange"
-              >
-                <template #prepend-inner>
-                  <span v-if="logo_name">{{ logo_name }}</span>
-                </template>
-              </VFileInput>
+              <VCard>
+                <VCardTitle>
+                  Logo
+                </VCardTitle>
+                <VCardText>
+                  <VRow>
+                    <VCol
+                      cols="12"
+                      md="12"
+                    >
+                      <VImg
+                        v-if="logo_url"
+                        :src="logo_url"
+                        cover
+                        style="width: 100%; height: auto;"
+                      />
+                    </VCol>
+                  </VRow>
+                  <VRow
+                    cols="12"
+                    md="12"
+                  >
+                    <VFileInput
+                      v-model="logo"
+                      :error-messages="error && error.logo ? [error.logo] : []"
+                      :loading="loading"
+                      prepend-inner-icon="mdi-logo"
+                      @change="handleFileChange"
+                    >
+                      <template #prepend-inner>
+                        <span v-if="logo_name">{{ logo_name }}</span>
+                      </template>
+                    </VFileInput>
+                  </VRow>
+                </VCardText>
+              </VCard>
             </VCol>
 
             <VCol
@@ -109,22 +134,15 @@ const code = ref('')
 const name = ref('')
 const logo = ref(null)
 const logo_name = ref('')
+const logo_url = ref('')
 
 const fetchBrandData = async () => {
   try {
     const brand = await fetchBrandById(brandId)
 
-    const file = await fetch(brand.logo_url)
-
-    file.blob().then(blob => {
-      const file = new File([blob], brand.logo_url.split('/').pop(), { type: blob.type })
-
-      logo.value = file
-      logo_name.value = file.name
-    })
-
     code.value = brand.code
     name.value = brand.name
+    logo_url.value = brand.logo_url
   } catch (error) {
     console.error('Error fetching brand data:', error)
   }
@@ -139,6 +157,7 @@ const handleReset = () => {
   name.value = ''
   logo.value = null
   logo_name.value = ''
+  logo_url.value = ''
 }
 
 const handleSubmit = () => {
@@ -167,7 +186,7 @@ const handleFileChange = e => {
 </script>
 
 <style lang="scss">
-.v-row{
+.v-row {
   margin: 0px !important;
 }
 </style>

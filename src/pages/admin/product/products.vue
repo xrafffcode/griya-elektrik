@@ -7,6 +7,11 @@ const headers = [
     value: 'code',
   },
   {
+    text: 'Jenis',
+    value: 'category.name',
+    sortable: true,
+  },
+  {
     text: 'Nama',
     value: 'name',
   },
@@ -32,8 +37,6 @@ const headers = [
     width: 300,
   },
 ]
-
-
 
 const { products, loading, error, success } = storeToRefs(useProductStore())
 const { fetchProducts, deleteProduct, updateActiveProduct, updateFeaturedProduct } = useProductStore()
@@ -125,7 +128,7 @@ const search = ref('')
       </VCardActions>
     </VCard>
   </VDialog>
-  
+
   <VRow>
     <VCol
       cols="12"
@@ -153,7 +156,7 @@ const search = ref('')
         variant="solo"
       />
     </VCol>
-    
+
     <VCol cols="12">
       <VCard>
         <EasyDataTable
@@ -234,4 +237,3 @@ const search = ref('')
     </VCol>
   </VRow>
 </template>
-async async 
