@@ -173,11 +173,7 @@ onMounted(() => {
 })
 
 const handleReset = () => {
-  code.value = 'AUTO'
-  name.value = ''
-  image.value = null
-  image_name.value = ''
-  parent_id.value = ''
+  fetchCategoryData()
 }
 
 const handleSubmit = () => {

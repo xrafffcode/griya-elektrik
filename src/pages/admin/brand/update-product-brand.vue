@@ -74,16 +74,12 @@
                     md="12"
                   >
                     <VFileInput
-                      v-model="logo"
+                      v-model="logo_name"
+                      label="Logo"
+                      placeholder="Pilih Logo"
                       :error-messages="error && error.logo ? [error.logo] : []"
-                      :loading="loading"
-                      prepend-inner-icon="mdi-logo"
                       @change="handleFileChange"
-                    >
-                      <template #prepend-inner>
-                        <span v-if="logo_name">{{ logo_name }}</span>
-                      </template>
-                    </VFileInput>
+                    />
                   </VRow>
                 </VCardText>
               </VCard>
@@ -153,11 +149,7 @@ onMounted(() => {
 })
 
 const handleReset = () => {
-  code.value = ''
-  name.value = ''
-  logo.value = null
-  logo_name.value = ''
-  logo_url.value = ''
+  fetchBrandData()
 }
 
 const handleSubmit = () => {

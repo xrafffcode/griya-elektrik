@@ -154,11 +154,7 @@ onMounted(() => {
 })
 
 const handleReset = () => {
-  name.value = ''
-  logo.value = null
-  logo_name.value = ''
-  url.value = ''
-  logo_url.value = ''
+  fetchClientData()
 }
 
 const handleSubmit = () => {
