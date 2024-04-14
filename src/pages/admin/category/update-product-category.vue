@@ -61,12 +61,13 @@
                       cols="12"
                       md="12"
                     >
+
                       <VImg
                         v-if="image_url"
                         :src="image_url"
                         aspect-ratio="1"
                         cover
-                        style="width: 300px; height: 300px;"
+                        style="border-radius: 8px; max-width: 200px; max-height: 200px;"
                       />
                     </VCol>
                   </VRow>

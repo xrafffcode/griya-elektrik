@@ -64,6 +64,10 @@ export const useProductCategoryStore = defineStore({
 
         this.categories = response.data.data
 
+        this.categories.forEach(category => {
+          category.name = category.name + ' (' + category.product_count + ')'
+        })
+
       } catch (error) {
         this.error = error
       }
@@ -76,9 +80,13 @@ export const useProductCategoryStore = defineStore({
       this.loading = true
 
       try {
-        const response = await axiosInstance.get('/product-category/read/leaf')
+        const response = await axiosInstance.get('/product-category/read/leaf')        
 
         this.categories = response.data.data
+
+        this.categories.forEach(category => {
+          category.name = category.name + ' (' + category.product_count + ')'
+        })
 
       } catch (error) {
         this.error = error

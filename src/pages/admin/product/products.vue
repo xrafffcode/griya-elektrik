@@ -129,7 +129,7 @@ const search = ref('')
     </VCard>
   </VDialog>
 
-  <VRow>
+  <VRow>   
     <VCol
       cols="12"
       class="d-flex justify-space-between align-items-center"
@@ -180,8 +180,8 @@ const search = ref('')
           </template>
           <template #item-thumbnail_url="item">
             <img
-              :src="item.thumbnail_url"
-              style="width: 100px; height: 80px; margin: 10px 0; cursor: pointer;"
+              :src="item.thumbnail_url"              
+              style="width: 100px; max-height: 100px; margin: 10px 0; cursor: pointer; object-fit: cover;"
               @click="() => showImage(item.thumbnail_url)"
             >
           </template>

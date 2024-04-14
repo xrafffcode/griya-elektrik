@@ -115,7 +115,7 @@ const search = ref('')
             <img
               :src="item.image_url"
               alt="gambar"
-              style="width: 100px; height: 80px; margin: 10px 0;"
+              style="max-width: 100px; max-height: 100px; object-fit: cover; border-radius: 5px; margin: 10px 0;" 
             >
           </template>
           <template #item-operation="item">
