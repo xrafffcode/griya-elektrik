@@ -9,8 +9,8 @@ const { fetchCategories, deleteCategory } = useProductCategoryStore()
 
 fetchCategories()
 
-const getProductsByCategory = id => {
-  router.push({ name: 'products', query: { category: id } })
+const getProductsByCategory = slug => {
+  router.push({ name: 'products', query: { category: slug } })
 }
 </script>
 
@@ -31,14 +31,14 @@ const getProductsByCategory = id => {
     <VRow class="mt-3 category-container">
       <VCol
         v-for="category in categories.slice(0, 8)"
-        :key="category.id"
+        :key="category.slug"
         sm="6"
         md="6"
         lg="2"
       >
         <div
           class="category"
-          @click="getProductsByCategory(category.id)"
+          @click="getProductsByCategory(category.slug)"
         >
           <img
             :src="category.image_url"

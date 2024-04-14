@@ -40,9 +40,9 @@ const getProductsByCategory = id => {
 
       <p
         class="name"
-        @click="getProductsByCategory(category.id)"
+        @click="getProductsByCategory(category.slug)"
       >
-        {{ category.name.length > 15 ? category.name.slice(0, 10) + '...' : category.name }}
+        {{ category.name }} {{ category.product_count === 0 ? '' : `(${category.product_count})` }}
       </p>
     </div>
     <template v-if="hasChildren && expanded">
@@ -51,7 +51,7 @@ const getProductsByCategory = id => {
         :key="child.id"
         :category="child"
         :style="{ paddingLeft: '40px' }"
-        @click="getProductsByCategory(child.id)"
+        @click="getProductsByCategory(child.slug)"
       />
     </template>
   </li>

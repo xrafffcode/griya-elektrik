@@ -47,7 +47,6 @@ export const useProductCategoryStore = defineStore({
         const response = await axiosInstance.get('/product-category/read/root')
 
         this.categories = response.data.data
-
       } catch (error) {
         this.error = error
       }
