@@ -5,9 +5,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const { categories, loading, error, success } = storeToRefs(useProductCategoryStore())
-const { fetchCategories, deleteCategory } = useProductCategoryStore()
+const { fetchCategoriesForDashboard, deleteCategory } = useProductCategoryStore()
 
-fetchCategories()
+fetchCategoriesForDashboard()
 
 const getProductsByCategory = slug => {
   router.push({ name: 'products', query: { category: slug } })
@@ -30,7 +30,7 @@ const getProductsByCategory = slug => {
 
     <VRow class="mt-3 category-container">
       <VCol
-        v-for="category in categories.slice(0, 8)"
+        v-for="category in categories"
         :key="category.slug"
         sm="6"
         md="6"
@@ -46,7 +46,7 @@ const getProductsByCategory = slug => {
             class="category-image"
           >
           <p class="text-center mt-3">
-            {{ category.name }}
+            {{ category.name }} {{ category.product_count ? `(${category.product_count})` : '' }}
           </p>
         </div>
       </VCol>
@@ -64,24 +64,24 @@ const getProductsByCategory = slug => {
 }
 
 .category-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 5px;
-    border-radius: 8px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  border-radius: 8px;
 }
 
 
-.category-image:hover{
+.category-image:hover {
   filter: brightness(110%);
 }
 
 @media (max-width: 600px) {
-    .category-image {
-        width: 75px;
-        height: 75px;
-    }
+  .category-image {
+    width: 75px;
+    height: 75px;
+  }
 }
 </style>

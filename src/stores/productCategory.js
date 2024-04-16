@@ -25,6 +25,22 @@ export const useProductCategoryStore = defineStore({
 
       this.loading = false
     },
+    async fetchCategoriesForDashboard() {
+      this.loading = true
+      try {
+        const response = await axiosInstance.get('/product-category/read/any')
+
+        let categories = response.data.data
+        categories.sort((a, b) => b.product_count - a.product_count)
+        categories = categories.splice(0, 6)
+        this.categories = categories
+
+      } catch (error) {
+        this.error = error
+      }
+
+      this.loading = false
+    },
     async fetchCategoryById(id) {
       this.loading = true
 
