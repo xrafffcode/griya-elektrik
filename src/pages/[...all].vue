@@ -7,8 +7,8 @@ import misc404 from '@images/pages/404.png'
   <div class="misc-wrapper">
     <ErrorHeader
       error-code="404"
-      error-title="Page Not Found ⚠️"
-      error-description="We couldn't find the page you are looking for."
+      error-title="Halaman Tidak Ditemukan"
+      error-description="Maaf, halaman yang Anda cari tidak ditemukan."
     />
 
     <!-- 👉 Image -->
@@ -23,7 +23,7 @@ import misc404 from '@images/pages/404.png'
         to="/"
         class="mt-10"
       >
-        Back to Home
+        Kembali ke Beranda
       </VBtn>
     </div>
   </div>

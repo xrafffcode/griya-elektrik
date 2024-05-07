@@ -84,7 +84,11 @@ export const useProductStore = defineStore({
 
         return this.product
       } catch (error) {
-        this.error = error
+        if (error.response && error.response.status === 404) {
+          router.push({ name: 'not-found' })
+        } else {
+          this.error = error
+        }
       }
 
     },

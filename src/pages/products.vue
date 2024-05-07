@@ -4,9 +4,11 @@ import AppProductCard from '@/components/AppProductCard.vue'
 import AppSearch from '@/components/AppSearch.vue'
 import { onMounted, ref } from 'vue'
 import { debounce } from 'lodash'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
+
 
 
 import { useProductCategoryStore } from '@/stores/productCategory'
@@ -23,6 +25,8 @@ fetchRootCategories()
 
 const search = ref('')
 const sort = ref([])
+const category = ref('')
+const brand = ref('')
 
 onMounted(() => {
   document.title = 'Produk'
@@ -47,6 +51,15 @@ const checkQueryParams = () => {
   }else {
     fetchActiveProducts()
   }
+}
+
+const clearFilter = () => {
+  search.value = ''
+  sort.value = ''
+  category.value = ''
+  brand.value = ''
+
+  router.push({ name: 'products' })
 }
 
 watch(() => route.query, () => {
@@ -123,7 +136,7 @@ watch(() => route.query, () => {
         cols="12"
         md="9"
       >
-        <VRow>
+        <VRow v-if="products.length > 0">
           <VCol
             v-for="product in products"
             :key="product.id"
@@ -133,6 +146,24 @@ watch(() => route.query, () => {
             lg="3"
           >
             <AppProductCard :product="product" />
+          </VCol>
+        </VRow>
+        <VRow v-else>
+          <VCol>
+            <VAlert
+              outlined
+              color="error"
+            >
+              Yaaah, produk yang kamu cari tidak ditemukan, coba cari produk lainnya.
+            </VAlert>
+
+            <VBtn
+              class="mt-3"
+              color="primary"
+              @click="clearFilter"
+            >
+              Lihat Semua Produk
+            </VBtn>
           </VCol>
         </VRow>
       </VCol>

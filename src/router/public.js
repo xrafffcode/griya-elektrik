@@ -27,6 +27,7 @@ const publicRouter = [
        
   {
     path: '/:pathMatch(.*)*',
+    name: 'not-found',
     component: () => import('../pages/[...all].vue'),
   },
 ]
