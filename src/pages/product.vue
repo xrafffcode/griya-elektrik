@@ -36,7 +36,7 @@
         <h2 class="mb-2">
           {{ price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }) }}
         </h2>
-        <p>{{ description }}</p>
+        <p v-html="description"></p>
       </VCol>
      
       <VCol

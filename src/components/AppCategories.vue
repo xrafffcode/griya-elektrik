@@ -5,9 +5,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const { categories, loading, error, success } = storeToRefs(useProductCategoryStore())
-const { fetchCategoriesForDashboard, deleteCategory } = useProductCategoryStore()
+const { fetchRootCategories } = useProductCategoryStore()
 
-fetchCategoriesForDashboard()
+fetchRootCategories()
 
 const getProductsByCategory = slug => {
   router.push({ name: 'products', query: { category: slug } })
@@ -56,6 +56,11 @@ const getProductsByCategory = slug => {
 
 
 <style scoped>
+.category-container{
+  display: flex;
+  justify-content: center;
+}
+
 .category {
   display: flex;
   flex-direction: column;
@@ -64,8 +69,8 @@ const getProductsByCategory = slug => {
 }
 
 .category-image {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   object-fit: cover;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

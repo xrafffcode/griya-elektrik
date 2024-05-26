@@ -39,9 +39,9 @@ setTimeout(() => {
 
     <AppFeaturedProducts class="mt-5" />
 
-    <AppTestimonial class="mt-5" />
-
     <AppProducts class="mt-5" />
+
+    <AppTestimonial class="mt-5" />
 
     <AppInstagram class="mt-5" />
 
