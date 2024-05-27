@@ -38,14 +38,13 @@ onMounted(() => {
       </RouterLink>
     </div>
 
-    <VRow class="mt-3">
+    <VRow class="mt-3 featured-products">
       <VCol
         v-for="product in featuredProducts"
         :key="product.id"
-        cols="6"
-        sm="6"
         md="3"
         lg="2"
+        class="featured-products__item"
       >
         <AppProductCard :product="product" />
       </VCol>
@@ -53,3 +52,20 @@ onMounted(() => {
   </div>
 </template>
 
+<style>
+@media (max-width: 768px) {
+  .featured-products {
+    /* scroll horizotal */
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+  }
+  
+  .featured-products__item {
+    flex: 0 0 auto !important;
+    width: 170px !important;
+  }
+
+}
+</style>

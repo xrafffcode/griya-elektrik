@@ -32,9 +32,10 @@ const getProductsByCategory = slug => {
       <VCol
         v-for="category in categories"
         :key="category.slug"
-        sm="6"
+        cols="4"
         md="6"
         lg="2"
+        class="category-container__item"
       >
         <div
           class="category"
@@ -85,8 +86,9 @@ const getProductsByCategory = slug => {
 
 @media (max-width: 600px) {
   .category-image {
-    width: 75px;
-    height: 75px;
+    width: 100px;
+    height: 100px;
   }
+
 }
 </style>
