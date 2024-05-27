@@ -184,6 +184,7 @@ const handleSubmit = () => {
     code: code.value,
     name: name.value,
     image: image.value,
+    sort_order: sort_order.value,
     parent_id: parent_id.value,
   })
 }

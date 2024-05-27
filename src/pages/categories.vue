@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const { categories, loading, error, success } = storeToRefs(useProductCategoryStore())
-const { fetchCategories, deleteCategory } = useProductCategoryStore()
+const { fetchCategories } = useProductCategoryStore()
 
 fetchCategories()
 
@@ -25,9 +25,9 @@ onMounted(() => {
         Kategori Produk
       </h1>
     </div>
-    <VRow class="mt-3">
+    <VRow class="mt-3" style="justify-content: center;">
       <VCol
-        v-for="category in categories.slice(0, 6)"
+        v-for="category in categories"
         :key="category.id"
         sm="4"
         md="3"
@@ -58,8 +58,8 @@ onMounted(() => {
 }
 
 .category-image {
-    width: 70px;
-    height: 70px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #273E86;
