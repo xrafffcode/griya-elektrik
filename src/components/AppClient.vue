@@ -66,7 +66,7 @@ onMounted(async () => {
 }
 
 .logos-slide img {
-    height: 83px;
+    height: 120px;
     margin: 0 30px;
     object-fit: contain;
 }
@@ -84,7 +84,7 @@ onMounted(async () => {
 
 @media (max-width: 768px) {
     .logos-slide img {
-        height: 60px;
+        height: 80px;
         margin: 0 10px;
     }
 

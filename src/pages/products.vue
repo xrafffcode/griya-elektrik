@@ -37,6 +37,10 @@ onMounted(() => {
   document.title = 'Produk'
 
   checkQueryParams()
+
+  if (window.innerWidth > 768) {
+    showCategory.value = true
+  }
 })
 
 watch(sort, async value => {
