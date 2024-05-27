@@ -18,9 +18,8 @@ const headers = [
     sortable: true,
   },
   {
-    text: 'Jmh Product',
-    value: 'product_count',
-    sortable: true,
+    text: 'Sort Order',
+    value: 'sort_order',
   },
   {
     text: 'Aksi',

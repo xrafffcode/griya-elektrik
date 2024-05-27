@@ -12,6 +12,7 @@ const name = ref('')
 const parent_id = ref('')
 const image = ref(null)
 const image_url = ref(null)
+const sort_order = ref('')
 
 const handleReset = () => {
   code.value = 'AUTO'
@@ -19,6 +20,7 @@ const handleReset = () => {
   parent_id.value =  ''
   image.value = null
   image_url.value = null
+  sort_order.value = ''
 }
 
 const handleSubmit = () => {
@@ -27,6 +29,7 @@ const handleSubmit = () => {
     name: name.value,
     parent_id: parent_id.value || null,
     image: image.value,
+    sort_order: sort_order.value,
   })
 }
 
@@ -139,6 +142,19 @@ const handleFileChange = event => {
                 :disabled="loading"
               />
             </VCol> 
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="sort_order"
+                label="Sort Order"
+                placeholder="Sort Order"
+                :error-messages="error && error.sort_order ? [error.sort_order] : []"
+                :disabled="loading"
+              />
+            </VCol>
 
             <VCol
               cols="12"

@@ -22,6 +22,17 @@
           <VRow>
             <VCol
               cols="12"
+              md="12"
+            >
+              <VImg
+                :src="image_url"
+                width="200"
+                height="auto"
+                class="mb-4"
+              />
+            </VCol>
+            <VCol
+              cols="12"
               md="6"
             >
               <VTextField
@@ -51,44 +62,18 @@
               cols="12"
               md="6"
             >
-              <VCard>
-                <VCardTitle>
-                  Image
-                </VCardTitle>
-                <VCardText>
-                  <VRow>
-                    <VCol
-                      cols="12"
-                      md="12"
-                    >
-
-                      <VImg
-                        v-if="image_url"
-                        :src="image_url"
-                        aspect-ratio="1"
-                        cover
-                        style="border-radius: 8px; max-width: 200px; max-height: 200px;"
-                      />
-                    </VCol>
-                  </VRow>
-                  <VRow
-                    cols="12"
-                    md="12"
-                  >
-                    <VFileInput
-                      v-model="image"
-                      :error-messages="error && error.image ? [error.image] : []"
-                      :loading="loading"
-                      prepend-inner-icon="mdi-image"
-                      @change="handleFileChange"
-                    >
-                      <template #prepend-inner>
-                        <span v-if="image_name">{{ image_name }}</span>
-                      </template>
-                    </VFileInput>
-                  </VRow>
-                </VCardText>
-              </VCard>
+              <VFileInput
+                v-model="image"
+                :error-messages="error && error.image ? [error.image] : []"
+                :loading="loading"
+                prepend-inner-icon="mdi-image"
+                @change="handleFileChange"
+                label="Gambar"
+              >
+                <template #prepend-inner>
+                  <span v-if="image_name">{{ image_name }}</span>
+                </template>
+              </VFileInput>
             </VCol>
 
             <VCol
@@ -102,6 +87,20 @@
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.parent_id ? [error.parent_id] : []"
+                :disabled="loading"
+                :loading="loading"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="sort_order"
+                label="Sort Order"
+                placeholder="Sort Order"
+                :error-messages="error && error.sort_order ? [error.sort_order] : []"
                 :disabled="loading"
                 :loading="loading"
               />
@@ -154,6 +153,7 @@ const parent_id = ref('')
 const image = ref(null)
 const image_name = ref('')
 const image_url = ref('')
+const sort_order = ref('')
 
 const fetchCategoryData = async () => {
   try {
@@ -163,6 +163,7 @@ const fetchCategoryData = async () => {
     name.value = category.name
     parent_id.value = category.parent?.id
     image_url.value = category.image_url
+    sort_order.value = category.sort_order
   } catch (error) {
     console.error('Error fetching category data:', error)
   }

@@ -15,11 +15,22 @@
         Kembali
       </VBtn>
     </VCol>
-  
+
     <VCol cols="12">
       <VCard>
         <VForm>
           <VRow>
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VImg
+                :src="image"
+                width="200"
+                height="auto"
+                class="mb-4"
+              />
+            </VCol>
             <VCol
               cols="12"
               md="6"
@@ -51,31 +62,14 @@
               cols="12"
               md="6"
             >
-              <div v-if="showImage">
-                <VImg
-                  :src="image"
-                  width="100%"
-                  height="auto"
-                  class="mb-4"
-                />
-                <VBtn
-                  color="error"
-                  text
-                  @click="showImage = false"
-                >
-                  Sembunyikan Gambar
-                </VBtn>
-              </div>
-
-              <VBtn
-                v-else
-                color="primary"
-                text
-                block
-                @click="showImage = true"
-              >
-                Lihat Gambar
-              </VBtn>
+              <VTextField
+                v-model="sort_order"
+                label="Sort Order"
+                placeholder="Sort Order"
+                :error-messages="error && error.sort_order ? [error.sort_order] : []"
+                readonly
+                :loading="loading"
+              />
             </VCol>
 
             <VCol
@@ -117,6 +111,7 @@ const code = ref('')
 const name = ref('')
 const parent_id = ref('')
 const image = ref(null)
+const sort_order = ref('')
 
 const fetchCategoryData = async () => {
   try {
@@ -126,6 +121,7 @@ const fetchCategoryData = async () => {
     name.value = category.name
     parent_id.value = category.parent?.id
     image.value = category.image_url
+    sort_order.value = category.sort_order
   } catch (error) {
     console.error('Error fetching category data:', error)
   }
