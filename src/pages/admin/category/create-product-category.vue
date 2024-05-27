@@ -145,7 +145,7 @@ const handleFileChange = event => {
 
             <VCol
               cols="12"
-              md="6"
+              md="12"
             >
               <VTextField
                 v-model="sort_order"
