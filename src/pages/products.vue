@@ -9,13 +9,11 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-
-
 import { useProductCategoryStore } from '@/stores/productCategory'
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
 
-const { categories, loading, error } = storeToRefs(useProductCategoryStore())
+const { categories, loading } = storeToRefs(useProductCategoryStore())
 const { fetchRootCategories } = useProductCategoryStore()
 
 const { products } = storeToRefs(useProductStore())
@@ -27,6 +25,13 @@ const search = ref('')
 const sort = ref([])
 const category = ref('')
 const brand = ref('')
+const categoryName = ref('')
+
+const showCategory = ref(false)
+
+const toggleCategories = () => {
+  showCategory.value = !showCategory.value
+}
 
 onMounted(() => {
   document.title = 'Produk'
@@ -48,6 +53,10 @@ watch(search, async value => {
 const checkQueryParams = () => {
   if (route.query.category || route.query.brand) {
     fetchProductsWithParams({ search: search.value, sort: sort.value, categorySlug: route.query.category, brandSlug: route.query.brand })
+
+    if (route.query.category) {
+      categoryName.value = categories.value.find(category => category.slug === route.query.category).name
+    }
   }else {
     fetchActiveProducts()
   }
@@ -70,10 +79,10 @@ watch(() => route.query, () => {
 <template>
   <VContainer class="py-5">
     <VRow>
-      <VCol 
-        cols="12"
+      <VCol
+        cols="9"
         sm="12"
-        md="9"
+        md="10"
       >
         <VTextField
           v-model="search"
@@ -85,9 +94,9 @@ watch(() => route.query, () => {
         />
       </VCol>
       <VCol
-        cols="12"
+        cols="3"
         sm="12"
-        md="3"
+        md="2"
       >
         <VSelect
           v-model="sort"
@@ -97,12 +106,15 @@ watch(() => route.query, () => {
             { text: 'Termurah', value: 'price_asc' },
             { text: 'Termahal', value: 'price_desc' }
           ]"
-          label="Urutkan"
           variant="outlined"
           clearable
           item-title="text"
           item-value="value"
-        />
+        >
+          <template #prepend-inner>
+            <VIcon>mdi-sort</VIcon>
+          </template>
+        </VSelect>
       </VCol>
     </VRow>
 
@@ -111,26 +123,35 @@ watch(() => route.query, () => {
         cols="12"
         md="3"
       >
-        <h3>Kategori Produk</h3>
-
-        <ul
-          v-if="!loading"
-          class="list-unstyled mt-3"
-        >
-          <CategoryItem
-            v-for="category in categories"
-            :key="category.id"
-            :category="category"
+        <div class="d-flex align-center">
+          <h4 class="font-weight-bold">
+            {{ categoryName || 'Semua Kategori' }}
+          </h4>
+          <a
+            class="primary text-p text-decoration-none ml-auto mb-0 cursor-pointer"
+            @click="toggleCategories"
+          >
+            {{ showCategory ? 'Sembunyikan' : 'Tampilkan Kategori' }}
+          </a>
+        </div>
+        <div v-if="showCategory">
+          <ul
+            v-if="!loading"
+            class="list-unstyled mt-3"
+          >
+            <CategoryItem
+              v-for="category in categories"
+              :key="category.id"
+              :category="category"
+            />
+          </ul>
+          <VProgressLinear
+            v-if="loading"
+            indeterminate
+            color="primary"
           />
-        </ul>
-
-        <VProgressLinear
-          v-if="loading"
-          indeterminate
-          color="primary"
-        />
+        </div>
       </VCol>
-
 
       <VCol
         cols="12"
@@ -156,7 +177,6 @@ watch(() => route.query, () => {
             >
               Yaaah, produk yang kamu cari tidak ditemukan, coba cari produk lainnya.
             </VAlert>
-
             <VBtn
               class="mt-3"
               color="primary"
