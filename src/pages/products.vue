@@ -26,6 +26,7 @@ const sort = ref([])
 const category = ref('')
 const brand = ref('')
 const categoryName = ref('')
+const childCategory = ref('')
 
 const showCategory = ref(false)
 
@@ -54,17 +55,23 @@ watch(search, async value => {
   debouncedFetchProductsWithParams({ search: value, sort: sort.value })
 })
 
-const checkQueryParams = () => {
+const checkQueryParams = async () => {
   if (route.query.category || route.query.brand) {
-    fetchProductsWithParams({ search: search.value, sort: sort.value, categorySlug: route.query.category, brandSlug: route.query.brand })
+    await fetchProductsWithParams({ search: search.value, sort: sort.value, categorySlug: route.query.category, brandSlug: route.query.brand })
 
     if (route.query.category) {
-      categoryName.value = categories.value.find(category => category.slug === route.query.category).name
+      const category = categories.value.find(category => category.slug === route.query.category)
+      if (category) {
+        categoryName.value = category.name
+
+        childCategory.value = category.children
+      }
     }
-  }else {
-    fetchActiveProducts()
+  } else {
+    await fetchActiveProducts()
   }
 }
+
 
 const clearFilter = () => {
   search.value = ''
@@ -124,6 +131,7 @@ watch(() => route.query, () => {
 
     <VRow class="mt-5">
       <VCol
+        v-if="!categoryName"
         cols="12"
         md="3"
       >
@@ -154,6 +162,38 @@ watch(() => route.query, () => {
             indeterminate
             color="primary"
           />
+        </div>
+      </VCol>
+
+      <VCol
+        v-else
+        cols="12"
+        md="3"
+      >
+        <div class="d-flex align-center">
+          <h4 class="font-weight-bold">
+            {{ categoryName || 'Semua Kategori' }}
+          </h4>
+          <a
+            class="primary text-p text-decoration-none ml-auto mb-0 cursor-pointer"
+            @click="toggleCategories"
+          >
+            {{ showCategory ? 'Sembunyikan' : 'Tampilkan Kategori' }}
+          </a>
+        </div>
+
+        <!-- show childern category -->
+        <div v-if="showCategory">
+          <ul
+            v-if="!loading"
+            class="list-unstyled mt-3"
+          >
+            <CategoryItem
+              v-for="category in childCategory"
+              :key="category.id"
+              :category="category"
+            />
+          </ul>
         </div>
       </VCol>
 
