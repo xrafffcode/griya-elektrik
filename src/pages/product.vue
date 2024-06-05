@@ -322,6 +322,11 @@ const copyLink = () => {
   color: #f5f5f5;
 }
 
+.Whatsapp {
+  background-color: #25d366 !important;
+  color: #f5f5f5;
+}
+
 .image-list{
   overflow-x: auto;
   white-space: nowrap;
