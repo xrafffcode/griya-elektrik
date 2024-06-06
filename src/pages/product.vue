@@ -40,7 +40,6 @@
       </VCol>
      
       <VCol
-        v-if="product_links.length"
         cols="12"
         sm="6"
         md="3"
@@ -64,6 +63,14 @@
               :class="link.name"
             >
               {{ link.name }}
+            </VBtn>
+
+            <VBtn
+              :href="`https://wa.me/6285172467248?text=Halo%20saya%20ingin%20memesan%20produk%20${name}`"
+              target="_blank"
+              class="p-2 mb-2 Whatsapp"
+            >
+              Whatsapp
             </VBtn>
           </div>
         </VCard>
@@ -128,6 +135,14 @@
             :class="link.name"
           >
             Beli di {{ link.name }}
+          </VBtn>
+
+          <VBtn
+            :href="`https://wa.me/6285172467248?text=Halo%20saya%20ingin%20memesan%20produk%20${name}`"
+            target="_blank"
+            class="p-2 mb-2 Whatsapp"
+          >
+            Whatsapp
           </VBtn>
         </div>
       </div>

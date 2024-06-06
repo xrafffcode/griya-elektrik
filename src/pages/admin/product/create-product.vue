@@ -255,7 +255,6 @@ const handleFileChange = event => {
                       { name: 'Elevenia' },
                       { name: 'JD.ID' },
                       { name: 'Zalora' },
-                      { name: 'Whatsapp' },
                       { name: 'Lainnya' },
                     ]"
                     label="Marketplace"

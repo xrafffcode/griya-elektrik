@@ -221,7 +221,7 @@
                       <VCol cols="5">
                         <VSelect
                           v-model="link.name"
-                          :items="[{ name: 'Tokopedia' }, { name: 'Shopee' }, { name: 'Bukalapak' }, { name: 'Lazada' }, { name: 'Blibli' }, { name: 'Elevenia' }, { name: 'JD.ID' }, { name: 'Zalora' }, { name: 'Whatsapp' }, { name: 'Lainnya' },]"
+                          :items="[{ name: 'Tokopedia' }, { name: 'Shopee' }, { name: 'Bukalapak' }, { name: 'Lazada' }, { name: 'Blibli' }, { name: 'Elevenia' }, { name: 'JD.ID' }, { name: 'Zalora' }, { name: 'Lainnya' },]"
                           label="Marketplace"
                           placeholder="Pilih Marketplace"
                           :error-messages="error && error.product_links ? [error.product_links] : []"
