@@ -11,12 +11,25 @@ import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import Vue3EasyDataTable from 'vue3-easy-data-table'
 import 'vue3-easy-data-table/dist/style.css'
+import VueLazyload from 'vue-lazyload'
+
+import loading from '@/assets/images/loading.gif'
 
 loadFonts()
 
 
 // Create vue app
 const app = createApp(App)
+
+const errorImage = loading
+const loadingImage = loading
+
+app.use(VueLazyload, {
+  preLoad: 1.3,
+  error: errorImage,
+  loading: loadingImage,
+  attempt: 1,
+})
 
 
 // Use plugins

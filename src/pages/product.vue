@@ -8,7 +8,7 @@
         lg="4"
       >
         <img
-          :src="activeImage.image_url"
+          v-lazy="activeImage.image_url"
           alt="product image"
           class="active-product-image"
         >
@@ -16,7 +16,7 @@
           <img
             v-for="image in product_images"
             :key="image.id"
-            :src="image.image_url"
+            v-lazy="image.image_url"
             alt="product image"
             class="product-image"
             :class="{ 'active': activeImage.id === image.id }"

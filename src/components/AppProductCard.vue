@@ -1,6 +1,6 @@
 <template>
   <VCard class="product-card" @click="goToProductPage">
-    <VImg aspect-ratio="1/1" cover :src="product.thumbnail_url" />
+    <img class="product-image" v-lazy="product.thumbnail_url" alt="product image">
     <div v-if="product.is_featured" class="css-1ej6h55" aria-label="campaign">
       Produk Unggulan
     </div>
@@ -48,10 +48,9 @@ export default {
 }
 
 .product-image {
-  width: 100%;
-  height: 200px;
+  width: 100% !important;
+  height: 200px !important;
   object-fit: cover;
-  margin: 1rem;
 }
 
 .product-card__content {
@@ -85,7 +84,7 @@ export default {
 
 @media (max-width: 600px) {
   .product-image {
-    height: 100px !important;
+    height: 150px !important;
   }
 
   .product-card {
