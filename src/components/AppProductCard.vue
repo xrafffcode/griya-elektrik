@@ -1,7 +1,44 @@
+<script setup>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const props = defineProps({
+  product: {
+    type: Object,
+    required: true,
+  },
+})
+
+const router = useRouter()
+
+const goToProductPage = () => {
+  router.push({ name: 'product', params: { id: props.product.id } })
+}
+
+const formattedPrice = computed(() => {
+  if (props.product.price === 0) {
+    return 'Hubungi kami'
+  } else {
+    return props.product.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
+  }
+})
+</script>
+
 <template>
-  <VCard class="product-card" @click="goToProductPage">
-    <img class="product-image" v-lazy="product.thumbnail_url" alt="product image">
-    <div v-if="product.is_featured" class="css-1ej6h55" aria-label="campaign">
+  <VCard
+    class="product-card"
+    @click="goToProductPage"
+  >
+    <img
+      v-lazy="product.thumbnail_url"
+      class="product-image"
+      alt="product image"
+    >
+    <div
+      v-if="product.is_featured"
+      class="css-1ej6h55"
+      aria-label="campaign"
+    >
       Produk Unggulan
     </div>
     <div class="product-card__content mt-2">
@@ -15,30 +52,6 @@
   </VCard>
 </template>
 
-<script>
-import product from '@/pages/product.vue'
-import { VImg } from 'vuetify/lib/components/index.mjs'
-
-export default {
-  name: 'AppProductCard',
-  props: {
-    product: {
-      type: Object,
-      required: true,
-    },
-  },
-  computed: {
-    formattedPrice() {
-      return this.product.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }).replace(/,00$/, "")
-    },
-  },
-  methods: {
-    goToProductPage() {
-      this.$router.push(`/produk/${this.product.slug}`)
-    },
-  },
-}
-</script>
 
 <style scoped>
 .product-card {

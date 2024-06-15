@@ -15,6 +15,10 @@ import VueLazyload from 'vue-lazyload'
 
 import loading from '@/assets/images/loading.gif'
 
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
+
+
 loadFonts()
 
 
@@ -39,6 +43,7 @@ app.use(router)
 app.use(Vue3EasyDataTable)
 
 app.component('EasyDataTable', Vue3EasyDataTable)
+app.component('QuillEditor', QuillEditor)
 
 // Mount vue app
 app.mount('#app')
