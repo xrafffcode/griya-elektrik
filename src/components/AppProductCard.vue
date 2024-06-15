@@ -12,16 +12,8 @@ const props = defineProps({
 const router = useRouter()
 
 const goToProductPage = () => {
-  router.push({ name: 'product', params: { id: props.product.id } })
+  router.push({ name: 'product', params: { slug: props.product.slug } })
 }
-
-const formattedPrice = computed(() => {
-  if (props.product.price === 0) {
-    return 'Hubungi kami'
-  } else {
-    return props.product.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
-  }
-})
 </script>
 
 <template>
@@ -45,9 +37,6 @@ const formattedPrice = computed(() => {
       <h4 class="product-title mb-0">
         {{ product.name }}
       </h4>
-      <p class="primary">
-        {{ formattedPrice }}
-      </p>
     </div>
   </VCard>
 </template>

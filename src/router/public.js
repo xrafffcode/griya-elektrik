@@ -11,6 +11,7 @@ const publicRouter = [
   {
     path: 'produk/:slug',
     component: () => import('../pages/product.vue'),
+    name: 'product',
   },
   {
     path: 'kategori-produk',
