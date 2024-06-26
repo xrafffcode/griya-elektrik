@@ -37,7 +37,7 @@ app.use(VueLazyload, {
 app.use(vuetify)
 app.use(createPinia())
 app.use(router)
-app.use(Vue3EasyDataTable)
+app.component('EasyDataTable', Vue3EasyDataTable)
 
 // Mount vue app
 app.mount('#app')
