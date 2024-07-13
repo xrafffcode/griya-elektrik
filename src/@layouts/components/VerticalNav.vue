@@ -58,7 +58,7 @@ const handleNavScroll = evt => {
           class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
         >
           <h1 class="leading-normal">
-            Griya Elektrik
+            Griya Electric
           </h1>
         </RouterLink>
       </slot>

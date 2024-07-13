@@ -52,7 +52,7 @@ const onSubmit = () => {
     >
       <VCardText class="pt-2">
         <h5 class="text-h5 mb-1">
-          Griya Elektrik 
+          Griya Electric
         </h5>
         <p class="mb-0">
           Masuk ke akun anda
