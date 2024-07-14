@@ -11,22 +11,16 @@
           Tentang Kami
         </h1>
         <p class="text-p mb-2">
-          Griya 15 hadir sejak tahun 2017 dengan melayani hampir ribuan customer dan siap memenuhi semua kebutuhan
-          lampu hias untuk mempercantik ruangan rumah ataupun kantor Anda. Setelah jalan beberapa tahun kami
-          memiliki misi untuk Menjadi tempat pilihan berbelanja Lampu Hias, Alat Listrik, Elektronik dan Aksesoris
-          Rumah dengan konsep terbesar, termurah, terlengkap dan terpercaya dalam mempercantik ruangan rumah
-          idaman.
+          Griya 15 hadir sejak tahun 2017 dengan melayani hampir ribuan customer dan siap memenuhi semua kebutuhan lampu hias untuk mempercantik ruangan rumah, kantor, bangunan dan taman Anda.
         </p>
         <p class="text-p mb-2">
-          Terbukti konsep ini berjalan dengan baik di lihat dari jumlah pelanggan yang meningkat dari tahun ke
-          tahun. Sehingga GRIYA 15 telah dianugerahkan dengan beberapa penghargaan dari berbagai official
-          principles dan badan market research.
+          Setelah berjalan beberapa tahun kami memiliki misi untuk Menjadi tempat pilihan berbelanja Lampu Hias, Alat Listrik, Elektronik dan Aksesoris Rumah dengan konsep terbesar, termurah, terlengkap dan terpercaya dalam mempercantik ruangan rumah, kantor, bangunan dan taman.
         </p>
         <p class="text-p mb-2">
-          Dimulai dari lokasi Purwokerto tepatnya di Komplek Pertokoan Kebon Dalem Blok A-17 dan A-18 Purwokerto
-          Jawa Tengah, saat ini Griya 15 telah hadir di berbagai lokasi seperti di Purbalingga, dan akan segera
-          hadir di lokasi lainnya. Jangan lewatkan kesempatan untuk berbelanja Lampu Hias murah di Griya 15, Kami
-          yakin Anda akan menemukan penawaran harga terbaik di sini!
+          Berlokasi di Purwokerto tepatnya di Komplek Pertokoan Kebon Dalem Blok A-17 dan A-18 Purwokerto Jawa Tengah.
+        </p>
+        <p class="text-p mb-2">
+          Saat ini Griya 15 telah hadir di berbagai lokasi seperti di Purbalingga, dan akan segera hadir di lokasi lainnya. Jangan lewatkan kesempatan untuk berbelanja Lampu Hias murah dan berkualitas di Griya 15, Kami yakin Anda akan menemukan penawaran harga terbaik di sini!
         </p>
       </div>
     </div>
