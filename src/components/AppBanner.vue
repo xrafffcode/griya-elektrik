@@ -68,7 +68,6 @@ const modules = [Pagination, Navigation]
 <style>
 .swiper {
   width: 100%;
-  height: 450px;
   border-radius: 10px;
 }
 
@@ -82,21 +81,20 @@ const modules = [Pagination, Navigation]
 .swiper-slide img {
   display: block;
   width: 100%;
-  height: 450px;
   object-fit: cover;
 }
 
 @media (min-width: 0px) and (max-width: 991px) {
   .swiper {
     width: 100%;
-    height: 100%;
+    height: 170px;
     border-radius: 0px !important;
 
   }
 
   .swiper-slide img {
     width: 100%;
-    height: 100%;
+    height: 170px;
     border-radius: 0px;
   }
 }
@@ -113,14 +111,16 @@ const modules = [Pagination, Navigation]
 }
 
 
-
 @media (min-width: 1280px) and (max-width: 1919px) {
   .swiper {
-    height: 300px ;
+    min-height: 400px;
+    width: 100%;
   }
 
   .swiper-slide img {
-    height: 300px ;
+    min-height: 400px ;
+    width: 100%;
+    object-fit: contain;
   }
 }
 
