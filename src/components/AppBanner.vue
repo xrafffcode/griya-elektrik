@@ -1,40 +1,16 @@
 <template>
   <VContainer class="d-none d-md-block mt-5">
-    <Swiper
-      :pagination="pagination"
-      :modules="modules"
-      navigation
-      class="mySwiper"
-    >
-      <SwiperSlide
-        v-for="banner in banners"
-        :key="banner.id"
-      >
-        <img
-          :src="banner.desktop_image_url"
-          :alt="
-            banner.alt"
-        >
+    <Swiper :pagination="pagination" :modules="modules" navigation class="mySwiper">
+      <SwiperSlide v-for="banner in banners" :key="banner.id">
+        <img :src="banner.desktop_image_url" :alt="banner.alt">
       </SwiperSlide>
     </Swiper>
   </VContainer>
 
   <VContainer class="d-block d-sm-block d-md-none mt-5">
-    <Swiper
-      :pagination="pagination"
-      :modules="modules"
-      navigation
-      class="mySwiper"
-    >
-      <SwiperSlide
-        v-for="banner in banners"
-        :key="banner.id"
-      >
-        <img
-          :src="banner.mobile_image_url"
-          :alt="
-            banner.alt"
-        >
+    <Swiper :pagination="pagination" :modules="modules" navigation class="mySwiper">
+      <SwiperSlide v-for="banner in banners" :key="banner.id">
+        <img :src="banner.mobile_image_url" :alt="banner.alt">
       </SwiperSlide>
     </Swiper>
   </VContainer>
@@ -75,7 +51,6 @@ const modules = [Pagination, Navigation]
   text-align: center;
   font-size: 18px;
   background: #fff;
-  height: 150px;
 }
 
 .swiper-slide img {
@@ -107,7 +82,7 @@ const modules = [Pagination, Navigation]
   .swiper-slide img {
     height: 220px;
   }
-  
+
 }
 
 
@@ -118,7 +93,7 @@ const modules = [Pagination, Navigation]
   }
 
   .swiper-slide img {
-    min-height: 400px ;
+    min-height: 400px;
     width: 100%;
     object-fit: contain;
   }
@@ -143,8 +118,9 @@ const modules = [Pagination, Navigation]
   bottom: 0px;
 }
 
-.swiper-button-next, .swiper-button-prev {
- background-color: #fff;
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #fff;
   color: #273E86;
   border-radius: 50%;
   width: 40px;
@@ -156,7 +132,8 @@ const modules = [Pagination, Navigation]
   transition: 0.3s;
 }
 
-.swiper-button-next:after, .swiper-button-prev:after {
+.swiper-button-next:after,
+.swiper-button-prev:after {
   font-size: 1rem;
 }
 </style>
