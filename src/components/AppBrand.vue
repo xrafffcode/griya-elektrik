@@ -1,20 +1,9 @@
 <template>
   <div class="py-5 brand-bg">
     <div class="brand-slider">
-      <div
-        ref="brandsSlide"
-        class="brands-slide"
-      >
-        <a
-          v-for="brand in brands"
-          :key="brand.id"
-          :href="`/produk?brand=${brand.id}`"
-        >
-          <img
-            v-if="brand.logo_url"
-            :src="brand.logo_url"
-            :alt="brand.name"
-          >
+      <div ref="brandsSlide" class="brands-slide">
+        <a v-for="brand in brands" :key="brand.id" :href="`/produk?brand=${brand.id}`">
+          <img v-if="brand.logo_url" :src="brand.logo_url" :alt="brand.name">
         </a>
       </div>
     </div>
@@ -49,7 +38,7 @@ onMounted(async () => {
 <style>
 .brand-slider {
   overflow: hidden;
-  padding: 30px 0 0 0;  
+  padding: 30px 0 0 0;
   white-space: nowrap;
   position: relative;
 }
@@ -66,7 +55,7 @@ onMounted(async () => {
 .brands-slide img {
   width: 183px;
   height: 83px;
-  margin: 0 40px;
+  margin: 0 20px;
   object-fit: contain;
 }
 

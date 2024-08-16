@@ -22,96 +22,54 @@ fetchBranch()
   <footer>
     <VContainer>
       <VRow class="py-5">
-        <VCol
-          cols="12"
-          md="5"
-          lg="4"
-        >
+        <VCol cols="12" md="5" lg="4">
           <div class="footer-tabs">
             <div class="tabs-wrapper">
-              <div
-                v-for="branch in branches"
-                :key="branch.sort"
-                class="tab"
-              >
-                <div
-                  class="tab-title"
-                  :class="{ active: tab === branch.sort }"
-                  @click="tab = branch.sort"
-                >
+              <div v-for="branch in branches" :key="branch.sort" class="tab">
+                <div class="tab-title" :class="{ active: tab === branch.sort }" @click="tab = branch.sort">
                   {{ branch.name }}
                 </div>
               </div>
             </div>
-           
+
 
             <div class="tab-content">
-              <div
-                v-for="branch in branches"
-                v-show="tab === branch.sort"
-                :key="branch.sort"
-              >
+              <div v-for="branch in branches" v-show="tab === branch.sort" :key="branch.sort">
                 <p class="text-p">
                   {{ branch.address }} , {{ branch.city }}
                   <br>
                   <br>
-                  <a
-                    :href="branch.map_url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link"
-                  >Buka di Google Maps</a>
+                  <a :href="branch.map_url" target="_blank" rel="noopener noreferrer" class="link">Buka di Google
+                    Maps</a>
                 </p>
                 <h6 class="tab-heading mt-5">
                   Kontak
                 </h6>
-                <p
-                  v-if="branch.phone"
-                  class="text-p"
-                >
+                <p v-if="branch.phone" class="text-p">
                   <VIcon class="mr-2">
                     mdi-phone
                   </VIcon>
                   <span class="text-p">{{ branch.phone }}</span>
                 </p>
-                <p
-                  v-if="branch.email"
-                  class="text-p"
-                >
+                <p v-if="branch.email" class="text-p">
                   <VIcon class="mr-2">
                     mdi-email
                   </VIcon>
                   <span class="text-p">{{ branch.email }}</span>
                 </p>
-                <p
-                  v-if="branch.instagram"
-                  class="text-p"
-                >
+                <p v-if="branch.instagram" class="text-p">
                   <VIcon class="mr-2">
                     mdi-instagram
                   </VIcon>
-                  <a
-                    :href="branch.instagram"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link"
-                  >
+                  <a :href="branch.instagram" target="_blank" rel="noopener noreferrer" class="link">
                     Follow us on
                   </a>
                 </p>
-                <p
-                  v-if="branch.facebook"
-                  class="text-p"
-                >
+                <p v-if="branch.facebook" class="text-p">
                   <VIcon class="mr-2">
                     mdi-facebook
                   </VIcon>
-                  <a
-                    :href="branch.facebook"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link"
-                  >
+                  <a :href="branch.facebook" target="_blank" rel="noopener noreferrer" class="link">
                     Like us on
                   </a>
                 </p>
@@ -121,45 +79,29 @@ fetchBranch()
         </VCol>
 
 
-        <VCol
-          cols="12"
-          md="2"
-          lg="3"
-        >
+        <VCol cols="12" md="2" lg="3">
           <div class="text-p ">
             <h2 class="font-weight-bold mb-3">
               Tautan
             </h2>
             <ul class="list-unstyled">
               <li>
-                <RouterLink
-                  to="/"
-                  class="text-p text-decoration-none"
-                >
+                <RouterLink to="/" class="text-p text-decoration-none">
                   Home
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  to="/produk"
-                  class="text-p text-decoration-none"
-                >
+                <RouterLink to="/produk" class="text-p text-decoration-none">
                   Produk
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  to="/kontak-kami"
-                  class="text-p text-decoration-none"
-                >
+                <RouterLink to="/kontak-kami" class="text-p text-decoration-none">
                   Kontak Kami
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  to="/tentang-kami"
-                  class="text-p text-decoration-none"
-                >
+                <RouterLink to="/tentang-kami" class="text-p text-decoration-none">
                   Tentang
                   Kami
                 </RouterLink>
@@ -167,61 +109,44 @@ fetchBranch()
             </ul>
           </div>
         </VCol>
-        <VCol
-          cols="12"
-          md="2"
-          lg="3"
-        >
+        <VCol cols="12" md="2" lg="3">
           <div class="text-p ">
             <h2 class="font-weight-bold mb-3">
               Ikuti Kami
             </h2>
             <ul class="list-unstyled">
               <li>
-                <a
-                  href="https://www.instagram.com/griya_electric.15"
-                  class="text-p text-decoration-none"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Instagram</a>
+                <a href="https://www.instagram.com/griya_electric.15" class="text-p text-decoration-none"
+                  target="_blank" rel="noopener noreferrer">Instagram</a>
               </li>
-             
+
               <li>
-                <a
-                  href="https://shopee.co.id/griyalimabelas"
-                  class="text-p text-decoration-none"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Shoppe</a>
+                <a href="https://shopee.co.id/griyalimabelas" class="text-p text-decoration-none" target="_blank"
+                  rel="noopener noreferrer">Shoppe</a>
+              </li>
+
+              <li>
+                <a href="https://www.tiktok.com/@griya_electric.15" class="text-p text-decoration-none" target="_blank"
+                  rel="noopener noreferrer">Tiktok</a>
               </li>
             </ul>
           </div>
         </VCol>
 
-        <VCol
-          cols="12"
-          md="2"
-          lg="2"
-        >
+        <VCol cols="12" md="2" lg="2">
           <div class="text-p ">
             <h2 class="font-weight-bold mb-3">
               Lainnya
             </h2>
             <ul class="list-unstyled">
               <li>
-                <RouterLink
-                  to="/syarat-dan-ketentuan"
-                  class="text-p text-decoration-none"
-                >
+                <RouterLink to="/syarat-dan-ketentuan" class="text-p text-decoration-none">
                   Syarat dan
                   Ketentuan
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  to="/kebijakan-privasi"
-                  class="text-p text-decoration-none"
-                >
+                <RouterLink to="/kebijakan-privasi" class="text-p text-decoration-none">
                   Kebijakan
                   Privasi
                 </RouterLink>
@@ -241,86 +166,88 @@ fetchBranch()
 
 <style>
 footer {
-    background-color: #f8f8f8;
-    margin-top: 2rem;
+  background-color: #f8f8f8;
+  margin-top: 2rem;
 }
 
 .footer-tabs {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffff;
-    background-color: #FFFFFF;
-    border-style: solid;
-    border-width: 1px 1px 1px 1px;
-    border-color: #EEEEEE;
-    border-radius: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffff;
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: #EEEEEE;
+  border-radius: 10px 10px 10px 10px;
 }
 
 
 .tab-title {
-    position: relative;
-    padding: 20px 25px;
-    font-weight: 700;
-    line-height: 1;
-    border: solid transparent;
-    border-width: 0 0 2px 0;
-    cursor: pointer;
-    font-size: 14px;
+  position: relative;
+  padding: 20px 25px;
+  font-weight: 700;
+  line-height: 1;
+  border: solid transparent;
+  border-width: 0 0 2px 0;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .tab-title.active {
-    border-color: #EEEEEE;
-    color: #273E86 !important;
+  border-color: #EEEEEE;
+  color: #273E86 !important;
 }
 
 .tab-content {
-    padding: 0 25px 25px 25px;
+  padding: 0 25px 25px 25px;
 }
 
 .tab-heading {
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
 .text-p {
-    font-size: 14px;
-    color: #333333;
+  font-size: 14px;
+  color: #333333;
 }
 
 .list-unstyled {
-    padding-left: 0;
-    list-style: none;
+  padding-left: 0;
+  list-style: none;
 }
 
 .list-unstyled li {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .list-unstyled li a {
-    color: #333333;
+  color: #333333;
 }
 
 .list-unstyled li a:hover {
-    color: #273E86;
+  color: #273E86;
 }
 
 @media (min-width: 960px) {
-    .footer-tabs {
-        margin-right: 3rem;
+  .footer-tabs {
+    margin-right: 3rem;
 
-    }
+  }
 }
 
 .footer-tabs .tabs-wrapper {
   display: flex;
-  overflow-x: auto; /* Menambahkan scrollbar horizontal */
+  overflow-x: auto;
+  /* Menambahkan scrollbar horizontal */
   margin-bottom: 1rem;
-  -webkit-overflow-scrolling: touch; /* Menambahkan efek scrolling pada iOS */
+  -webkit-overflow-scrolling: touch;
+  /* Menambahkan efek scrolling pada iOS */
 }
 
 .footer-tabs .tabs-wrapper::-webkit-scrollbar {
-  width: 6px; 
+  width: 6px;
   height: 6px;
 }
 
